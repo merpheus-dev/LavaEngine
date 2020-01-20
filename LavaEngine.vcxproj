@@ -173,20 +173,27 @@
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLShader.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLShaderBank.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLVAO.cpp" />
     <ClCompile Include="src\Renderer\MeshData.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Renderer\ShaderBank.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
     <ClCompile Include="src\Renderer\VertexArrayObject.cpp" />
     <ClCompile Include="src\Utils\Debug.cpp" />
     <ClCompile Include="src\LavaEngine.cpp" />
     <ClCompile Include="src\Core\WindowManager.cpp" />
+    <ClCompile Include="src\Utils\TextUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Platforms\OpenGL\GLConsts.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderObject.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLShader.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLShaderBank.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLVAO.h" />
     <ClInclude Include="src\Platforms\VertexArrayObject.h" />
     <ClInclude Include="src\Renderer\Material.h" />
@@ -194,11 +201,20 @@
     <ClInclude Include="src\Renderer\MeshData.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\RenderObject.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
+    <ClInclude Include="src\Renderer\ShaderBank.h" />
+    <ClInclude Include="src\Renderer\ShaderType.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
     <ClInclude Include="src\Renderer\VertexArrayObject.h" />
     <ClInclude Include="src\Utils\Debug.h" />
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\WindowManager.h" />
+    <ClInclude Include="src\Utils\MemoryUtils.h" />
+    <ClInclude Include="src\Utils\TextUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\fragmentShader.fp" />
+    <None Include="Shaders\vertexShader.vp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,6 @@
 #include "GLRenderObject.h"
 #include "../../Utils/Debug.h"
+#include "../../Utils/MemoryUtils.h"
 namespace Lava {
 	namespace OpenGL {
 		GLRenderObject::GLRenderObject(Lava::Mesh mesh)
@@ -11,6 +12,16 @@ namespace Lava {
 			m_vao = new GLVAO();
 			m_vao->AddVertexBufferObject(m_vbo);
 			m_vao->SetIndexBuffer(m_ibo);
+		}
+		void GLRenderObject::EnableAttributes()
+		{
+			for (int i = 0; i < m_mesh.m_bufferLayoutCount; i++)
+				glEnableVertexAttribArray(i);
+		}
+		void GLRenderObject::DisableAttributes()
+		{
+			for (int i = 0; i < m_mesh.m_bufferLayoutCount; i++)
+				glDisableVertexAttribArray(i);
 		}
 	}
 }
