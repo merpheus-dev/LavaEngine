@@ -16,6 +16,7 @@ namespace Lava {
 			virtual void Unbind() const override;
 			virtual void Activate() override;
 			void AddShader(GLShader* shaderType);
+			virtual void AddVariable(int variableIndex, const char* variableName) override;
 			void LogBoundShaders();
 		private:
 			void CheckLinking();

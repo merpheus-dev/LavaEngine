@@ -23,21 +23,22 @@ namespace Lava
 		}
 
 		//To-Do: Replace GL_FLOAT with agnostic type in VertexBufferElement
-		void GLVAO::AddVertexBufferObject(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+		void GLVAO::AddVertexBufferObject(const std::shared_ptr<VertexBuffer>& vertexBuffer,
+											int bufferIndex)
 		{
 			glBindVertexArray(m_vaoId);
 			vertexBuffer->Bind();
 
 			VertexBufferElement* bufferElements = vertexBuffer->GetBufferElements();
-			for (int i = 0; i < vertexBuffer->GetBufferElementCount(); i++) 
-			{
-				glEnableVertexAttribArray(i);
-				glVertexAttribPointer(i, bufferElements[i].uniform_count, GL_FLOAT, GL_FALSE,
-										0, (const void*)0);
+			glEnableVertexAttribArray(bufferIndex);
+			glVertexAttribPointer(bufferIndex, bufferElements[bufferIndex].uniform_count, GL_FLOAT, GL_FALSE,
+				0, (const void*)0);
+			//for (int i = 0; i < vertexBuffer->GetBufferElementCount(); i++)
+			//{
 
-			}
+			//}
 
-			m_vertexBuffer.emplace_back(vertexBuffer);
+			m_vertexBuffer.push_back(vertexBuffer);
 		}
 
 		void GLVAO::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)

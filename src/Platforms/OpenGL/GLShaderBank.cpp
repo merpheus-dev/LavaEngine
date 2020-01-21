@@ -46,6 +46,11 @@ void Lava::OpenGL::GLShaderBank::CheckLinking()
 	}
 }
 
+void Lava::OpenGL::GLShaderBank::AddVariable(int variableIndex, const char* variableName)
+{
+	glBindAttribLocation(m_programId, variableIndex, variableName);
+}
+
 void Lava::OpenGL::GLShaderBank::Bind() const
 {
 	if (m_programId == -1)

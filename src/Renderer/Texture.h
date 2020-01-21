@@ -2,8 +2,11 @@
 namespace Lava
 {
 	struct Texture {
-		const int& width;
-		const int& height;
-		const int& texture_id;
+		int width;
+		int height;
+		int normal_channel_count;
+		unsigned int texture_id;
+		unsigned char* data;
+		bool valid = false;
 	};
 }

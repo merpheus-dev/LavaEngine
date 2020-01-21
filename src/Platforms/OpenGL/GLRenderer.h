@@ -13,6 +13,7 @@ namespace Lava {
 			GLRenderer(std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();
 			virtual void Update() override;
+			virtual void BindAttribute(int variableIndex, const char* variableName) override;
 			void AddRenderObject(GLRenderObject* renderObject)
 			{
 				m_renderlist.push_back(renderObject);

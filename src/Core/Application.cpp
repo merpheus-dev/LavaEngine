@@ -4,6 +4,7 @@
 #include "../Renderer/Mesh.h"
 #include "../Platforms/OpenGL/GLShader.h"
 #include "../Platforms/OpenGL/GLShaderBank.h"
+#include "../Core/AssetDatabase.h"
 #include <iterator>
 namespace Lava {
 	void Application::Run() {
@@ -28,6 +29,12 @@ namespace Lava {
 			0,1,3,
 			3,1,2
 		};
+		float texCoords[8] = {
+			0,0,
+			0,1,
+			1,1,
+			1,0
+		};
 
 		Lava::Mesh* mesh = new Mesh();
 		mesh->m_positions = vertices;
@@ -35,17 +42,24 @@ namespace Lava {
 		mesh->m_indices = indices;
 		mesh->m_indiceCount = 6;
 		mesh->m_bufferLayoutElement = new VertexBufferElement[2];
-		mesh->m_bufferLayoutElement->uniform_name = "position";
-		mesh->m_bufferLayoutElement->uniform_count = 3;
-		mesh->m_bufferLayoutCount = 1;
+		mesh->m_bufferLayoutElement[0].uniform_name = "position";
+		mesh->m_bufferLayoutElement[0].uniform_count = 3;
+		mesh->m_bufferLayoutElement[1].uniform_name = "texCoord";
+		mesh->m_bufferLayoutElement[1].uniform_count = 2;
+		mesh->m_bufferLayoutCount = 2;
 
+		auto material = new Material();
+		auto texture = AssetDatabase::LoadTexture("Assets/e.jpg");
+		material->m_mainTexture = &texture;
+		material->m_uvCoords = texCoords;
+		material->m_uvCoordCount = 8;
 
-		//shaderBank->LogBoundShaders();
-
-		auto* objekt = new OpenGL::GLRenderObject(*mesh);
+		auto objekt = new OpenGL::GLRenderObject(*mesh, *material);
 		objekt->name = "Anan";
-		renderer.AddRenderObject(objekt);
 
+		renderer.AddRenderObject(objekt);
+		renderer.BindAttribute(0, "position");
+		renderer.BindAttribute(1, "texCoord");
 
 		while (!manager.IsWindowClosed()) {
 			renderer.Update();

@@ -32,12 +32,20 @@ namespace Lava {
 				m_renderlist[i]->m_vao->Bind();
 				EnableAttributesForRenderObject(i);
 
+				if (m_renderlist[i]->HasTexture())
+					glBindTexture(GL_TEXTURE_2D, m_renderlist[i]->m_material.m_mainTexture->texture_id);
+
 				glDrawElements(GL_TRIANGLES, m_renderlist[i]->m_mesh.m_posCount, GL_UNSIGNED_INT, 0);
 
 				DisableAttributesForRenderObject(i);
 				m_renderlist[i]->m_vao->Unbind();
 			}
 			m_bank->Unbind();
+		}
+
+		void GLRenderer::BindAttribute(int variableIndex, const char* variableName)
+		{
+			m_bank->AddVariable(variableIndex, variableName);
 		}
 
 		void GLRenderer::LoadDefaultShader(std::vector<GLShader*>& list)
