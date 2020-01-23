@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Renderer/Renderer.h"
+#include "../../Components/Entity.h"
 #include "GLRenderObject.h"
 #include "GLMeshData.h"
 #include "GLShader.h"
@@ -12,21 +13,31 @@ namespace Lava {
 		public:
 			GLRenderer(std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();
-			virtual void Update() override;
+			virtual void Update(Camera camera) override;
 			virtual void BindAttribute(int variableIndex, const char* variableName) override;
-			void AddRenderObject(GLRenderObject* renderObject)
+			void AddRenderObject(Entity* renderObject)
 			{
 				m_renderlist.push_back(renderObject);
 			}
 			void EnableAttributesForRenderObject(int objectIndex) {
-				m_renderlist[objectIndex]->EnableAttributes();
+				((GLRenderObject*)(m_renderlist[objectIndex]->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))
+					->EnableAttributes();
 			}
 			void DisableAttributesForRenderObject(int objectIndex) {
-				m_renderlist[objectIndex]->DisableAttributes();
+				((GLRenderObject*)(m_renderlist[objectIndex]->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))
+					->DisableAttributes();
+			}
+
+			glm::mat4 GetProjectionMatrix() {
+				return glm::perspective<float>(glm::radians(70.0), 1.0, .001, 1000.);
+			}
+
+			glm::mat4 GetViewMatrix(Camera& camera) {
+				return glm::lookAt<float>(camera.transform.Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 			}
 		private:
 			void LoadDefaultShader(std::vector<GLShader*>& list);
-			std::vector<GLRenderObject*> m_renderlist;
+			std::vector<Entity*> m_renderlist;
 			GLShaderBank* m_bank;
 		};
 	}

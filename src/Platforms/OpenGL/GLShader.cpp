@@ -5,10 +5,11 @@ namespace Lava
 {
 	namespace OpenGL
 	{
-		GLShader::GLShader(const char* shaderDirectory,ShaderType shaderType)
+		GLShader::GLShader(const char* shaderDirectory, ShaderType shaderType,GLShaderBank* bank)
 		{
 			m_shaderDirectory = shaderDirectory;
 			m_shaderType = shaderType;
+			m_bank = (ShaderBank*)bank;
 			LoadShader();
 		}
 
@@ -20,7 +21,7 @@ namespace Lava
 			const int shaderSourceLength = readString.size();
 			glShaderSource(m_shaderId, 1, &shaderSource, &shaderSourceLength);
 			glCompileShader(m_shaderId);
-			
+
 			int compile_result;
 			glGetShaderiv(m_shaderId, GL_COMPILE_STATUS, &compile_result);
 			if (compile_result != GL_TRUE) {
@@ -76,7 +77,11 @@ namespace Lava
 
 		void GLShader::SetFloat4(const char* name, glm::vec4 value)
 		{
-			glUniform4f(m_bank->GetVariableLocation(name), value.x, value.y, value.z,value.w);
+			glUniform4f(m_bank->GetVariableLocation(name), value.x, value.y, value.z, value.w);
+		}
+		void GLShader::SetMatrix4x4(const char* name, glm::mat4 value)
+		{
+			glUniformMatrix4fv(m_bank->GetVariableLocation(name), 1, GL_FALSE, &value[0][0]);
 		}
 	}
 }

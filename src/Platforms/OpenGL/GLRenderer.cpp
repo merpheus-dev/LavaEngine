@@ -3,15 +3,17 @@
 #include "GLRenderer.h"
 #include "../../Utils/Debug.h"
 #include <iostream>
+#include "../Platform.h"
 namespace Lava {
 	namespace OpenGL {
 		GLRenderer::GLRenderer(std::vector<GLShader*> shader_list)
 		{
+			m_bank = new GLShaderBank();
+
 			if (shader_list.size() == 0)
 				LoadDefaultShader(shader_list);
 
-			m_bank = new GLShaderBank();
-			for(int i=0;i<shader_list.size();i++)
+			for (int i = 0; i < shader_list.size(); i++)
 				m_bank->AddShader(shader_list[i]);
 
 			m_bank->Activate();
@@ -22,23 +24,31 @@ namespace Lava {
 			delete m_bank;
 		}
 
-		void GLRenderer::Update()
+		void GLRenderer::Update(Camera camera)
 		{
 			glClearColor(0, 0, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			m_bank->Bind();
 			for (int i = 0; i < m_renderlist.size(); i++)
 			{
-				m_renderlist[i]->m_vao->Bind();
+				GLRenderObject* renderObjectPtr = (GLRenderObject*)(m_renderlist[i]->GetMeshRenderer(Platform::OpenGL)->GetRenderObject());
+				renderObjectPtr->m_vao->Bind();
+
 				EnableAttributesForRenderObject(i);
 
-				if (m_renderlist[i]->HasTexture())
-					glBindTexture(GL_TEXTURE_2D, m_renderlist[i]->m_material.m_mainTexture->texture_id);
+				auto view = GetViewMatrix(camera);
+				auto proj = GetProjectionMatrix();
+				auto model = m_renderlist[i]->transform->GetTransformationMatrix();
 
-				glDrawElements(GL_TRIANGLES, m_renderlist[i]->m_mesh.m_posCount, GL_UNSIGNED_INT, 0);
+				m_bank->GetShader(0)->SetMatrix4x4("MVP", proj * view * model);
+
+				if (renderObjectPtr->HasTexture())
+					glBindTexture(GL_TEXTURE_2D, m_renderlist[i]->material->m_mainTexture->texture_id);
+
+				glDrawElements(GL_TRIANGLES, m_renderlist[i]->mesh->m_posCount, GL_UNSIGNED_INT, 0);
 
 				DisableAttributesForRenderObject(i);
-				m_renderlist[i]->m_vao->Unbind();
+				renderObjectPtr->m_vao->Unbind();
 			}
 			m_bank->Unbind();
 		}
@@ -50,11 +60,10 @@ namespace Lava {
 
 		void GLRenderer::LoadDefaultShader(std::vector<GLShader*>& list)
 		{
-			auto vert = new GLShader("Shaders/vertexShader.vp", ShaderType::Vertex);
-			auto frag = new GLShader("Shaders/fragmentShader.fp", ShaderType::Fragment);
+			auto vert = new GLShader("Shaders/vertexShader.vp", ShaderType::Vertex,m_bank);
+			auto frag = new GLShader("Shaders/fragmentShader.fp", ShaderType::Fragment,m_bank);
 			list.push_back(vert);
 			list.push_back(frag);
 		}
-
 	}
 }

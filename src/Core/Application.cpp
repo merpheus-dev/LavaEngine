@@ -1,11 +1,16 @@
 #include "Application.h"
 #include "WindowManager.h"
 #include "../Platforms/OpenGL/GLRenderer.h"
+#include "../Platforms/OpenGL/GLRenderObject.h"
 #include "../Renderer/Mesh.h"
 #include "../Platforms/OpenGL/GLShader.h"
 #include "../Platforms/OpenGL/GLShaderBank.h"
 #include "../Core/AssetDatabase.h"
+#include "../Components/Entity.h"
+#include "../Components/Camera.h"
 #include <iterator>
+#include <vector>
+#include <iostream>
 namespace Lava {
 	void Application::Run() {
 		WindowManager manager;
@@ -25,44 +30,66 @@ namespace Lava {
 			  .5f,  .5f, 0.0f
 		};
 
+		std::vector<float> vertex_list(12);
+		memcpy(&vertex_list[0], vertices, 12 * sizeof(float));
+
 		int indices[6] = {
 			0,1,3,
 			3,1,2
 		};
+		std::vector<int> indice_list(12);
+		memcpy(&indice_list[0], indices, 6 * sizeof(int));
+
 		float texCoords[8] = {
 			0,0,
 			0,1,
 			1,1,
 			1,0
 		};
+		std::vector<float> texCoord_list(12);
+		memcpy(&texCoord_list[0], texCoords, 8 * sizeof(float));
 
-		Lava::Mesh* mesh = new Mesh();
-		mesh->m_positions = vertices;
-		mesh->m_posCount = 12;
-		mesh->m_indices = indices;
-		mesh->m_indiceCount = 6;
-		mesh->m_bufferLayoutElement = new VertexBufferElement[2];
-		mesh->m_bufferLayoutElement[0].uniform_name = "position";
-		mesh->m_bufferLayoutElement[0].uniform_count = 3;
-		mesh->m_bufferLayoutElement[1].uniform_name = "texCoord";
-		mesh->m_bufferLayoutElement[1].uniform_count = 2;
-		mesh->m_bufferLayoutCount = 2;
+		std::vector<VertexBufferElement> bufferElements(2);
+		bufferElements[0].uniform_name = "position";
+		bufferElements[0].uniform_count = 3;
+		bufferElements[1].uniform_name = "texCoord";
+		bufferElements[1].uniform_count = 2;
 
-		auto material = new Material();
+		Entity* entity = new Entity(glm::vec3(0.,0.,0));
+		entity->SetMeshData(vertex_list, indice_list, bufferElements);
+
 		auto texture = AssetDatabase::LoadTexture("Assets/e.jpg");
-		material->m_mainTexture = &texture;
-		material->m_uvCoords = texCoords;
-		material->m_uvCoordCount = 8;
+		entity->material->SetTexture(&texture, texCoord_list);
 
-		auto objekt = new OpenGL::GLRenderObject(*mesh, *material);
-		objekt->name = "Anan";
+		auto objekt = entity->GetMeshRenderer(Platform::OpenGL)->GetRenderObject();
+		renderer.AddRenderObject(entity);
 
-		renderer.AddRenderObject(objekt);
 		renderer.BindAttribute(0, "position");
 		renderer.BindAttribute(1, "texCoord");
 
+		Camera camera;
+
 		while (!manager.IsWindowClosed()) {
-			renderer.Update();
+			
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
+			{
+				camera.transform.Position.z -= 0.001f;
+			}
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
+			{
+				camera.transform.Position.z += 0.001f;
+			}
+			
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_A) == GLFW_PRESS) {
+				camera.transform.Position.x -= 0.001f;
+			}
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_D) == GLFW_PRESS) {
+				camera.transform.Position.x += 0.001f;
+			}
+
+			renderer.Update(camera);
 			manager.UpdateWindow();
 		}
 		manager.DestroyWindow();

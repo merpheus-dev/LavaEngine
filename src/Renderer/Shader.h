@@ -8,12 +8,13 @@
 namespace Lava {
 	class Shader {
 	public:
-		virtual void SetBool(const char* name,bool value) = 0;
+		virtual void SetBool(const char* name, bool value) = 0;
 		virtual void SetFloat1(const char* name, float value) = 0;
 		virtual void SetFloat2(const char* name, glm::vec2 value) = 0;
 		virtual void SetFloat3(const char* name, glm::vec3 value) = 0;
 		virtual void SetFloat4(const char* name, glm::vec4 value) = 0;
-		int m_shaderId=0;
+		virtual void SetMatrix4x4(const char* name, glm::mat4 value) = 0;
+		int m_shaderId = 0;
 		int GetShaderName() { return m_shaderType; }
 	protected:
 		virtual int LoadShader() = 0;

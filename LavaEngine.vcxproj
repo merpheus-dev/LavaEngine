@@ -188,6 +188,10 @@
     <ClCompile Include="src\Utils\TextUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components\Camera.h" />
+    <ClInclude Include="src\Components\Entity.h" />
+    <ClInclude Include="src\Components\MeshRenderer.h" />
+    <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLConsts.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
@@ -196,6 +200,8 @@
     <ClInclude Include="src\Platforms\OpenGL\GLShader.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShaderBank.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLVAO.h" />
+    <ClInclude Include="src\Platforms\Platform.h" />
+    <ClInclude Include="src\Platforms\PlatformInstanceGenerator.h" />
     <ClInclude Include="src\Platforms\VertexArrayObject.h" />
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Mesh.h" />
