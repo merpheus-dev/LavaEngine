@@ -11,6 +11,10 @@ namespace Lava {
 		float* m_uvCoords;
 		int m_uvCoordCount;
 
+		void AssignTexture(Texture* texture) {
+			m_mainTexture = texture;
+		}
+
 		void SetTexture(Texture* texture, std::vector<float>& texCoords) {
 			m_mainTexture = texture;
 			m_uvCoords = &texCoords[0];

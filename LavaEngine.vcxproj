@@ -185,6 +185,7 @@
     <ClCompile Include="src\Utils\Debug.cpp" />
     <ClCompile Include="src\LavaEngine.cpp" />
     <ClCompile Include="src\Core\WindowManager.cpp" />
+    <ClCompile Include="src\Utils\ObjImporter.cpp" />
     <ClCompile Include="src\Utils\TextUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +207,7 @@
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Mesh.h" />
     <ClInclude Include="src\Renderer\MeshData.h" />
+    <ClInclude Include="src\Renderer\MeshMaterialPack.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Renderer\RenderObject.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
@@ -217,6 +219,7 @@
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\WindowManager.h" />
     <ClInclude Include="src\Utils\MemoryUtils.h" />
+    <ClInclude Include="src\Utils\ObjImporter.h" />
     <ClInclude Include="src\Utils\TextUtils.h" />
   </ItemGroup>
   <ItemGroup>

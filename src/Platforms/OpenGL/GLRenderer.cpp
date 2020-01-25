@@ -26,8 +26,9 @@ namespace Lava {
 
 		void GLRenderer::Update(Camera camera)
 		{
+			glEnable(GL_DEPTH_TEST);
 			glClearColor(0, 0, 0, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			m_bank->Bind();
 			for (int i = 0; i < m_renderlist.size(); i++)
 			{

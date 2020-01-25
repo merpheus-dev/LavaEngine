@@ -5,6 +5,7 @@
 #include "../Renderer/RenderObject.h"
 #include "../Renderer/Shader.h"
 #include "../Renderer/ShaderBank.h"
+#include "../Renderer/MeshMaterialPack.h"
 namespace Lava {
 	class Entity {
 	public:
@@ -12,18 +13,37 @@ namespace Lava {
 		MeshRenderer* meshRenderer;
 		Mesh* mesh;
 		Material* material;
-		Entity()
+		//Entity()
+		//{
+		//	transform = new Transform();
+		//	mesh = new Mesh();
+		//	material = new Material();
+		//}
+		Entity(MeshMaterialPack* _pack)
 		{
 			transform = new Transform();
-			mesh = new Mesh();
-			material = new Material();
+			mesh = _pack->mesh;
+			material = _pack->material;
 		}
 
-		Entity(glm::vec3 position)
+		//Entity(glm::vec3 position)
+		//{
+		//	transform = new Transform(position);
+		//	mesh = new Mesh();
+		//	material = new Material();
+		//}
+
+		Entity(glm::vec3 position, MeshMaterialPack* _pack)
 		{
 			transform = new Transform(position);
-			mesh = new Mesh();
-			material = new Material();
+			mesh = _pack->mesh;
+			material = _pack->material;
+		}
+
+		void SetBufferLayout(std::vector<VertexBufferElement>& bufferElements)
+		{
+			mesh->m_bufferLayoutElement = &bufferElements[0];
+			mesh->m_bufferLayoutCount = bufferElements.size();
 		}
 
 		void SetMeshData(std::vector<float>& vertices, std::vector<int>& indices,

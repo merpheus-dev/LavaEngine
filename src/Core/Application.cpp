@@ -11,6 +11,7 @@
 #include <iterator>
 #include <vector>
 #include <iostream>
+#include "../Utils/ObjImporter.h"
 namespace Lava {
 	void Application::Run() {
 		WindowManager manager;
@@ -18,36 +19,86 @@ namespace Lava {
 			return;
 
 		OpenGL::GLRenderer renderer = OpenGL::GLRenderer(std::vector<Lava::OpenGL::GLShader*>());
-		float vertices[12] = {
-			//bottom right triangle of quad
-			   //-1.0f, -1.0f, 0.0f,
-			   //1.0f, -1.0f, 0.0f,
-			   //1.0f,  1.0f, 0.0f,
-			//top left triangle of quad
-			   -.5f,  .5f, 0.0f,
-			   -.5f,  -.5f, 0.0f,
-			   .5f,  -.5f, 0.0f,
-			  .5f,  .5f, 0.0f
+		/*float vertices[72] = {
+				-0.5f,0.5f,-0.5f,
+				-0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,0.5f,-0.5f,
+
+				-0.5f,0.5f,0.5f,
+				-0.5f,-0.5f,0.5f,
+				0.5f,-0.5f,0.5f,
+				0.5f,0.5f,0.5f,
+
+				0.5f,0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,0.5f,
+				0.5f,0.5f,0.5f,
+
+				-0.5f,0.5f,-0.5f,
+				-0.5f,-0.5f,-0.5f,
+				-0.5f,-0.5f,0.5f,
+				-0.5f,0.5f,0.5f,
+
+				-0.5f,0.5f,0.5f,
+				-0.5f,0.5f,-0.5f,
+				0.5f,0.5f,-0.5f,
+				0.5f,0.5f,0.5f,
+
+				-0.5f,-0.5f,0.5f,
+				-0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,-0.5f,
+				0.5f,-0.5f,0.5f
 		};
 
-		std::vector<float> vertex_list(12);
-		memcpy(&vertex_list[0], vertices, 12 * sizeof(float));
+		std::vector<float> vertex_list(72);
+		memcpy(&vertex_list[0], vertices, 72 * sizeof(float));
 
-		int indices[6] = {
-			0,1,3,
-			3,1,2
+		int indices[36] = {
+				0,1,3,
+				3,1,2,
+				4,5,7,
+				7,5,6,
+				8,9,11,
+				11,9,10,
+				12,13,15,
+				15,13,14,
+				16,17,19,
+				19,17,18,
+				20,21,23,
+				23,21,22
 		};
-		std::vector<int> indice_list(12);
-		memcpy(&indice_list[0], indices, 6 * sizeof(int));
+		std::vector<int> indice_list(36);
+		memcpy(&indice_list[0], indices, 36 * sizeof(int));
 
-		float texCoords[8] = {
-			0,0,
-			0,1,
-			1,1,
-			1,0
+		float texCoords[48] = {
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0,
+				0,0,
+				0,1,
+				1,1,
+				1,0
 		};
-		std::vector<float> texCoord_list(12);
-		memcpy(&texCoord_list[0], texCoords, 8 * sizeof(float));
+		std::vector<float> texCoord_list(48);
+		memcpy(&texCoord_list[0], texCoords, 48 * sizeof(float));*/
 
 		std::vector<VertexBufferElement> bufferElements(2);
 		bufferElements[0].uniform_name = "position";
@@ -55,11 +106,15 @@ namespace Lava {
 		bufferElements[1].uniform_name = "texCoord";
 		bufferElements[1].uniform_count = 2;
 
-		Entity* entity = new Entity(glm::vec3(0.,0.,0));
-		entity->SetMeshData(vertex_list, indice_list, bufferElements);
 
-		auto texture = AssetDatabase::LoadTexture("Assets/e.jpg");
-		entity->material->SetTexture(&texture, texCoord_list);
+		auto pack = Lava::Importers::ObjImporter::Load("Assets/stall.obj");
+		Entity* entity = new Entity(glm::vec3(0.,0.,0), pack);
+		entity->SetBufferLayout(bufferElements);
+		//entity->SetMeshData(vertex_list, indice_list, bufferElements);
+
+		auto texture = AssetDatabase::LoadTexture("Assets/stallTexture.jpg");
+		entity->material->AssignTexture(&texture);
+		//entity->material->SetTexture(&texture, texCoord_list);
 
 		auto objekt = entity->GetMeshRenderer(Platform::OpenGL)->GetRenderObject();
 		renderer.AddRenderObject(entity);
@@ -87,6 +142,14 @@ namespace Lava {
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_D) == GLFW_PRESS) {
 				camera.transform.Position.x += 0.001f;
+			}
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_Q) == GLFW_PRESS) {
+				camera.transform.Position.y -= 0.001f;
+			}
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_E) == GLFW_PRESS) {
+				camera.transform.Position.y += 0.001f;
 			}
 
 			renderer.Update(camera);
