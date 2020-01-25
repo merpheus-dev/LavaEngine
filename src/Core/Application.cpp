@@ -107,7 +107,7 @@ namespace Lava {
 		bufferElements[1].uniform_count = 2;
 
 
-		auto pack = Lava::Importers::ObjImporter::Load("Assets/stall.obj");
+		auto pack = Lava::Importers::ObjImporter::Load("Assets/monkey.obj");
 		Entity* entity = new Entity(glm::vec3(0.,0.,0), pack);
 		entity->SetBufferLayout(bufferElements);
 		//entity->SetMeshData(vertex_list, indice_list, bufferElements);

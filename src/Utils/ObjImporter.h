@@ -71,8 +71,6 @@ namespace Lava {
 						vertices.push_back(vec3);
 						break;
 					case 1: //vt
-						//texCoords.push_back(vec2.x);
-						//texCoords.push_back(vec2.y);
 						textures.push_back(vec2);
 						break;
 					case 2: //vn
@@ -119,13 +117,6 @@ namespace Lava {
 
 
 				pack->material->SetTexture(nullptr, texCoords);
-				//for (int m = 0; m < pack->material->m_uvCoordCount; m++) {
-				//	std::cout << pack->material->m_uvCoords[m] << std::endl;
-				//}
-
-				for (int m = 0; m < texCoords.size(); m++) {
-					std::cout << texCoords[m] << std::endl;
-				}
 				return pack;
 			}
 
@@ -136,11 +127,7 @@ namespace Lava {
 					indices.push_back(indice);
 					int tex = faceInfo[i][1] - 1;
 					texCoords[indice * 2] = textures[tex].x;
-					texCoords[indice * 2 + 1] = textures[tex].y;
-					//std::cout << texCoords[indice * 2] << std::endl;
-					//std::cout << texCoords[indice * 2 + 1] << std::endl;
-					/*memcpy(&(pack->material->m_uvCoords[indice * 2]), &(textures[faceInfo[i][1] - 1].x), sizeof(float));
-					memcpy(&(pack->material->m_uvCoords[indice * 2+1]), &(textures[faceInfo[i][1] - 1].y), sizeof(float));*/
+					texCoords[indice * 2 + 1] =1- textures[tex].y;
 				}
 			}
 
