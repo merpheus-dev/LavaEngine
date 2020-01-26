@@ -17,6 +17,10 @@ namespace Lava {
 			m_texCoord->SetBufferElements(m_mesh.m_bufferLayoutElement, &(m_mesh.m_bufferLayoutCount));
 			m_vao->AddVertexBufferObject(m_texCoord,1);
 
+			m_normalBuffer = CreateRef<GLVertexBuffer>(m_mesh.m_normals, m_mesh.m_normCount);
+			m_normalBuffer->SetBufferElements(m_mesh.m_bufferLayoutElement, &(m_mesh.m_bufferLayoutCount));
+			m_vao->AddVertexBufferObject(m_normalBuffer, 2);
+
 			m_ibo = CreateRef<GLIndexBuffer>(mesh.m_indices, mesh.m_indiceCount);
 			m_vao->SetIndexBuffer(m_ibo);
 		}

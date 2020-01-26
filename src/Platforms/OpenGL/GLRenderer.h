@@ -13,7 +13,7 @@ namespace Lava {
 		public:
 			GLRenderer(std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();
-			virtual void Update(Camera camera) override;
+			virtual void Update(Camera camera,Light light) override;
 			virtual void BindAttribute(int variableIndex, const char* variableName) override;
 			void AddRenderObject(Entity* renderObject)
 			{

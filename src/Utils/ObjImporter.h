@@ -127,7 +127,7 @@ namespace Lava {
 					indices.push_back(indice);
 					int tex = faceInfo[i][1] - 1;
 					texCoords[indice * 2] = textures[tex].x;
-					texCoords[indice * 2 + 1] =1- textures[tex].y;
+					texCoords[indice * 2 + 1] =textures[tex].y;
 				}
 			}
 

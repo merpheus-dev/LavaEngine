@@ -5,6 +5,8 @@ namespace Lava {
 	struct Mesh {
 		float* m_positions;
 		int m_posCount;
+		float* m_normals;
+		int m_normCount;
 		int* m_indices;
 		unsigned int m_indiceCount;
 		VertexBufferElement* m_bufferLayoutElement;

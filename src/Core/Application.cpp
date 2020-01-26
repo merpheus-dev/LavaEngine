@@ -12,6 +12,7 @@
 #include <vector>
 #include <iostream>
 #include "../Utils/ObjImporter.h"
+#include "../Utils/AssetImporter.h"
 namespace Lava {
 	void Application::Run() {
 		WindowManager manager;
@@ -100,19 +101,22 @@ namespace Lava {
 		std::vector<float> texCoord_list(48);
 		memcpy(&texCoord_list[0], texCoords, 48 * sizeof(float));*/
 
-		std::vector<VertexBufferElement> bufferElements(2);
+		std::vector<VertexBufferElement> bufferElements(3);
 		bufferElements[0].uniform_name = "position";
 		bufferElements[0].uniform_count = 3;
 		bufferElements[1].uniform_name = "texCoord";
 		bufferElements[1].uniform_count = 2;
+		bufferElements[2].uniform_name = "normal";
+		bufferElements[2].uniform_count = 3;
 
+		auto pack = Lava::Importers::AssetImporter::Load("Assets/Zombie9.obj");
 
-		auto pack = Lava::Importers::ObjImporter::Load("Assets/monkey.obj");
-		Entity* entity = new Entity(glm::vec3(0.,0.,0), pack);
+		//auto pack = Lava::Importers::ObjImporter::Load("Assets/cube.obj");
+		Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
 		entity->SetBufferLayout(bufferElements);
 		//entity->SetMeshData(vertex_list, indice_list, bufferElements);
 
-		auto texture = AssetDatabase::LoadTexture("Assets/stallTexture.jpg");
+		auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.jpg");
 		entity->material->AssignTexture(&texture);
 		//entity->material->SetTexture(&texture, texCoord_list);
 
@@ -121,11 +125,19 @@ namespace Lava {
 
 		renderer.BindAttribute(0, "position");
 		renderer.BindAttribute(1, "texCoord");
+		renderer.BindAttribute(2, "normal");
 
 		Camera camera;
 
+		Light light = Light();
+
 		while (!manager.IsWindowClosed()) {
-			
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
+			{
+				entity->transform->Rotation.y += .05f;
+			}
+
+
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 			{
 				camera.transform.Position.z -= 0.001f;
@@ -135,7 +147,7 @@ namespace Lava {
 			{
 				camera.transform.Position.z += 0.001f;
 			}
-			
+
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_A) == GLFW_PRESS) {
 				camera.transform.Position.x -= 0.001f;
 			}
@@ -152,7 +164,8 @@ namespace Lava {
 				camera.transform.Position.y += 0.001f;
 			}
 
-			renderer.Update(camera);
+			renderer.Update(camera,light);
+
 			manager.UpdateWindow();
 		}
 		manager.DestroyWindow();

@@ -24,7 +24,7 @@ namespace Lava {
 			delete m_bank;
 		}
 
-		void GLRenderer::Update(Camera camera)
+		void GLRenderer::Update(Camera camera,Light light)
 		{
 			glEnable(GL_DEPTH_TEST);
 			glClearColor(0, 0, 0, 1);
@@ -42,6 +42,9 @@ namespace Lava {
 				auto model = m_renderlist[i]->transform->GetTransformationMatrix();
 
 				m_bank->GetShader(0)->SetMatrix4x4("MVP", proj * view * model);
+
+				m_bank->GetShader(0)->SetFloat3("LightPosition", light.Position);
+				m_bank->GetShader(1)->SetFloat3("LightColor", light.Color);
 
 				if (renderObjectPtr->HasTexture())
 					glBindTexture(GL_TEXTURE_2D, m_renderlist[i]->material->m_mainTexture->texture_id);

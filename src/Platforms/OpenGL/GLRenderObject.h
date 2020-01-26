@@ -13,6 +13,7 @@ namespace Lava {
 			bool HasTexture();
 
 			std::shared_ptr<GLVertexBuffer> m_vbo;
+			std::shared_ptr<GLVertexBuffer> m_normalBuffer;
 			std::shared_ptr<GLIndexBuffer> m_ibo;
 			std::shared_ptr<GLVertexBuffer> m_texCoord;
 			GLVAO* m_vao;
