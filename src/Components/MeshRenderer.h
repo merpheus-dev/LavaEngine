@@ -9,6 +9,13 @@ namespace Lava {
 		{
 			m_renderObject = PlatformInstanceGenerator::GenerateRenderObject(m_mesh, m_material,platform);
 		}
+
+		MeshRenderer(RenderObject* renderObject) : m_renderObject(renderObject)
+			,m_mesh(&(renderObject->m_mesh)),m_material(&(renderObject->m_material))
+		{
+
+		}
+
 		RenderObject* GetRenderObject() {
 			return m_renderObject;
 		}

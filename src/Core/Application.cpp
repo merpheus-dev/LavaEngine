@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "WindowManager.h"
 #include "../Platforms/OpenGL/GLRenderer.h"
+#include "../Platforms/OpenGL/GLBatchedRenderer.h"
 #include "../Platforms/OpenGL/GLRenderObject.h"
 #include "../Renderer/Mesh.h"
 #include "../Platforms/OpenGL/GLShader.h"
@@ -13,93 +14,19 @@
 #include <iostream>
 #include "../Utils/ObjImporter.h"
 #include "../Utils/AssetImporter.h"
+#include <time.h>
 namespace Lava {
+	int GetRandom() {
+		return rand() % 100;
+	}
+
 	void Application::Run() {
 		WindowManager manager;
 		if (manager.GenerateWindow() == -1)
 			return;
 
-		OpenGL::GLRenderer renderer = OpenGL::GLRenderer(std::vector<Lava::OpenGL::GLShader*>());
-		/*float vertices[72] = {
-				-0.5f,0.5f,-0.5f,
-				-0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,-0.5f,
-				0.5f,0.5f,-0.5f,
-
-				-0.5f,0.5f,0.5f,
-				-0.5f,-0.5f,0.5f,
-				0.5f,-0.5f,0.5f,
-				0.5f,0.5f,0.5f,
-
-				0.5f,0.5f,-0.5f,
-				0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,0.5f,
-				0.5f,0.5f,0.5f,
-
-				-0.5f,0.5f,-0.5f,
-				-0.5f,-0.5f,-0.5f,
-				-0.5f,-0.5f,0.5f,
-				-0.5f,0.5f,0.5f,
-
-				-0.5f,0.5f,0.5f,
-				-0.5f,0.5f,-0.5f,
-				0.5f,0.5f,-0.5f,
-				0.5f,0.5f,0.5f,
-
-				-0.5f,-0.5f,0.5f,
-				-0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,-0.5f,
-				0.5f,-0.5f,0.5f
-		};
-
-		std::vector<float> vertex_list(72);
-		memcpy(&vertex_list[0], vertices, 72 * sizeof(float));
-
-		int indices[36] = {
-				0,1,3,
-				3,1,2,
-				4,5,7,
-				7,5,6,
-				8,9,11,
-				11,9,10,
-				12,13,15,
-				15,13,14,
-				16,17,19,
-				19,17,18,
-				20,21,23,
-				23,21,22
-		};
-		std::vector<int> indice_list(36);
-		memcpy(&indice_list[0], indices, 36 * sizeof(int));
-
-		float texCoords[48] = {
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0,
-				0,0,
-				0,1,
-				1,1,
-				1,0
-		};
-		std::vector<float> texCoord_list(48);
-		memcpy(&texCoord_list[0], texCoords, 48 * sizeof(float));*/
+		//OpenGL::GLRenderer renderer = OpenGL::GLRenderer(std::vector<Lava::OpenGL::GLShader*>());
+		OpenGL::GLBatchedRenderer _renderer = OpenGL::GLBatchedRenderer(std::vector<Lava::OpenGL::GLShader*>());
 
 		std::vector<VertexBufferElement> bufferElements(3);
 		bufferElements[0].uniform_name = "position";
@@ -110,33 +37,41 @@ namespace Lava {
 		bufferElements[2].uniform_count = 3;
 
 		auto pack = Lava::Importers::AssetImporter::Load("Assets/Zombie9.obj");
-
-		//auto pack = Lava::Importers::ObjImporter::Load("Assets/cube.obj");
-		Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
-		entity->SetBufferLayout(bufferElements);
-		//entity->SetMeshData(vertex_list, indice_list, bufferElements);
-
 		auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.jpg");
-		entity->material->AssignTexture(&texture);
-		//entity->material->SetTexture(&texture, texCoord_list);
 
-		auto objekt = entity->GetMeshRenderer(Platform::OpenGL)->GetRenderObject();
-		renderer.AddRenderObject(entity);
+		std::vector<Entity*> entities;
+		MeshRenderer* batchableRenderer = nullptr;
+		for (int a = 0; a < 100; a++) {
+			Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
+			entity->SetBufferLayout(bufferElements);
+			entity->material->AssignTexture(&texture);
+			if (!batchableRenderer)
+				batchableRenderer = entity->GetMeshRenderer(Platform::OpenGL);
+			else
+				entity->meshRenderer = batchableRenderer;
+			entities.push_back(entity);
+		}
 
-		renderer.BindAttribute(0, "position");
-		renderer.BindAttribute(1, "texCoord");
-		renderer.BindAttribute(2, "normal");
-
+		srand(time(0));
 		Camera camera;
 
-		Light light = Light();
+		Light light = Light(glm::vec3(1, 1, 1));
+		bool onStartExecuted = false;
 
 		while (!manager.IsWindowClosed()) {
-			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
-			{
-				entity->transform->Rotation.y += .05f;
+			if (!onStartExecuted) {
+				for (auto& eachEntity : entities) {
+					for (int i = 0; i < 3; i++) {
+						
+						float randPos = GetRandom() / 50.f;
+						eachEntity->transform->Position[i] = randPos;
+					}
+				}
+				onStartExecuted = true;
 			}
-
+			for (auto& entity : entities) {
+				_renderer.AddToBatch(entity);
+			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 			{
@@ -164,10 +99,30 @@ namespace Lava {
 				camera.transform.Position.y += 0.001f;
 			}
 
-			renderer.Update(camera,light);
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_4) == GLFW_PRESS) {
+				light.Position.x -= .01f;
+			}
+
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_6) == GLFW_PRESS) {
+				light.Position.x += .01f;
+			}
+
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_8) == GLFW_PRESS) {
+				light.Position.y += .01f;
+			}
+
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_2) == GLFW_PRESS) {
+				light.Position.y -= .01f;
+			}
+
+			_renderer.Update(camera, light);
 
 			manager.UpdateWindow();
 		}
 		manager.DestroyWindow();
+		//_renderer.~GLBatchedRenderer();
 	}
 }

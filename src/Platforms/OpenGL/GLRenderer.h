@@ -13,28 +13,28 @@ namespace Lava {
 		public:
 			GLRenderer(std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();
+			virtual void Configure(glm::mat4 viewMatrix,glm::mat4 projectionMatrix) override;
+			virtual void SetLightInfo(Light& light) override;
+			virtual void CompleteRender() override;
+			virtual void PushInstanceData(Entity* entityPtr) override;
+			virtual void BindObjects(Entity* entityPtr) override;
+			virtual void UnBindObjects(Entity* entityPtr) override;
+			virtual void Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities) override;
 			virtual void Update(Camera camera,Light light) override;
 			virtual void BindAttribute(int variableIndex, const char* variableName) override;
 			void AddRenderObject(Entity* renderObject)
 			{
 				m_renderlist.push_back(renderObject);
 			}
-			void EnableAttributesForRenderObject(int objectIndex) {
-				((GLRenderObject*)(m_renderlist[objectIndex]->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))
+			void EnableAttributesForRenderObject(Entity* entity) {
+				((GLRenderObject*)(entity->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))
 					->EnableAttributes();
 			}
-			void DisableAttributesForRenderObject(int objectIndex) {
-				((GLRenderObject*)(m_renderlist[objectIndex]->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))
+			void DisableAttributesForRenderObject(Entity* entity) {
+				((GLRenderObject*)(entity->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))
 					->DisableAttributes();
 			}
 
-			glm::mat4 GetProjectionMatrix() {
-				return glm::perspective<float>(glm::radians(70.0), 1.0, .001, 1000.);
-			}
-
-			glm::mat4 GetViewMatrix(Camera& camera) {
-				return glm::lookAt<float>(camera.transform.Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-			}
 		private:
 			void LoadDefaultShader(std::vector<GLShader*>& list);
 			std::vector<Entity*> m_renderlist;

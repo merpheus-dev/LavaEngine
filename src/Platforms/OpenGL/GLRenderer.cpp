@@ -24,37 +24,79 @@ namespace Lava {
 			delete m_bank;
 		}
 
-		void GLRenderer::Update(Camera camera,Light light)
+		void GLRenderer::Configure(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 		{
+			glEnable(GL_CULL_FACE);
 			glEnable(GL_DEPTH_TEST);
+			glCullFace(GL_BACK);
 			glClearColor(0, 0, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			m_bank->Bind();
+
+			m_bank->GetShader(0)->SetMatrix4x4("View", viewMatrix);
+			m_bank->GetShader(0)->SetMatrix4x4("Projection", projectionMatrix);
+		}
+
+		void GLRenderer::SetLightInfo(Light& light)
+		{
+			m_bank->GetShader(0)->SetFloat3("LightPosition", light.Position);
+			m_bank->GetShader(1)->SetFloat3("LightColor", light.Color);
+		}
+
+		void GLRenderer::CompleteRender()
+		{
+			m_bank->Unbind();
+		}
+
+		void GLRenderer::PushInstanceData(Entity* entityPtr)
+		{
+			auto model = entityPtr->transform->GetTransformationMatrix();
+			m_bank->GetShader(0)->SetMatrix4x4("Model", model);
+			m_bank->GetShader(1)->SetFloat1("Shininess", entityPtr->material->shininess);
+			m_bank->GetShader(1)->SetFloat1("GlossDamping", entityPtr->material->glossDamping);
+		}
+
+		void GLRenderer::BindObjects(Entity* entityPtr)
+		{
+			GLRenderObject* renderObjectPtr = (GLRenderObject*)(entityPtr->GetMeshRenderer(Platform::OpenGL)->GetRenderObject());
+			renderObjectPtr->m_vao->Bind();
+			EnableAttributesForRenderObject(entityPtr);
+			if(renderObjectPtr->HasTexture())
+				glBindTexture(GL_TEXTURE_2D, entityPtr->material->m_mainTexture->texture_id);
+
+		}
+
+		void GLRenderer::UnBindObjects(Entity* entityPtr)
+		{
+			DisableAttributesForRenderObject(entityPtr);
+			((GLRenderObject*)(entityPtr->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))->m_vao->Unbind();
+		}
+
+		void GLRenderer::Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities)
+		{
+			for (auto& batchedPack : entities) {
+				BindObjects((*(batchedPack.second))[0]);
+				for (auto& batchedEntity : (*(batchedPack.second))) {
+					PushInstanceData(batchedEntity);
+					glDrawElements(GL_TRIANGLES, batchedEntity->mesh->m_posCount, GL_UNSIGNED_INT, 0);
+				}
+				UnBindObjects((*(batchedPack.second))[0]);
+			}
+		}
+
+
+		void GLRenderer::Update(Camera camera, Light light)
+		{
 			for (int i = 0; i < m_renderlist.size(); i++)
 			{
-				GLRenderObject* renderObjectPtr = (GLRenderObject*)(m_renderlist[i]->GetMeshRenderer(Platform::OpenGL)->GetRenderObject());
-				renderObjectPtr->m_vao->Bind();
+				BindObjects(m_renderlist[i]);
 
-				EnableAttributesForRenderObject(i);
 
-				auto view = GetViewMatrix(camera);
-				auto proj = GetProjectionMatrix();
-				auto model = m_renderlist[i]->transform->GetTransformationMatrix();
+				//if (renderObjectPtr->HasTexture())
 
-				m_bank->GetShader(0)->SetMatrix4x4("MVP", proj * view * model);
-
-				m_bank->GetShader(0)->SetFloat3("LightPosition", light.Position);
-				m_bank->GetShader(1)->SetFloat3("LightColor", light.Color);
-
-				if (renderObjectPtr->HasTexture())
-					glBindTexture(GL_TEXTURE_2D, m_renderlist[i]->material->m_mainTexture->texture_id);
-
-				glDrawElements(GL_TRIANGLES, m_renderlist[i]->mesh->m_posCount, GL_UNSIGNED_INT, 0);
-
-				DisableAttributesForRenderObject(i);
-				renderObjectPtr->m_vao->Unbind();
+				UnBindObjects(m_renderlist[i]);
 			}
-			m_bank->Unbind();
+			CompleteRender();
 		}
 
 		void GLRenderer::BindAttribute(int variableIndex, const char* variableName)
@@ -64,8 +106,8 @@ namespace Lava {
 
 		void GLRenderer::LoadDefaultShader(std::vector<GLShader*>& list)
 		{
-			auto vert = new GLShader("Shaders/vertexShader.vp", ShaderType::Vertex,m_bank);
-			auto frag = new GLShader("Shaders/fragmentShader.fp", ShaderType::Fragment,m_bank);
+			auto vert = new GLShader("Shaders/vertexShader.vp", ShaderType::Vertex, m_bank);
+			auto frag = new GLShader("Shaders/fragmentShader.fp", ShaderType::Fragment, m_bank);
 			list.push_back(vert);
 			list.push_back(frag);
 		}

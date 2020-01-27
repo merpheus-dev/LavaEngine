@@ -5,15 +5,22 @@ in vec3 normal;
 in vec2 texCoord;
 
 out vec2 pass_textureCoords;
+out vec3 vertexNormal;
+out vec3 lightVector;
+out vec3 camVector;
 
-uniform mat4 TRS;
-uniform mat4 Projection;
+uniform mat4 Model;
 uniform mat4 View;
-uniform mat4 MVP;
+uniform mat4 Projection;
 uniform vec3 LightPosition;
 
 void main(void){
-	gl_Position = MVP* vec4(position,1.0);
+	vec4 worldPos = Model* vec4(position,1.0);
+	gl_Position = Projection * View * worldPos;
 	pass_textureCoords = texCoord;
+	vertexNormal = (Model* vec4(normal,0.0)).xyz;
+	lightVector = LightPosition - worldPos.xyz;
 
+	vec4 camPos = inverse(View) * vec4(0,0,0,1);
+	camVector =  normalize(camPos.xyz - worldPos.xyz);
 }

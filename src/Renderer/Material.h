@@ -8,6 +8,8 @@ namespace Lava {
 	struct Material {
 		Texture* m_mainTexture;
 		float m_tintColor[3];
+		float shininess = 1;
+		float glossDamping = 10;
 		float* m_uvCoords;
 		int m_uvCoordCount;
 

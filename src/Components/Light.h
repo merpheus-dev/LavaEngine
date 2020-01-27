@@ -4,10 +4,9 @@ namespace Lava {
 	struct Light {
 		glm::vec3 Position;
 		glm::vec3 Color;
-		Light()
-			:Position(glm::vec3(0)),Color(glm::vec3(1))
+		Light(glm::vec3 color = glm::vec3(1))
+			:Position(glm::vec3(1)),Color(color)
 		{
-
 		}
 	};
 }

@@ -170,6 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLBatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="src\Components\MeshRenderer.h" />
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLBatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLConsts.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderer.h" />
@@ -206,6 +208,7 @@
     <ClInclude Include="src\Platforms\Platform.h" />
     <ClInclude Include="src\Platforms\PlatformInstanceGenerator.h" />
     <ClInclude Include="src\Platforms\VertexArrayObject.h" />
+    <ClInclude Include="src\Renderer\BatchedRenderer.h" />
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Mesh.h" />
     <ClInclude Include="src\Renderer\MeshData.h" />
