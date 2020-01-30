@@ -15,6 +15,7 @@ namespace Lava {
 			virtual ~GLRenderer();
 			virtual void Configure(glm::mat4 viewMatrix,glm::mat4 projectionMatrix) override;
 			virtual void SetLightInfo(Light& light) override;
+			virtual void SetFogInfo() override;
 			virtual void CompleteRender() override;
 			virtual void PushInstanceData(Entity* entityPtr) override;
 			virtual void BindObjects(Entity* entityPtr) override;
@@ -39,6 +40,8 @@ namespace Lava {
 			void LoadDefaultShader(std::vector<GLShader*>& list);
 			std::vector<Entity*> m_renderlist;
 			GLShaderBank* m_bank;
+			glm::vec3 FogColor = glm::vec3(.2, 0.2, .2);
+			float FogDensity = .8;
 		};
 	}
 }

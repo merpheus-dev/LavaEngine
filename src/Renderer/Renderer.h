@@ -11,6 +11,7 @@ namespace Lava {
 		virtual void BindAttribute(int variableIndex, const char* variableName) = 0;
 		virtual void Configure(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) = 0;
 		virtual void SetLightInfo(Light& light) = 0;
+		virtual void SetFogInfo() = 0;
 		virtual void CompleteRender() = 0;
 		virtual void PushInstanceData(Entity* entityPtr) = 0;
 		virtual void BindObjects(Entity* entityPtr) = 0;

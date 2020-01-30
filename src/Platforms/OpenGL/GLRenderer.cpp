@@ -29,7 +29,7 @@ namespace Lava {
 			glEnable(GL_CULL_FACE);
 			glEnable(GL_DEPTH_TEST);
 			glCullFace(GL_BACK);
-			glClearColor(0, 0, 0, 1);
+			glClearColor(FogColor.x,FogColor.y,FogColor.z, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			m_bank->Bind();
 
@@ -41,6 +41,12 @@ namespace Lava {
 		{
 			m_bank->GetShader(0)->SetFloat3("LightPosition", light.Position);
 			m_bank->GetShader(1)->SetFloat3("LightColor", light.Color);
+		}
+
+		void GLRenderer::SetFogInfo()
+		{
+			m_bank->GetShader(0)->SetFloat1("FogDensity", FogDensity);
+			m_bank->GetShader(1)->SetFloat3("FogColor", FogColor);
 		}
 
 		void GLRenderer::CompleteRender()

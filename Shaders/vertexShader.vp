@@ -8,19 +8,26 @@ out vec2 pass_textureCoords;
 out vec3 vertexNormal;
 out vec3 lightVector;
 out vec3 camVector;
+out float fog;
 
 uniform mat4 Model;
 uniform mat4 View;
 uniform mat4 Projection;
 uniform vec3 LightPosition;
+uniform float FogDensity=0.005;
 
 void main(void){
-	vec4 worldPos = Model* vec4(position,1.0);
-	gl_Position = Projection * View * worldPos;
+	vec4 worldSpace = Model* vec4(position,1.0);
+	vec4 viewSpace = View * worldSpace;
+	gl_Position = Projection * viewSpace;
+
 	pass_textureCoords = texCoord;
 	vertexNormal = (Model* vec4(normal,0.0)).xyz;
-	lightVector = LightPosition - worldPos.xyz;
+	lightVector = LightPosition - worldSpace.xyz;
 
 	vec4 camPos = inverse(View) * vec4(0,0,0,1);
-	camVector =  normalize(camPos.xyz - worldPos.xyz);
+	camVector =  normalize(camPos.xyz - worldSpace.xyz);
+
+	float distance = length(viewSpace.xyz);
+	fog = clamp(1.0/exp(pow(distance*FogDensity,2)),0.0,1.0);
 }

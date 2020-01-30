@@ -18,10 +18,12 @@ namespace Lava {
 		{
 			m_renderer->Configure(GetViewMatrix(camera),GetProjectionMatrix());
 			m_renderer->SetLightInfo(light);
+			m_renderer->SetFogInfo();
 			m_renderer->Render(m_batchList);
 			m_renderer->CompleteRender();
 			m_batchList.clear();
 		}
+
 		void GLBatchedRenderer::AddToBatch(Entity* entity)
 		{
 			bool didRendererBatched = m_batchList.find(entity->meshRenderer) != m_batchList.end();
@@ -36,7 +38,6 @@ namespace Lava {
 				auto found = m_batchList.at(entity->meshRenderer);
 				found->push_back(entity);
 			}
-		 	
 		}
 	}
 }
