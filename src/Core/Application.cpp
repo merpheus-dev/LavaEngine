@@ -14,6 +14,7 @@
 #include <iostream>
 #include "../Utils/ObjImporter.h"
 #include "../Utils/AssetImporter.h"
+#include "LavaTime.h"
 #include <time.h>
 namespace Lava {
 	int GetRandom() {
@@ -59,6 +60,7 @@ namespace Lava {
 		bool onStartExecuted = false;
 
 		while (!manager.IsWindowClosed()) {
+			Time::CalculateDeltaTime();
 			if (!onStartExecuted) {
 				for (auto& eachEntity : entities) {
 					for (int i = 0; i < 3; i++) {
@@ -75,47 +77,48 @@ namespace Lava {
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 			{
-				camera.transform.Position.z -= 0.001f;
+				camera.transform.Position.z -= Time::deltaTime;
+				std::cout << Time::deltaTime << std::endl;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
 			{
-				camera.transform.Position.z += 0.001f;
+				camera.transform.Position.z +=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_A) == GLFW_PRESS) {
-				camera.transform.Position.x -= 0.001f;
+				camera.transform.Position.x -= Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_D) == GLFW_PRESS) {
-				camera.transform.Position.x += 0.001f;
+				camera.transform.Position.x +=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_Q) == GLFW_PRESS) {
-				camera.transform.Position.y -= 0.001f;
+				camera.transform.Position.y -=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_E) == GLFW_PRESS) {
-				camera.transform.Position.y += 0.001f;
+				camera.transform.Position.y +=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_4) == GLFW_PRESS) {
-				light.Position.x -= .01f;
+				light.Position.x -=  Time::deltaTime;
 			}
 
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_6) == GLFW_PRESS) {
-				light.Position.x += .01f;
+				light.Position.x +=  Time::deltaTime;
 			}
 
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_8) == GLFW_PRESS) {
-				light.Position.y += .01f;
+				light.Position.y +=  Time::deltaTime;
 			}
 
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_2) == GLFW_PRESS) {
-				light.Position.y -= .01f;
+				light.Position.y -=  Time::deltaTime;
 			}
 
 			_renderer.Update(camera, light);

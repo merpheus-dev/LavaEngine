@@ -170,6 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
+    <ClCompile Include="src\Core\LavaTime.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLBatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
@@ -197,6 +198,8 @@
     <ClInclude Include="src\Components\MeshRenderer.h" />
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
+    <ClInclude Include="src\Core\LavaTime.h" />
+    <ClInclude Include="src\Physics\Rigidbody.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLBatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLConsts.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
