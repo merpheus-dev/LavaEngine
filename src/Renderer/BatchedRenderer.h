@@ -2,7 +2,7 @@
 #include "../Components/Camera.h"
 #include "../Components/Light.h"
 #include "../Components/Entity.h"
-#include "Renderer.h"
+#include "EntityRenderer.h"
 #include "RenderObject.h"
 #include <map>
 #include <vector>
@@ -15,6 +15,6 @@ namespace Lava {
 
 	protected:
 		std::map<MeshRenderer*, std::vector<Entity*>*> m_batchList;
-		Renderer* m_renderer;
+		EntityRenderer* m_renderer;
 	};
 }

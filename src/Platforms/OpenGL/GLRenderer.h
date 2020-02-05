@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Renderer/Renderer.h"
+#include "../../Renderer/EntityRenderer.h"
 #include "../../Components/Entity.h"
 #include "GLRenderObject.h"
 #include "GLMeshData.h"
@@ -9,7 +9,7 @@
 #include<memory>
 namespace Lava {
 	namespace OpenGL {
-		class GLRenderer :public Renderer {
+		class GLRenderer :public EntityRenderer {
 		public:
 			GLRenderer(std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();

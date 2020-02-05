@@ -14,7 +14,7 @@ namespace Lava {
 			virtual void AddToBatch(Entity* entity) override;
 		private:
 			glm::mat4 GetProjectionMatrix(Camera& camera) {
-				return glm::perspective<float>(glm::radians(camera.fov), WindowManager::GetAspectRatio(), .001, 1000.);
+				return glm::perspective<float>(glm::radians(camera.fov), WindowManager::GetAspectRatio(), camera.near_plane,camera.far_plane );
 			}
 
 			glm::mat4 GetViewMatrix(Camera& camera) {
