@@ -96,8 +96,6 @@ namespace Lava {
 			for (int i = 0; i < m_renderlist.size(); i++)
 			{
 				BindObjects(m_renderlist[i]);
-
-
 				//if (renderObjectPtr->HasTexture())
 
 				UnBindObjects(m_renderlist[i]);

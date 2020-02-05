@@ -116,7 +116,8 @@ namespace Lava {
 				}
 
 
-				pack->material->SetTexture(nullptr, texCoords);
+				pack->mesh->m_uvCoords = &texCoords[0];
+				pack->mesh->m_uvCoordCount = texCoords.size();
 				return pack;
 			}
 

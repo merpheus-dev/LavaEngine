@@ -56,4 +56,13 @@ namespace Lava
 		m_windowWidth = width;
 		m_windowHeight = height;
 	}
+
+	float WindowManager::GetAspectRatio()
+	{
+		return WindowManager::m_windowWidth / (m_windowHeight*1.f);
+	}
+
+	GLFWwindow* WindowManager::m_window;
+	int WindowManager::m_windowWidth = 1600;
+	int WindowManager::m_windowHeight = 900;
 }

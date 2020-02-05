@@ -45,7 +45,7 @@ namespace Lava {
 		for (int a = 0; a < 100; a++) {
 			Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
 			entity->SetBufferLayout(bufferElements);
-			entity->material->AssignTexture(&texture);
+			entity->material->m_mainTexture = &texture;
 			if (!batchableRenderer)
 				batchableRenderer = entity->GetMeshRenderer(Platform::OpenGL);
 			else

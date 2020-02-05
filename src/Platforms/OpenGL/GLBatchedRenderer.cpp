@@ -16,7 +16,7 @@ namespace Lava {
 
 		void GLBatchedRenderer::Update(Camera camera, Light light)
 		{
-			m_renderer->Configure(GetViewMatrix(camera),GetProjectionMatrix());
+			m_renderer->Configure(GetViewMatrix(camera),GetProjectionMatrix(camera));
 			m_renderer->SetLightInfo(light);
 			m_renderer->SetFogInfo();
 			m_renderer->Render(m_batchList);

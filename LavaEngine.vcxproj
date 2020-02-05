@@ -183,6 +183,7 @@
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\ShaderBank.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Renderer\TextureCubeMap.cpp" />
     <ClCompile Include="src\Renderer\VertexArrayObject.cpp" />
     <ClCompile Include="src\Utils\AssetImporter.cpp" />
     <ClCompile Include="src\Utils\Debug.cpp" />
@@ -199,7 +200,7 @@
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
     <ClInclude Include="src\Core\LavaTime.h" />
-    <ClInclude Include="src\Physics\Rigidbody.h" />
+    <ClInclude Include="src\Physics\PhysicsEntity.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLBatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLConsts.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
@@ -221,7 +222,9 @@
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\ShaderBank.h" />
     <ClInclude Include="src\Renderer\ShaderType.h" />
+    <ClInclude Include="src\Renderer\SkyboxRenderer.h" />
     <ClInclude Include="src\Renderer\Texture.h" />
+    <ClInclude Include="src\Renderer\TextureCubeMap.h" />
     <ClInclude Include="src\Renderer\VertexArrayObject.h" />
     <ClInclude Include="src\Utils\AssetImporter.h" />
     <ClInclude Include="src\Utils\Debug.h" />

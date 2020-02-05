@@ -1,6 +1,7 @@
 #pragma once
 namespace Lava
 {
+	//To-Do:Replace the name with Texture2D
 	struct Texture {
 		int width;
 		int height;

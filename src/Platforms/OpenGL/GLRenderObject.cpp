@@ -9,11 +9,11 @@ namespace Lava {
 			m_material = material;
 			m_vao = new GLVAO();
 
-			m_vbo = CreateRef<GLVertexBuffer>(mesh.m_positions, mesh.m_posCount);
+			m_vbo = CreateRef<GLVertexBuffer>(m_mesh.m_positions, m_mesh.m_posCount);
 			m_vbo->SetBufferElements(m_mesh.m_bufferLayoutElement,&(m_mesh.m_bufferLayoutCount));
 			m_vao->AddVertexBufferObject(m_vbo,0);
 
-			m_texCoord = CreateRef<GLVertexBuffer>(m_material.m_uvCoords, m_material.m_uvCoordCount);
+			m_texCoord = CreateRef<GLVertexBuffer>(m_mesh.m_uvCoords, m_mesh.m_uvCoordCount);
 			m_texCoord->SetBufferElements(m_mesh.m_bufferLayoutElement, &(m_mesh.m_bufferLayoutCount));
 			m_vao->AddVertexBufferObject(m_texCoord,1);
 
@@ -21,7 +21,7 @@ namespace Lava {
 			m_normalBuffer->SetBufferElements(m_mesh.m_bufferLayoutElement, &(m_mesh.m_bufferLayoutCount));
 			m_vao->AddVertexBufferObject(m_normalBuffer, 2);
 
-			m_ibo = CreateRef<GLIndexBuffer>(mesh.m_indices, mesh.m_indiceCount);
+			m_ibo = CreateRef<GLIndexBuffer>(m_mesh.m_indices, m_mesh.m_indiceCount);
 			m_vao->SetIndexBuffer(m_ibo);
 		}
 		void GLRenderObject::EnableAttributes()

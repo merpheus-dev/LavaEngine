@@ -15,9 +15,12 @@ namespace Lava {
 		void SetWindowResolution(int& width, int& height);
 
 	private:
-		GLFWwindow* m_window;
-		int m_windowWidth=512;
-		int m_windowHeight=512;
+		static int m_windowWidth;
+		static int m_windowHeight;
 		const char* m_titlePtr;
+
+	public:
+		static GLFWwindow* m_window;
+		static float GetAspectRatio();
 	};
 }

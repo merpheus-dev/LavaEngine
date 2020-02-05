@@ -22,8 +22,8 @@ namespace Lava {
 			pack->mesh->m_normCount = model->mNumVertices * 3;
 			pack->mesh->m_normals = new float[model->mNumVertices * 3];
 
-			pack->material->m_uvCoordCount = model->mNumVertices * 2;
-			pack->material->m_uvCoords = new float[model->mNumVertices * 2];
+			pack->mesh->m_uvCoordCount = model->mNumVertices * 2;
+			pack->mesh->m_uvCoords = new float[model->mNumVertices * 2];
 
 			for (int i = 0; i < model->mNumVertices; i++) {
 				pack->mesh->m_positions[i * 3] = model->mVertices[i].x;
@@ -37,8 +37,8 @@ namespace Lava {
 				}
 
 				if (model->HasTextureCoords(0)) {
-					pack->material->m_uvCoords[i * 2] = model->mTextureCoords[0][i].x;
-					pack->material->m_uvCoords[i * 2 + 1] =1- model->mTextureCoords[0][i].y;
+					pack->mesh->m_uvCoords[i * 2] = model->mTextureCoords[0][i].x;
+					pack->mesh->m_uvCoords[i * 2 + 1] =1- model->mTextureCoords[0][i].y;
 				}
 			}
 

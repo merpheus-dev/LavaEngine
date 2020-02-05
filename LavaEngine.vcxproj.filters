@@ -78,6 +78,9 @@
     <ClCompile Include="src\Core\LavaTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\TextureCubeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -191,7 +194,13 @@
     <ClInclude Include="src\Core\LavaTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physics\Rigidbody.h">
+    <ClInclude Include="src\Physics\PhysicsEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\TextureCubeMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\SkyboxRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
