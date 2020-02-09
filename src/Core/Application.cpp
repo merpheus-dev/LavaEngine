@@ -16,18 +16,19 @@
 #include "../Utils/AssetImporter.h"
 #include "LavaTime.h"
 #include <time.h>
+#include "../Utils/Mathematics.h"
 namespace Lava {
-	int GetRandom() {
-		return rand() % 100;
-	}
-
 	void Application::Run() {
 		WindowManager manager;
 		if (manager.GenerateWindow() == -1)
 			return;
 
+		Scene* scene = new Scene();
+		scene->FogColor = glm::vec3(.3, .3, .3);
+		scene->FogDensity = .5f;
+
 		//OpenGL::GLRenderer renderer = OpenGL::GLRenderer(std::vector<Lava::OpenGL::GLShader*>());
-		OpenGL::GLBatchedRenderer _renderer = OpenGL::GLBatchedRenderer(std::vector<Lava::OpenGL::GLShader*>());
+		OpenGL::GLBatchedRenderer _renderer = OpenGL::GLBatchedRenderer(scene,std::vector<Lava::OpenGL::GLShader*>());
 
 		std::vector<VertexBufferElement> bufferElements(3);
 		bufferElements[0].uniform_name = "position";
@@ -53,7 +54,6 @@ namespace Lava {
 			entities.push_back(entity);
 		}
 
-		srand(time(0));
 		Camera camera;
 
 		Light light = Light(glm::vec3(1, 1, 1));
@@ -65,7 +65,7 @@ namespace Lava {
 				for (auto& eachEntity : entities) {
 					for (int i = 0; i < 3; i++) {
 						
-						float randPos = GetRandom() / 50.f;
+						float randPos = Lava::Mathematics::GetRandom() / 50.f;
 						eachEntity->transform->Position[i] = randPos;
 					}
 				}
@@ -75,6 +75,7 @@ namespace Lava {
 				_renderer.AddToBatch(entity);
 			}
 
+	#pragma region Debug Input Handling
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 			{
 				camera.transform.Position.z -= Time::deltaTime;
@@ -120,12 +121,12 @@ namespace Lava {
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_2) == GLFW_PRESS) {
 				light.Position.y -=  Time::deltaTime;
 			}
+#pragma endregion
 
 			_renderer.Update(camera, light);
 
 			manager.UpdateWindow();
 		}
 		manager.DestroyWindow();
-		//_renderer.~GLBatchedRenderer();
 	}
 }

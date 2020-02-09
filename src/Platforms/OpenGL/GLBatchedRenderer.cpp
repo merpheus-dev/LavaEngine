@@ -1,9 +1,9 @@
 #include "GLBatchedRenderer.h"
 namespace Lava {
 	namespace OpenGL {
-		GLBatchedRenderer::GLBatchedRenderer(std::vector<GLShader*> shader_list)
+		GLBatchedRenderer::GLBatchedRenderer(Scene* scene,std::vector<GLShader*> shader_list)
 		{
-			m_renderer = new GLRenderer(shader_list);
+			m_renderer = new GLRenderer(scene,shader_list);
 			m_renderer->BindAttribute(0, "position");
 			m_renderer->BindAttribute(1, "texCoord");
 			m_renderer->BindAttribute(2, "normal");

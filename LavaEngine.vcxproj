@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\LavaTime.cpp" />
+    <ClCompile Include="src\Core\Scene.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLBatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="src\Utils\Debug.cpp" />
     <ClCompile Include="src\LavaEngine.cpp" />
     <ClCompile Include="src\Core\WindowManager.cpp" />
+    <ClCompile Include="src\Utils\Mathematics.cpp" />
     <ClCompile Include="src\Utils\ObjImporter.cpp" />
     <ClCompile Include="src\Utils\TextUtils.cpp" />
   </ItemGroup>
@@ -199,6 +201,8 @@
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
     <ClInclude Include="src\Core\LavaTime.h" />
+    <ClInclude Include="src\Core\Scene.h" />
+    <ClInclude Include="src\Core\SceneObjectInfo.h" />
     <ClInclude Include="src\Physics\PhysicsEntity.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLBatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLConsts.h" />
@@ -230,6 +234,7 @@
     <ClInclude Include="src\Utils\Debug.h" />
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\WindowManager.h" />
+    <ClInclude Include="src\Utils\Mathematics.h" />
     <ClInclude Include="src\Utils\MemoryUtils.h" />
     <ClInclude Include="src\Utils\ObjImporter.h" />
     <ClInclude Include="src\Utils\TextUtils.h" />

@@ -1,17 +1,17 @@
 #pragma once
+#include<vector>
+#include<memory>
 #include "../../Renderer/EntityRenderer.h"
 #include "../../Components/Entity.h"
 #include "GLRenderObject.h"
-#include "GLMeshData.h"
 #include "GLShader.h"
 #include "GLShaderBank.h"
-#include<vector>
-#include<memory>
+#include "../../Core/Scene.h"
 namespace Lava {
 	namespace OpenGL {
 		class GLRenderer :public EntityRenderer {
 		public:
-			GLRenderer(std::vector<GLShader*> shader_list);
+			GLRenderer(Scene* scene, std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();
 			virtual void Configure(glm::mat4 viewMatrix,glm::mat4 projectionMatrix) override;
 			virtual void SetLightInfo(Light& light) override;
@@ -40,8 +40,6 @@ namespace Lava {
 			void LoadDefaultShader(std::vector<GLShader*>& list);
 			std::vector<Entity*> m_renderlist;
 			GLShaderBank* m_bank;
-			glm::vec3 FogColor = glm::vec3(.2, 0.2, .2);
-			float FogDensity = .8;
 		};
 	}
 }

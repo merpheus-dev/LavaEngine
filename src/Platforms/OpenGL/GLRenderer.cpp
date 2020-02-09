@@ -6,9 +6,10 @@
 #include "../Platform.h"
 namespace Lava {
 	namespace OpenGL {
-		GLRenderer::GLRenderer(std::vector<GLShader*> shader_list)
+		GLRenderer::GLRenderer(Scene* scene, std::vector<GLShader*> shader_list)
 		{
 			m_bank = new GLShaderBank();
+			m_scene = scene;
 
 			if (shader_list.size() == 0)
 				LoadDefaultShader(shader_list);
@@ -29,7 +30,7 @@ namespace Lava {
 			glEnable(GL_CULL_FACE);
 			glEnable(GL_DEPTH_TEST);
 			glCullFace(GL_BACK);
-			glClearColor(FogColor.x,FogColor.y,FogColor.z, 1);
+			glClearColor(m_scene->FogColor.x, m_scene->FogColor.y, m_scene->FogColor.z, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			m_bank->Bind();
 
@@ -45,8 +46,8 @@ namespace Lava {
 
 		void GLRenderer::SetFogInfo()
 		{
-			m_bank->GetShader(0)->SetFloat1("FogDensity", FogDensity);
-			m_bank->GetShader(1)->SetFloat3("FogColor", FogColor);
+			m_bank->GetShader(0)->SetFloat1("FogDensity", m_scene->FogDensity);
+			m_bank->GetShader(1)->SetFloat3("FogColor", m_scene->FogColor);
 		}
 
 		void GLRenderer::CompleteRender()

@@ -8,7 +8,7 @@ namespace Lava {
 	namespace OpenGL {
 		class GLBatchedRenderer : public BatchedRenderer{
 		public:
-			GLBatchedRenderer(std::vector<GLShader*> shader_list);
+			GLBatchedRenderer(Scene* scene,std::vector<GLShader*> shader_list);
 			virtual ~GLBatchedRenderer();
 			virtual void Update(Camera camera, Light light) override;
 			virtual void AddToBatch(Entity* entity) override;

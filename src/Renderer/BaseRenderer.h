@@ -4,6 +4,7 @@
 #include "../Components/Camera.h"
 #include "../Components/Light.h"
 #include "../Components/Entity.h"
+#include "../Core/Scene.h"
 #include <map>
 namespace Lava {
 	class BaseRenderer {
@@ -16,5 +17,8 @@ namespace Lava {
 		virtual void UnBindObjects(Entity* entityPtr) = 0;
 		virtual void Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities) = 0;
 		virtual void Update(Camera camera, Light light) = 0;
+
+	protected:
+		Scene* m_scene;
 	};
 }
