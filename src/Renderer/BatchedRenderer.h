@@ -10,7 +10,7 @@ namespace Lava {
 	class BatchedRenderer {
 	public:
 		virtual ~BatchedRenderer() = default;
-		virtual void Update(Camera camera, Light light) = 0;
+		virtual void Update(Scene* scene) = 0;
 		virtual void AddToBatch(Entity* entity) = 0;
 
 	protected:

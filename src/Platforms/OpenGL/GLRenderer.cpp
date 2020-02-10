@@ -38,10 +38,16 @@ namespace Lava {
 			m_bank->GetShader(0)->SetMatrix4x4("Projection", projectionMatrix);
 		}
 
-		void GLRenderer::SetLightInfo(Light& light)
+		void GLRenderer::SetLightInfo(Scene* scene)
 		{
-			m_bank->GetShader(0)->SetFloat3("LightPosition", light.Position);
-			m_bank->GetShader(1)->SetFloat3("LightColor", light.Color);
+			m_bank->GetShader(1)->SetFloat1("AmbientLightIntensity", scene->AmbientLightIntensity);
+			for (int i = 0; i < scene->Lights->size(); i++) {
+				auto& light = scene->Lights->at(i);
+				m_bank->GetShader(0)->SetFloat3(("LightPosition[" + std::to_string(i) + "]").c_str(), light->Position);
+				m_bank->GetShader(1)->SetFloat3(("LightColor[" + std::to_string(i) + "]").c_str(), light->Color);
+				m_bank->GetShader(1)->SetFloat3(("LightAttenuation[" + std::to_string(i) + "]").c_str(), light->Attenuation);
+				m_bank->GetShader(1)->SetFloat1(("LightIntensity[" + std::to_string(i) + "]").c_str(), light->Intensity);
+			}
 		}
 
 		void GLRenderer::SetFogInfo()
@@ -68,7 +74,7 @@ namespace Lava {
 			GLRenderObject* renderObjectPtr = (GLRenderObject*)(entityPtr->GetMeshRenderer(Platform::OpenGL)->GetRenderObject());
 			renderObjectPtr->m_vao->Bind();
 			EnableAttributesForRenderObject(entityPtr);
-			if(renderObjectPtr->HasTexture())
+			if (renderObjectPtr->HasTexture())
 				glBindTexture(GL_TEXTURE_2D, entityPtr->material->m_mainTexture->texture_id);
 
 		}

@@ -14,10 +14,10 @@ namespace Lava {
 			delete m_renderer;
 		}
 
-		void GLBatchedRenderer::Update(Camera camera, Light light)
+		void GLBatchedRenderer::Update(Scene* scene)
 		{
-			m_renderer->Configure(GetViewMatrix(camera),GetProjectionMatrix(camera));
-			m_renderer->SetLightInfo(light);
+			m_renderer->Configure(GetViewMatrix(*(scene->ActiveCamera)),GetProjectionMatrix(*(scene->ActiveCamera)));
+			m_renderer->SetLightInfo(scene);
 			m_renderer->SetFogInfo();
 			m_renderer->Render(m_batchList);
 			m_renderer->CompleteRender();

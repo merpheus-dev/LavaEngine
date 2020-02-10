@@ -23,9 +23,14 @@ namespace Lava {
 		if (manager.GenerateWindow() == -1)
 			return;
 
+		Camera* camera = new Camera();
+		Light* light = new DirectionalLight(glm::vec3(.4, .4, .4));
+
 		Scene* scene = new Scene();
 		scene->FogColor = glm::vec3(.3, .3, .3);
 		scene->FogDensity = .5f;
+		scene->Lights->at(0) = light;
+		scene->ActiveCamera = camera;
 
 		//OpenGL::GLRenderer renderer = OpenGL::GLRenderer(std::vector<Lava::OpenGL::GLShader*>());
 		OpenGL::GLBatchedRenderer _renderer = OpenGL::GLBatchedRenderer(scene,std::vector<Lava::OpenGL::GLShader*>());
@@ -54,9 +59,7 @@ namespace Lava {
 			entities.push_back(entity);
 		}
 
-		Camera camera;
 
-		Light light = Light(glm::vec3(1, 1, 1));
 		bool onStartExecuted = false;
 
 		while (!manager.IsWindowClosed()) {
@@ -78,52 +81,52 @@ namespace Lava {
 	#pragma region Debug Input Handling
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 			{
-				camera.transform.Position.z -= Time::deltaTime;
+				camera->transform.Position.z -= Time::deltaTime;
 				std::cout << Time::deltaTime << std::endl;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
 			{
-				camera.transform.Position.z +=  Time::deltaTime;
+				camera->transform.Position.z +=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_A) == GLFW_PRESS) {
-				camera.transform.Position.x -= Time::deltaTime;
+				camera->transform.Position.x -= Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_D) == GLFW_PRESS) {
-				camera.transform.Position.x +=  Time::deltaTime;
+				camera->transform.Position.x +=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_Q) == GLFW_PRESS) {
-				camera.transform.Position.y -=  Time::deltaTime;
+				camera->transform.Position.y -=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_E) == GLFW_PRESS) {
-				camera.transform.Position.y +=  Time::deltaTime;
+				camera->transform.Position.y +=  Time::deltaTime;
 			}
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_4) == GLFW_PRESS) {
-				light.Position.x -=  Time::deltaTime;
+				light->Position.x -=  Time::deltaTime;
 			}
 
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_6) == GLFW_PRESS) {
-				light.Position.x +=  Time::deltaTime;
+				light->Position.x +=  Time::deltaTime;
 			}
 
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_8) == GLFW_PRESS) {
-				light.Position.y +=  Time::deltaTime;
+				light->Position.y +=  Time::deltaTime;
 			}
 
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_KP_2) == GLFW_PRESS) {
-				light.Position.y -=  Time::deltaTime;
+				light->Position.y -=  Time::deltaTime;
 			}
 #pragma endregion
 
-			_renderer.Update(camera, light);
+			_renderer.Update(scene);
 
 			manager.UpdateWindow();
 		}

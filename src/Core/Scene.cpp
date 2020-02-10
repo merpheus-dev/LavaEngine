@@ -1,5 +1,14 @@
 #include "Scene.h"
 
+Lava::Scene::Scene()
+	:ActiveCamera(nullptr),FogColor(glm::vec3(0,0,0))
+{
+	Lights = new std::array<Light*, 4>();
+	for (int i = 0; i < Lights->size();i++) {
+		(*Lights)[i] = new Light(glm::vec3(0, 0, 0));
+	}
+}
+
 void Lava::Scene::Load(const char* fileDir)
 {
 	std::string sceneContent = TextUtils::ReadText(fileDir);

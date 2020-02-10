@@ -6,9 +6,26 @@ namespace Lava {
 		glm::vec3 Position;
 		glm::vec3 Color;
 		float Intensity;
+		glm::vec3 Attenuation;
 		Light(glm::vec3 color = glm::vec3(1))
-			:Position(glm::vec3(1)),Color(color),Intensity(1.0f)
+			:Position(glm::vec3(1)), Color(color), Intensity(1.0f), Attenuation(glm::vec3(1, 0, 0))
 		{
+		}
+	};
+
+	class DirectionalLight : public Light {
+	public:
+		DirectionalLight(glm::vec3 color = glm::vec3(1)) : Light(color)
+		{
+
+		}
+	};
+
+	class PointLight : public Light {
+	public:
+		PointLight(glm::vec3 attenuation = glm::vec3(1, 0.01f, 0.002f))
+		{
+			Attenuation = attenuation;
 		}
 	};
 }

@@ -4,18 +4,28 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-#include "../Utils/TextUtils.h"
+#include <array>
 #include "SceneObjectInfo.h"
+#include "../Utils/TextUtils.h"
+#include "../Components/Camera.h"
+#include "../Components/Light.h"
 namespace Lava {
 	class Scene {
 	public:
-		std::vector<SceneObjectInfo> SceneObjects;
-		glm::vec3 FogColor;
-		float FogDensity = 0.f;
-	public:
+		Scene();
 		void Load(const char* fileDir);
 
 	private:
 		void LoadModelInfos(std::string sceneContext);
+
+	public:
+		std::vector<SceneObjectInfo> SceneObjects;
+		Camera* ActiveCamera;
+
+		glm::vec3 FogColor;
+		float FogDensity = 0.f;
+
+		std::array<Light*, 4>* Lights;
+		float AmbientLightIntensity = .2f;
 	};
 }

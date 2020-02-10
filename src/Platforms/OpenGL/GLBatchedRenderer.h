@@ -10,7 +10,7 @@ namespace Lava {
 		public:
 			GLBatchedRenderer(Scene* scene,std::vector<GLShader*> shader_list);
 			virtual ~GLBatchedRenderer();
-			virtual void Update(Camera camera, Light light) override;
+			virtual void Update(Scene* scene) override;
 			virtual void AddToBatch(Entity* entity) override;
 		private:
 			glm::mat4 GetProjectionMatrix(Camera& camera) {

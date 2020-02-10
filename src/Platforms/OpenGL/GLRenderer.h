@@ -14,7 +14,7 @@ namespace Lava {
 			GLRenderer(Scene* scene, std::vector<GLShader*> shader_list);
 			virtual ~GLRenderer();
 			virtual void Configure(glm::mat4 viewMatrix,glm::mat4 projectionMatrix) override;
-			virtual void SetLightInfo(Light& light) override;
+			virtual void SetLightInfo(Scene* scene) override;
 			virtual void SetFogInfo() override;
 			virtual void CompleteRender() override;
 			virtual void PushInstanceData(Entity* entityPtr) override;
