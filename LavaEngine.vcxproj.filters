@@ -84,6 +84,15 @@
     <ClCompile Include="src\Utils\Mathematics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLSkyboxRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLMasterRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\AssetDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -194,9 +203,6 @@
     <ClInclude Include="src\Core\LavaTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Physics\PhysicsEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer\TextureCubeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -218,9 +224,40 @@
     <ClInclude Include="src\Utils\Mathematics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\MasterRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLMasterRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLSkyboxRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
     <None Include="Shaders\vertexShader.vp" />
+    <None Include="Shaders\Skybox.vp" />
+    <None Include="Shaders\Skybox.fp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Skybox Images\bottom.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Skybox Images\front.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Skybox Images\left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Skybox Images\right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Skybox Images\top.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\Skybox Images\back.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

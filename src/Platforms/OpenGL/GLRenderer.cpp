@@ -6,10 +6,9 @@
 #include "../Platform.h"
 namespace Lava {
 	namespace OpenGL {
-		GLRenderer::GLRenderer(Scene* scene, std::vector<GLShader*> shader_list)
+		GLRenderer::GLRenderer(Scene* scene, std::vector<GLShader*> shader_list) : EntityRenderer(scene)
 		{
 			m_bank = new GLShaderBank();
-			m_scene = scene;
 
 			if (shader_list.size() == 0)
 				LoadDefaultShader(shader_list);
@@ -27,13 +26,7 @@ namespace Lava {
 
 		void GLRenderer::Configure(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 		{
-			glEnable(GL_CULL_FACE);
-			glEnable(GL_DEPTH_TEST);
-			glCullFace(GL_BACK);
-			glClearColor(m_scene->FogColor.x, m_scene->FogColor.y, m_scene->FogColor.z, 1);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			m_bank->Bind();
-
 			m_bank->GetShader(0)->SetMatrix4x4("View", viewMatrix);
 			m_bank->GetShader(0)->SetMatrix4x4("Projection", projectionMatrix);
 		}
@@ -98,7 +91,7 @@ namespace Lava {
 		}
 
 
-		void GLRenderer::Update(Camera camera, Light light)
+		void GLRenderer::Update(Scene* scene)
 		{
 			for (int i = 0; i < m_renderlist.size(); i++)
 			{

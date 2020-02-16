@@ -33,11 +33,6 @@ namespace Lava
 			glEnableVertexAttribArray(bufferIndex);
 			glVertexAttribPointer(bufferIndex, bufferElements[bufferIndex].uniform_count, GL_FLOAT, GL_FALSE,
 				0, (const void*)0);
-			//for (int i = 0; i < vertexBuffer->GetBufferElementCount(); i++)
-			//{
-
-			//}
-
 			m_vertexBuffer.push_back(vertexBuffer);
 		}
 

@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "WindowManager.h"
 #include "../Platforms/OpenGL/GLRenderer.h"
-#include "../Platforms/OpenGL/GLBatchedRenderer.h"
+#include "../Platforms/OpenGL/GLMasterRenderer.h"
 #include "../Platforms/OpenGL/GLRenderObject.h"
 #include "../Renderer/Mesh.h"
 #include "../Platforms/OpenGL/GLShader.h"
@@ -32,8 +32,7 @@ namespace Lava {
 		scene->Lights->at(0) = light;
 		scene->ActiveCamera = camera;
 
-		//OpenGL::GLRenderer renderer = OpenGL::GLRenderer(std::vector<Lava::OpenGL::GLShader*>());
-		OpenGL::GLBatchedRenderer _renderer = OpenGL::GLBatchedRenderer(scene,std::vector<Lava::OpenGL::GLShader*>());
+		Lava::OpenGL::GLMasterRenderer _renderer = Lava::OpenGL::GLMasterRenderer(scene);
 
 		std::vector<VertexBufferElement> bufferElements(3);
 		bufferElements[0].uniform_name = "position";
@@ -75,10 +74,20 @@ namespace Lava {
 				onStartExecuted = true;
 			}
 			for (auto& entity : entities) {
-				_renderer.AddToBatch(entity);
+				_renderer.batchedRenderer->AddToBatch(entity);
 			}
 
 	#pragma region Debug Input Handling
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_J) == GLFW_PRESS)
+			{
+				camera->transform.Rotation.y -= Time::deltaTime*100;
+			}
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_K) == GLFW_PRESS)
+			{
+				camera->transform.Rotation.y += Time::deltaTime*100;
+			}
+
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 			{
 				camera->transform.Position.z -= Time::deltaTime;
@@ -126,7 +135,7 @@ namespace Lava {
 			}
 #pragma endregion
 
-			_renderer.Update(scene);
+			_renderer.Update();
 
 			manager.UpdateWindow();
 		}
