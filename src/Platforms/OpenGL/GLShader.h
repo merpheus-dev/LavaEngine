@@ -10,6 +10,7 @@ namespace Lava {
 			GLShader(const char* shaderDirectory,ShaderType shaderType, GLShaderBank* bank);
 			virtual void SetBool(const char* name, bool value) override;
 			virtual void SetFloat1(const char* name, float value) override;
+			virtual void SetInt1(const char* name, int value) override;
 			virtual void SetFloat2(const char* name, glm::vec2 value) override;
 			virtual void SetFloat3(const char* name, glm::vec3 value) override;
 			virtual void SetFloat4(const char* name, glm::vec4 value) override;

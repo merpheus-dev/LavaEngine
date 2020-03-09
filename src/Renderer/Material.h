@@ -7,6 +7,7 @@ namespace Lava {
 	//Textures colors and texcoords for shaders
 	struct Material {
 		Texture* m_mainTexture;
+		Texture* m_nrmTexture;
 		float* uvCoords;
 		unsigned int uvCoordCount;
 

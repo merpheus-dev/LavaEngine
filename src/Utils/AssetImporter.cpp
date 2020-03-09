@@ -21,6 +21,8 @@ namespace Lava {
 			pack->mesh->m_positions = new float[model->mNumVertices * 3];
 			pack->mesh->m_normCount = model->mNumVertices * 3;
 			pack->mesh->m_normals = new float[model->mNumVertices * 3];
+			pack->mesh->m_tangentCount = model->mNumVertices * 3;
+			pack->mesh->m_tangents = new float[model->mNumVertices * 3];
 
 			pack->mesh->m_uvCoordCount = model->mNumVertices * 2;
 			pack->mesh->m_uvCoords = new float[model->mNumVertices * 2];
@@ -36,6 +38,13 @@ namespace Lava {
 					pack->mesh->m_normals[i * 3+2] = model->mNormals[i].z;
 				}
 
+				if(model->HasTangentsAndBitangents())
+				{
+					pack->mesh->m_tangents[i * 3] = model->mTangents[i].x;
+					pack->mesh->m_tangents[i * 3+1] = model->mTangents[i].y;
+					pack->mesh->m_tangents[i * 3+2] = model->mTangents[i].z;
+				}
+				
 				if (model->HasTextureCoords(0)) {
 					pack->mesh->m_uvCoords[i * 2] = model->mTextureCoords[0][i].x;
 					pack->mesh->m_uvCoords[i * 2 + 1] =1- model->mTextureCoords[0][i].y;

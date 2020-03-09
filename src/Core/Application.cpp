@@ -34,23 +34,27 @@ namespace Lava {
 
 		Lava::OpenGL::GLMasterRenderer _renderer = Lava::OpenGL::GLMasterRenderer(scene);
 
-		std::vector<VertexBufferElement> bufferElements(3);
+		std::vector<VertexBufferElement> bufferElements(4);
 		bufferElements[0].uniform_name = "position";
 		bufferElements[0].uniform_count = 3;
 		bufferElements[1].uniform_name = "texCoord";
 		bufferElements[1].uniform_count = 2;
 		bufferElements[2].uniform_name = "normal";
 		bufferElements[2].uniform_count = 3;
+		bufferElements[3].uniform_name = "tangent";
+		bufferElements[3].uniform_count = 3;
 
-		auto pack = Lava::Importers::AssetImporter::Load("Assets/Zombie9.obj");
-		auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.jpg");
+		auto pack = Lava::Importers::AssetImporter::Load("Assets/barrel.obj");
+		auto texture = AssetDatabase::LoadTexture("Assets/barrel.png",4);
+		auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
 
 		std::vector<Entity*> entities;
 		MeshRenderer* batchableRenderer = nullptr;
-		for (int a = 0; a < 100; a++) {
+		for (int a = 0; a < 10; a++) {
 			Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
 			entity->SetBufferLayout(bufferElements);
 			entity->material->m_mainTexture = &texture;
+			entity->material->m_nrmTexture = &normal_map;
 			if (!batchableRenderer)
 				batchableRenderer = entity->GetMeshRenderer(Platform::OpenGL);
 			else

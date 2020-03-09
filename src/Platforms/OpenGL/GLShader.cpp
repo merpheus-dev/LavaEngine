@@ -65,6 +65,11 @@ namespace Lava
 			glUniform1f(m_bank->GetVariableLocation(name), value);
 		}
 
+		void GLShader::SetInt1(const char* name, int value)
+		{
+			glUniform1i(m_bank->GetVariableLocation(name), value);
+		}
+
 		void GLShader::SetFloat2(const char* name, glm::vec2 value)
 		{
 			glUniform2f(m_bank->GetVariableLocation(name), value.x, value.y);

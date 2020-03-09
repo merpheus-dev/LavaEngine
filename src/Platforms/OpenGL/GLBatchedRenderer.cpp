@@ -7,6 +7,7 @@ namespace Lava {
 			m_renderer->BindAttribute(0, "position");
 			m_renderer->BindAttribute(1, "texCoord");
 			m_renderer->BindAttribute(2, "normal");
+			m_renderer->BindAttribute(3, "tangent");
 		}
 
 		GLBatchedRenderer::~GLBatchedRenderer()

@@ -67,9 +67,17 @@ namespace Lava {
 			GLRenderObject* renderObjectPtr = (GLRenderObject*)(entityPtr->GetMeshRenderer(Platform::OpenGL)->GetRenderObject());
 			renderObjectPtr->m_vao->Bind();
 			EnableAttributesForRenderObject(entityPtr);
-			if (renderObjectPtr->HasTexture())
+			if (renderObjectPtr->HasTexture()) {
+				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, entityPtr->material->m_mainTexture->texture_id);
-
+				m_bank->GetShader(1)->SetInt1("textureSampler", 0);
+			}
+			
+			if (renderObjectPtr->HasNormalMap()) {
+				glActiveTexture(GL_TEXTURE1);
+				glBindTexture(GL_TEXTURE_2D, entityPtr->material->m_nrmTexture->texture_id);
+				m_bank->GetShader(1)->SetInt1("normalMapSampler", 1);
+			}
 		}
 
 		void GLRenderer::UnBindObjects(Entity* entityPtr)

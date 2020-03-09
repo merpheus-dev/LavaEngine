@@ -21,6 +21,10 @@ namespace Lava {
 			m_normalBuffer->SetBufferElements(m_mesh.m_bufferLayoutElement, &(m_mesh.m_bufferLayoutCount));
 			m_vao->AddVertexBufferObject(m_normalBuffer, 2);
 
+			m_tangentBuffer = CreateRef<GLVertexBuffer>(m_mesh.m_tangents, m_mesh.m_tangentCount);
+			m_tangentBuffer->SetBufferElements(m_mesh.m_bufferLayoutElement, &(m_mesh.m_bufferLayoutCount));
+			m_vao->AddVertexBufferObject(m_tangentBuffer, 3);
+
 			m_ibo = CreateRef<GLIndexBuffer>(m_mesh.m_indices, m_mesh.m_indiceCount);
 			m_vao->SetIndexBuffer(m_ibo);
 		}
@@ -36,7 +40,14 @@ namespace Lava {
 		}
 		bool GLRenderObject::HasTexture()
 		{
+			if (m_material.m_mainTexture == nullptr) return false;
 			return m_material.m_mainTexture->valid;
+		}
+
+		bool GLRenderObject::HasNormalMap()
+		{
+			if (m_material.m_nrmTexture == nullptr) return false;
+			return m_material.m_nrmTexture->valid;
 		}
 	}
 }

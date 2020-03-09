@@ -11,11 +11,13 @@ namespace Lava {
 			void EnableAttributes();
 			void DisableAttributes();
 			bool HasTexture();
+			bool HasNormalMap();
 
 			std::shared_ptr<GLVertexBuffer> m_vbo;
 			std::shared_ptr<GLVertexBuffer> m_normalBuffer;
 			std::shared_ptr<GLIndexBuffer> m_ibo;
 			std::shared_ptr<GLVertexBuffer> m_texCoord;
+			std::shared_ptr<GLVertexBuffer> m_tangentBuffer;
 			GLVAO* m_vao;
 			const char* name;
 		};
