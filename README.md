@@ -7,12 +7,12 @@ Current features:
 - Model import
 - Skybox rendering support
 - Distance based fog support
+- Normal map support
 
 Short term To-Do:
 - Particle system
 - Shadow mapping
 - GUI Support
-- Normal map support
 - Post Processing
 - Input systems
 - Audio Implementation
