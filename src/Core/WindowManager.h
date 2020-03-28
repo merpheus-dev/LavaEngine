@@ -22,5 +22,7 @@ namespace Lava {
 	public:
 		static GLFWwindow* m_window;
 		static float GetAspectRatio();
+		static int Width();
+		static int Height();
 	};
 }

@@ -17,12 +17,17 @@
 #include "LavaTime.h"
 #include <time.h>
 #include "../Utils/Mathematics.h"
+#include "../Platforms/OpenGL/GLFrameBuffers.h"
+#include "../Renderer/DebugUI.h"
 namespace Lava {
 	void Application::Run() {
 		WindowManager manager;
 		if (manager.GenerateWindow() == -1)
 			return;
 
+		DebugUI* debug_ui = new DebugUI();
+		debug_ui->Setup();
+		
 		Camera* camera = new Camera();
 		Light* light = new DirectionalLight(glm::vec3(.4, .4, .4));
 
@@ -62,10 +67,17 @@ namespace Lava {
 			entities.push_back(entity);
 		}
 
+		auto frameBuffer = OpenGL::GLFrameBuffers();
+		auto frame_buffer_id = frameBuffer.CreateFrameBuffer();
+		auto color_tex = frameBuffer.CreateColorTextureAttachment(480, 320);
+		frameBuffer.CreateDepthBufferAttachment(480, 320);
+		debug_ui->Start(color_tex);
 
 		bool onStartExecuted = false;
 
 		while (!manager.IsWindowClosed()) {
+			debug_ui->LoopBegin();
+			
 			Time::CalculateDeltaTime();
 			if (!onStartExecuted) {
 				for (auto& eachEntity : entities) {
@@ -138,9 +150,17 @@ namespace Lava {
 				light->Position.y -=  Time::deltaTime;
 			}
 #pragma endregion
-
+			//TODO:Uncomment for rendering into FBO
+			frameBuffer.BindFrameBuffer(frame_buffer_id, 480, 320);
 			_renderer.Update();
-
+			frameBuffer.UnbindFrameBuffer();
+			//for (auto& entity : entities) {
+			//	_renderer.batchedRenderer->AddToBatch(entity);
+			//}
+			//_renderer.Update();
+			glClear(GL_COLOR_BUFFER_BIT);
+			debug_ui->Render();
+			debug_ui->LoopEnd();
 			manager.UpdateWindow();
 		}
 		manager.DestroyWindow();

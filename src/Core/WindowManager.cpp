@@ -62,6 +62,16 @@ namespace Lava
 		return WindowManager::m_windowWidth / (m_windowHeight*1.f);
 	}
 
+	int WindowManager::Width()
+	{
+		return m_windowWidth;
+	}
+
+	int WindowManager::Height()
+	{
+		return m_windowHeight;
+	}
+
 	GLFWwindow* WindowManager::m_window;
 	int WindowManager::m_windowWidth = 1600;
 	int WindowManager::m_windowHeight = 900;
