@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "WindowManager.h"
 #include "../Platforms/OpenGL/GLRenderer.h"
+#include "../Platforms/OpenGL/GLWaterRenderer.h"
 #include "../Platforms/OpenGL/GLMasterRenderer.h"
 #include "../Platforms/OpenGL/GLRenderObject.h"
 #include "../Renderer/Mesh.h"
@@ -67,11 +68,16 @@ namespace Lava {
 			entities.push_back(entity);
 		}
 
-		auto frameBuffer = OpenGL::GLFrameBuffers();
-		auto frame_buffer_id = frameBuffer.CreateFrameBuffer();
-		auto color_tex = frameBuffer.CreateColorTextureAttachment(480, 320);
-		frameBuffer.CreateDepthBufferAttachment(480, 320);
-		debug_ui->Start(color_tex);
+		//auto frameBuffer = OpenGL::GLFrameBuffers();
+		//auto frame_buffer_id = frameBuffer.CreateFrameBuffer();
+		//auto color_tex = frameBuffer.CreateColorTextureAttachment(480, 320);
+		//frameBuffer.CreateDepthBufferAttachment(480, 320);
+		auto waterRenderer = new OpenGL::GLWaterRenderer(_renderer.GetScenePtr());
+		waterRenderer->SetReflectionDimensions(480, 320);
+		waterRenderer->SetRefractionDimensions(480, 320);
+		waterRenderer->InitReflectionAndRefractionFrameBuffers();
+		auto reflectionTexId = waterRenderer->BindReflectionFbo();
+		debug_ui->Start(reflectionTexId);
 
 		bool onStartExecuted = false;
 
@@ -86,6 +92,8 @@ namespace Lava {
 						float randPos = Lava::Mathematics::GetRandom() / 50.f;
 						eachEntity->transform->Position[i] = randPos;
 					}
+					std::cout << "POS:" << eachEntity->transform->Position.x << "," << eachEntity->transform->Position.y
+						<< "," << eachEntity->transform->Position.z << std::endl;
 				}
 				onStartExecuted = true;
 			}
@@ -150,15 +158,16 @@ namespace Lava {
 				light->Position.y -=  Time::deltaTime;
 			}
 #pragma endregion
-			//TODO:Uncomment for rendering into FBO
-			frameBuffer.BindFrameBuffer(frame_buffer_id, 480, 320);
-			_renderer.Update();
-			frameBuffer.UnbindFrameBuffer();
-			//for (auto& entity : entities) {
-			//	_renderer.batchedRenderer->AddToBatch(entity);
-			//}
-			//_renderer.Update();
-			glClear(GL_COLOR_BUFFER_BIT);
+			waterRenderer->BindReflectionFbo();
+			//waterRenderer->BindRefractionFbo();
+			//frameBuffer.BindFrameBuffer(frame_buffer_id, 480, 320);
+			_renderer.Update(glm::vec4(0,-1,0,1.3));
+			waterRenderer->UnbindAll();
+			//frameBuffer.UnbindFrameBuffer();
+			for (auto& entity : entities) {
+				_renderer.batchedRenderer->AddToBatch(entity);
+			}
+			_renderer.Update(glm::vec4(0, 1, 0, -.5));
 			debug_ui->Render();
 			debug_ui->LoopEnd();
 			manager.UpdateWindow();

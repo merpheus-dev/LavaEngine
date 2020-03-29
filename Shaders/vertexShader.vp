@@ -15,9 +15,11 @@ uniform mat4 View;
 uniform mat4 Projection;
 uniform vec3 LightPosition[4];
 uniform float FogDensity=0.005;
+uniform vec4 ClipPlane;
 
 void main(void){
 	vec4 worldSpace = Model* vec4(position,1.0);
+	gl_ClipDistance[0] = dot(worldSpace,ClipPlane);
 	vec4 viewSpace = View * worldSpace;
 	gl_Position = Projection * viewSpace;
 

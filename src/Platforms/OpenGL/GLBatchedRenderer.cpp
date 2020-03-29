@@ -15,12 +15,12 @@ namespace Lava {
 			delete m_renderer;
 		}
 
-		void GLBatchedRenderer::Update(Scene* scene)
+		void GLBatchedRenderer::Update(Scene* scene, glm::vec4 clipPlane)
 		{
 			m_renderer->Configure(scene->ActiveCamera->GetViewMatrix(), scene->ActiveCamera->GetProjectionMatrix());
 			m_renderer->SetLightInfo(scene);
 			m_renderer->SetFogInfo();
-			m_renderer->Render(m_batchList);
+			m_renderer->Render(m_batchList,clipPlane);
 			m_renderer->CompleteRender();
 			m_batchList.clear();
 		}

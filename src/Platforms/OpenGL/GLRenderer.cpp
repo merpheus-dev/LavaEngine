@@ -86,16 +86,19 @@ namespace Lava {
 			((GLRenderObject*)(entityPtr->GetMeshRenderer(Platform::OpenGL)->GetRenderObject()))->m_vao->Unbind();
 		}
 
-		void GLRenderer::Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities)
+		void GLRenderer::Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities, glm::vec4 clipPlane)
 		{
+			glEnable(GL_CLIP_DISTANCE0);
 			for (auto& batchedPack : entities) {
 				BindObjects((*(batchedPack.second))[0]);
 				for (auto& batchedEntity : (*(batchedPack.second))) {
 					PushInstanceData(batchedEntity);
+					m_bank->GetShader(0)->SetFloat4("ClipPlane", clipPlane);
 					glDrawElements(GL_TRIANGLES, batchedEntity->mesh->m_posCount, GL_UNSIGNED_INT, 0);
 				}
 				UnBindObjects((*(batchedPack.second))[0]);
 			}
+			glDisable(GL_CLIP_DISTANCE0);
 		}
 
 

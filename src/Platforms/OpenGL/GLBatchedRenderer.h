@@ -8,7 +8,7 @@ namespace Lava {
 		public:
 			GLBatchedRenderer(Scene* scene,std::vector<GLShader*> shader_list);
 			virtual ~GLBatchedRenderer();
-			virtual void Update(Scene* scene) override;
+			virtual void Update(Scene* scene, glm::vec4 clipPlane) override;
 			virtual void AddToBatch(Entity* entity) override;
 		};
 	}

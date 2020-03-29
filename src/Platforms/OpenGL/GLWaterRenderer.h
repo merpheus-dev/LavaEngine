@@ -13,6 +13,9 @@ namespace Lava
 		public:
 			GLWaterRenderer(Scene* scene);
 			~GLWaterRenderer();
+			int BindReflectionFbo();
+			int BindRefractionFbo();
+			void UnbindAll();
 			void SetReflectionDimensions(int width, int height);
 			void SetRefractionDimensions(int width, int height);
 			void InitReflectionAndRefractionFrameBuffers();

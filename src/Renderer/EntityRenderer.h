@@ -16,6 +16,6 @@ namespace Lava {
 		virtual void PushInstanceData(Entity* entityPtr) = 0;
 		virtual void BindObjects(Entity* entityPtr) = 0;
 		virtual void UnBindObjects(Entity* entityPtr) = 0;
-		virtual void Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities) = 0;
+		virtual void Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities, glm::vec4 clipPlane) = 0;
 	};
 }

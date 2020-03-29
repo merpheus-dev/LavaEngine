@@ -12,10 +12,15 @@ namespace Lava
 		MasterRenderer(Scene* scene) : m_scene(scene),batchedRenderer(nullptr),skyboxRenderer(nullptr) {
 
 		}
-		void Update() {
+		void Update(glm::vec4 clipPlane) {
 			InternalUpdate();
-			batchedRenderer->Update(m_scene);
+			batchedRenderer->Update(m_scene, clipPlane);
 			skyboxRenderer->Update(m_scene);
+		}
+	public:
+		Scene* GetScenePtr()
+		{
+			return m_scene;
 		}
 	protected:
 		Scene* m_scene;

@@ -26,6 +26,23 @@ Lava::OpenGL::GLWaterRenderer::~GLWaterRenderer()
 	delete m_shaderBank;
 }
 
+int Lava::OpenGL::GLWaterRenderer::BindReflectionFbo()
+{
+	fbos->BindFrameBuffer(m_reflectionFbo, m_reflectionWidth, m_reflectionHeight);
+	return m_reflectionColorTexId;
+}
+
+int Lava::OpenGL::GLWaterRenderer::BindRefractionFbo()
+{
+	fbos->BindFrameBuffer(m_refractionFbo, m_refractionWidth, m_refractionHeight);
+	return m_refractionColorTexId;
+}
+
+void Lava::OpenGL::GLWaterRenderer::UnbindAll()
+{
+	fbos->UnbindFrameBuffer();
+}
+
 void Lava::OpenGL::GLWaterRenderer::SetReflectionDimensions(int width, int height)
 {
 	m_reflectionWidth = width;
@@ -48,6 +65,7 @@ void Lava::OpenGL::GLWaterRenderer::CompleteRender()
 
 void Lava::OpenGL::GLWaterRenderer::Update(Scene* scene)
 {
+	
 }
 
 void Lava::OpenGL::GLWaterRenderer::InitReflectionAndRefractionFrameBuffers()

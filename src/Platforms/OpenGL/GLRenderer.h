@@ -20,7 +20,7 @@ namespace Lava {
 			virtual void PushInstanceData(Entity* entityPtr) override;
 			virtual void BindObjects(Entity* entityPtr) override;
 			virtual void UnBindObjects(Entity* entityPtr) override;
-			virtual void Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities) override;
+			virtual void Render(std::map<MeshRenderer*, std::vector<Entity*>*>& entities, glm::vec4 clipPlane) override;
 			virtual void Update(Scene* scene) override;
 			virtual void BindAttribute(int variableIndex, const char* variableName) override;
 			void AddRenderObject(Entity* renderObject)
