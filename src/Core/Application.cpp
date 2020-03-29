@@ -50,6 +50,7 @@ namespace Lava {
 		bufferElements[3].uniform_name = "tangent";
 		bufferElements[3].uniform_count = 3;
 
+		//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
 		auto pack = Lava::Importers::AssetImporter::Load("Assets/barrel.obj");
 		auto texture = AssetDatabase::LoadTexture("Assets/barrel.png",4);
 		auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
@@ -67,17 +68,28 @@ namespace Lava {
 				entity->meshRenderer = batchableRenderer;
 			entities.push_back(entity);
 		}
-
+		
+		//Entity* water = new Entity(glm::vec3(0.f), water_obj);
+		//water->SetBufferLayout(bufferElements);
+		//water->material->m_mainTexture = &texture;
+		//water->material->m_nrmTexture = &normal_map;
+		////water->meshRenderer = batchableRenderer;
+		//entities.push_back(water);
+		Transform* water_transform = new Transform();
+		_renderer.setup_water_renderer(water_transform);
+		auto gl_water_renderer = (OpenGL::GLWaterRenderer*)_renderer.waterRenderer;
 		//auto frameBuffer = OpenGL::GLFrameBuffers();
 		//auto frame_buffer_id = frameBuffer.CreateFrameBuffer();
 		//auto color_tex = frameBuffer.CreateColorTextureAttachment(480, 320);
 		//frameBuffer.CreateDepthBufferAttachment(480, 320);
-		auto waterRenderer = new OpenGL::GLWaterRenderer(_renderer.GetScenePtr());
-		waterRenderer->SetReflectionDimensions(480, 320);
-		waterRenderer->SetRefractionDimensions(480, 320);
-		waterRenderer->InitReflectionAndRefractionFrameBuffers();
-		auto reflectionTexId = waterRenderer->BindReflectionFbo();
-		debug_ui->Start(reflectionTexId);
+		//auto waterRenderer = new OpenGL::GLWaterRenderer(_renderer.GetScenePtr(),water_transform);
+		gl_water_renderer->SetReflectionDimensions(480, 320);
+		gl_water_renderer->SetRefractionDimensions(480, 320);
+		gl_water_renderer->InitReflectionAndRefractionFrameBuffers();
+		auto reflectionTexId = gl_water_renderer->BindReflectionFbo();
+		auto refractionTexId = gl_water_renderer->BindRefractionFbo();
+		auto tex_ids = std::vector<int>{ refractionTexId ,reflectionTexId };
+		debug_ui->Start(tex_ids);
 
 		bool onStartExecuted = false;
 
@@ -158,16 +170,29 @@ namespace Lava {
 				light->Position.y -=  Time::deltaTime;
 			}
 #pragma endregion
-			waterRenderer->BindReflectionFbo();
+			gl_water_renderer->BindReflectionFbo();
+			float camera_height_distance = 2 * (camera->transform.Position.y - water_transform->Position.y);
+			camera->transform.Position.y -= camera_height_distance;
+			camera->transform.Rotation.x *= -1;
+			_renderer.Update(glm::vec4(0,1, 0,-(water_transform->Position.y)));
+			for (auto& entity : entities) {
+				_renderer.batchedRenderer->AddToBatch(entity);
+			}
+			camera->transform.Position.y += camera_height_distance;
+			camera->transform.Rotation.x *= -1;
+			
+			gl_water_renderer->BindRefractionFbo();
 			//waterRenderer->BindRefractionFbo();
 			//frameBuffer.BindFrameBuffer(frame_buffer_id, 480, 320);
-			_renderer.Update(glm::vec4(0,-1,0,1.3));
-			waterRenderer->UnbindAll();
+			_renderer.Update(glm::vec4(0,-1,0, water_transform->Position.y));
+			gl_water_renderer->UnbindAll();
+			
 			//frameBuffer.UnbindFrameBuffer();
 			for (auto& entity : entities) {
 				_renderer.batchedRenderer->AddToBatch(entity);
 			}
-			_renderer.Update(glm::vec4(0, 1, 0, -.5));
+			glDisable(GL_CLIP_DISTANCE0);
+			_renderer.Update(glm::vec4(0, 1, 0, 10000));
 			debug_ui->Render();
 			debug_ui->LoopEnd();
 			manager.UpdateWindow();

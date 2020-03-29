@@ -3,11 +3,13 @@
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
+#include <vector>
+
 class DebugUI
 {
 public:
 	void Render();
-	void Start(int texture_id);
+	void Start(std::vector<int> texture_ids);
 	void Setup()
 	{
 		ImGui::CreateContext();
@@ -33,6 +35,6 @@ public:
 	}
 	protected:
 		ImFont* m_font;
-		int tex_id;
+		std::vector<int> tex_ids;
 	
 };

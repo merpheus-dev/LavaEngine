@@ -1,6 +1,7 @@
 #include "GLWaterRenderer.h"
 
-Lava::OpenGL::GLWaterRenderer::GLWaterRenderer(Scene* scene) : WaterRenderer(scene)
+Lava::OpenGL::GLWaterRenderer::GLWaterRenderer(Scene* scene, Transform* transform)
+												: WaterRenderer(scene), m_transform(transform)
 {
 	m_shaderBank = new GLShaderBank();
 	auto vertexShaderId = new GLShader("Shaders/water.vp", ShaderType::Vertex, m_shaderBank);
@@ -11,12 +12,12 @@ Lava::OpenGL::GLWaterRenderer::GLWaterRenderer(Scene* scene) : WaterRenderer(sce
 	auto layoutCount = 1;
 	m_bufferLayout = new VertexBufferElement();
 	m_bufferLayout->uniform_name = "position";
-	m_bufferLayout->uniform_count = 3;
-	
+	m_bufferLayout->uniform_count = 2;
+
 	m_vao = new GLVAO();
 	m_vbo = CreateRef<GLVertexBuffer>(m_planeVertices, m_planeVertexCount);
 	m_vbo->SetBufferElements(m_bufferLayout, &layoutCount);
-	m_vao->AddVertexBufferObject(m_vbo,0);
+	m_vao->AddVertexBufferObject(m_vbo, 0);
 
 	fbos = new GLFrameBuffers();
 }
@@ -57,24 +58,35 @@ void Lava::OpenGL::GLWaterRenderer::SetRefractionDimensions(int width, int heigh
 
 void Lava::OpenGL::GLWaterRenderer::Configure(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
+	m_shaderBank->Bind();
+	m_shaderBank->GetShader(0)->SetMatrix4x4("View", viewMatrix);
+	m_shaderBank->GetShader(0)->SetMatrix4x4("Projection", projectionMatrix);
 }
 
 void Lava::OpenGL::GLWaterRenderer::CompleteRender()
 {
+	m_shaderBank->Unbind();
 }
 
 void Lava::OpenGL::GLWaterRenderer::Update(Scene* scene)
 {
-	
+	Configure(scene->ActiveCamera->GetViewMatrix(), scene->ActiveCamera->GetProjectionMatrix());
+	m_vao->Bind();
+	glEnableVertexAttribArray(0);
+	m_shaderBank->GetShader(0)->SetMatrix4x4("Model", m_transform->GetTransformationMatrix());
+	glDrawArrays(GL_TRIANGLES, 0, 12);
+	glDisableVertexAttribArray(0);
+	m_vao->Unbind();
+	CompleteRender();
 }
 
 void Lava::OpenGL::GLWaterRenderer::InitReflectionAndRefractionFrameBuffers()
 {
 	m_reflectionFbo = fbos->CreateFrameBuffer();
-	m_reflectionColorTexId = fbos->CreateColorTextureAttachment(m_reflectionWidth,m_reflectionHeight);
+	m_reflectionColorTexId = fbos->CreateColorTextureAttachment(m_reflectionWidth, m_reflectionHeight);
 	m_reflectionDepthBuffer = fbos->CreateDepthBufferAttachment(m_reflectionWidth, m_reflectionHeight);
 	fbos->UnbindFrameBuffer();
-	
+
 	m_refractionFbo = fbos->CreateFrameBuffer();
 	m_refractionColorTexId = fbos->CreateColorTextureAttachment(m_refractionWidth, m_refractionHeight);
 	m_refractionDepthTexId = fbos->CreateDepthTextureAttachment(m_refractionWidth, m_refractionHeight);

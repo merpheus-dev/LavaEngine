@@ -12,18 +12,21 @@ void DebugUI::Render()
     //the next parameter is the upper left corner for the uvs to be applied at
     //the third parameter is the lower right corner
     //the last two parameters are the UVs
-    //they have to be flipped (normally they would be (0,0);(1,1) 
-    ImGui::GetWindowDrawList()->AddImage(
-        (void*)tex_id,
-        ImVec2(ImGui::GetCursorScreenPos()),
-        ImVec2(ImGui::GetCursorScreenPos().x + 480,
-            ImGui::GetCursorScreenPos().y + 320), ImVec2(0, 1), ImVec2(1, 0));
-
-    //we are done working with this window
+    //they have to be flipped (normally they would be (0,0);(1,1)
+    int i = 0;
+	for(auto& tex_id :tex_ids)
+	{
+        ImGui::GetWindowDrawList()->AddImage(
+            (void*)tex_id,
+            ImVec2(ImGui::GetCursorScreenPos().x+480*i, ImGui::GetCursorScreenPos().y),
+            ImVec2(ImGui::GetCursorScreenPos().x + 480*(i+1),
+                ImGui::GetCursorScreenPos().y + 320), ImVec2(0, 1), ImVec2(1, 0));
+        i++;
+	}
     ImGui::End();
 }
 
-void DebugUI::Start(int texture_id)
+void DebugUI::Start(std::vector<int> texture_ids)
 {
-	tex_id = texture_id;
+    tex_ids = texture_ids;
 }

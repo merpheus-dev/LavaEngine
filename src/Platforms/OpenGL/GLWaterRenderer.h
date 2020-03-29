@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Renderer/WaterRenderer.h"
+#include "GLRenderer.h"
 #include "GLFrameBuffers.h"
 #include "GLShaderBank.h"
 #include "GLMeshData.h"
@@ -11,7 +12,7 @@ namespace Lava
 		class GLWaterRenderer : public WaterRenderer
 		{
 		public:
-			GLWaterRenderer(Scene* scene);
+			GLWaterRenderer(Scene* scene,Transform* transform);
 			~GLWaterRenderer();
 			int BindReflectionFbo();
 			int BindRefractionFbo();
@@ -27,8 +28,8 @@ namespace Lava
 			GLFrameBuffers* fbos;
 			
 			private:
-			float* m_planeVertices;
-			unsigned int m_planeVertexCount;
+			float* m_planeVertices = new float[12]{ -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1 };
+			unsigned int m_planeVertexCount = 12;
 		private:
 			int m_refractionFbo;
 			int m_refractionColorTexId;
@@ -43,6 +44,8 @@ namespace Lava
 			int m_reflectionWidth;
 			int m_reflectionHeight;
 
+		private:
+			Transform* m_transform;
 		private:
 			GLShaderBank* m_shaderBank;
 			GLVAO* m_vao;
