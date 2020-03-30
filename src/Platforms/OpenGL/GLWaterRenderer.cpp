@@ -61,6 +61,14 @@ void Lava::OpenGL::GLWaterRenderer::Configure(glm::mat4 viewMatrix, glm::mat4 pr
 	m_shaderBank->Bind();
 	m_shaderBank->GetShader(0)->SetMatrix4x4("View", viewMatrix);
 	m_shaderBank->GetShader(0)->SetMatrix4x4("Projection", projectionMatrix);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_reflectionColorTexId);
+	m_shaderBank->GetShader(1)->SetInt1("reflectionTexture", 0);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, m_refractionColorTexId);
+	m_shaderBank->GetShader(1)->SetInt1("refractionTexture", 1);
 }
 
 void Lava::OpenGL::GLWaterRenderer::CompleteRender()

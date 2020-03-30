@@ -18,7 +18,6 @@ namespace Lava
 			InternalUpdate();
 			batchedRenderer->Update(m_scene, clipPlane);
 			skyboxRenderer->Update(m_scene);
-			waterRenderer->Update(m_scene);
 		}
 	public:
 		Scene* GetScenePtr()

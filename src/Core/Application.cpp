@@ -170,16 +170,16 @@ namespace Lava {
 				light->Position.y -=  Time::deltaTime;
 			}
 #pragma endregion
-			gl_water_renderer->BindReflectionFbo();
 			float camera_height_distance = 2 * (camera->transform.Position.y - water_transform->Position.y);
+			gl_water_renderer->BindReflectionFbo();
 			camera->transform.Position.y -= camera_height_distance;
-			camera->transform.Rotation.x *= -1;
+			camera->transform.Rotation.z *= -1;
 			_renderer.Update(glm::vec4(0,1, 0,-(water_transform->Position.y)));
 			for (auto& entity : entities) {
 				_renderer.batchedRenderer->AddToBatch(entity);
 			}
 			camera->transform.Position.y += camera_height_distance;
-			camera->transform.Rotation.x *= -1;
+			camera->transform.Rotation.z *= -1;
 			
 			gl_water_renderer->BindRefractionFbo();
 			//waterRenderer->BindRefractionFbo();
@@ -193,6 +193,7 @@ namespace Lava {
 			}
 			glDisable(GL_CLIP_DISTANCE0);
 			_renderer.Update(glm::vec4(0, 1, 0, 10000));
+			_renderer.waterRenderer->Update(scene);
 			debug_ui->Render();
 			debug_ui->LoopEnd();
 			manager.UpdateWindow();
