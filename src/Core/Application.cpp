@@ -51,17 +51,17 @@ namespace Lava {
 		bufferElements[3].uniform_count = 3;
 
 		//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
-		auto pack = Lava::Importers::AssetImporter::Load("Assets/barrel.obj");
-		auto texture = AssetDatabase::LoadTexture("Assets/barrel.png",4);
-		auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
+		auto pack = Lava::Importers::AssetImporter::Load("Assets/Zombie9.obj");
+		auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.png",4);
+		//auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
 
 		std::vector<Entity*> entities;
 		MeshRenderer* batchableRenderer = nullptr;
-		for (int a = 0; a < 10; a++) {
+		for (int a = 0; a < 50; a++) {
 			Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
 			entity->SetBufferLayout(bufferElements);
 			entity->material->m_mainTexture = &texture;
-			entity->material->m_nrmTexture = &normal_map;
+			//entity->material->m_nrmTexture = &normal_map;
 			if (!batchableRenderer)
 				batchableRenderer = entity->GetMeshRenderer(Platform::OpenGL);
 			else
@@ -76,6 +76,7 @@ namespace Lava {
 		////water->meshRenderer = batchableRenderer;
 		//entities.push_back(water);
 		Transform* water_transform = new Transform();
+		water_transform->Position = glm::vec3(0.f, 1., 2.f);
 		_renderer.setup_water_renderer(water_transform);
 		auto gl_water_renderer = (OpenGL::GLWaterRenderer*)_renderer.waterRenderer;
 		//auto frameBuffer = OpenGL::GLFrameBuffers();

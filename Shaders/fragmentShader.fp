@@ -43,4 +43,5 @@ void main(void){
 	if(length(totalSpecular)<=0) totalSpecular = vec3(0);
 	vec4 finalColor = vec4(totalDifuse,1.0) * texture(textureSampler,pass_textureCoords)+vec4(totalSpecular,1.0);
 	output_color = mix(finalColor,vec4(FogColor,1),1-fog);
+	output_color = finalColor;
 }
