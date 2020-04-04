@@ -172,11 +172,13 @@
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\AssetDatabase.cpp" />
     <ClCompile Include="src\Core\LavaTime.cpp" />
+    <ClCompile Include="src\Core\Physics.cpp" />
     <ClCompile Include="src\Core\Scene.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLBatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLFrameBuffers.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMasterRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLParticleRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLShader.cpp" />
@@ -213,6 +215,7 @@
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
     <ClInclude Include="src\Core\LavaTime.h" />
+    <ClInclude Include="src\Core\Physics.h" />
     <ClInclude Include="src\Core\Scene.h" />
     <ClInclude Include="src\Core\SceneObjectInfo.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLBatchedRenderer.h" />
@@ -220,6 +223,7 @@
     <ClInclude Include="src\Platforms\OpenGL\GLFrameBuffers.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMasterRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLParticleRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderObject.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShader.h" />
@@ -233,12 +237,15 @@
     <ClInclude Include="src\Renderer\BaseRenderer.h" />
     <ClInclude Include="src\Renderer\BatchedRenderer.h" />
     <ClInclude Include="src\Renderer\DebugUI.h" />
+    <ClInclude Include="src\Renderer\Particle.h" />
     <ClInclude Include="src\Renderer\MasterRenderer.h" />
     <ClInclude Include="src\Renderer\Material.h" />
     <ClInclude Include="src\Renderer\Mesh.h" />
     <ClInclude Include="src\Renderer\MeshData.h" />
     <ClInclude Include="src\Renderer\MeshMaterialPack.h" />
     <ClInclude Include="src\Renderer\EntityRenderer.h" />
+    <ClInclude Include="src\Components\ParticleSystem.h" />
+    <ClInclude Include="src\Renderer\ParticleRenderer.h" />
     <ClInclude Include="src\Renderer\RenderObject.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\ShaderBank.h" />
@@ -267,6 +274,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
+    <None Include="Shaders\Particle.fp" />
+    <None Include="Shaders\Particle.vp" />
     <None Include="Shaders\Skybox.fp" />
     <None Include="Shaders\Skybox.vp" />
     <None Include="Shaders\vertexShader.vp" />

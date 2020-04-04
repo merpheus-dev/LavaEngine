@@ -20,6 +20,8 @@
 #include "../Utils/Mathematics.h"
 #include "../Platforms/OpenGL/GLFrameBuffers.h"
 #include "../Renderer/DebugUI.h"
+#include "../Components/ParticleSystem.h"
+#include "../Platforms/OpenGL/GLParticleRenderer.h"
 namespace Lava {
 	void Application::Run() {
 		WindowManager manager;
@@ -68,7 +70,7 @@ namespace Lava {
 				entity->meshRenderer = batchableRenderer;
 			entities.push_back(entity);
 		}
-		
+
 		//Entity* water = new Entity(glm::vec3(0.f), water_obj);
 		//water->SetBufferLayout(bufferElements);
 		//water->material->m_mainTexture = &texture;
@@ -92,6 +94,10 @@ namespace Lava {
 		auto tex_ids = std::vector<int>{ refractionTexId ,reflectionTexId };
 		debug_ui->Start(tex_ids);
 
+		auto particleSystem = new ParticleSystem();
+		auto particleRenderer = static_cast<OpenGL::GLParticleRenderer*>(_renderer.particleRenderer);
+		particleRenderer->AttachParticleSystem(particleSystem);
+		
 		bool onStartExecuted = false;
 
 		while (!manager.IsWindowClosed()) {
@@ -171,6 +177,15 @@ namespace Lava {
 				light->Position.y -=  Time::deltaTime;
 			}
 #pragma endregion
+
+			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_O) == GLFW_PRESS)
+			{
+				particleSystem->add_particle(new Particle(glm::vec3(0), glm::vec3(0), glm::vec3(1),
+					glm::vec3(0, 0, 0), 0, 2));
+			}
+			
+			particleSystem->update();
+			
 			float camera_height_distance = 2 * (camera->transform.Position.y - water_transform->Position.y);
 			gl_water_renderer->BindReflectionFbo();
 			camera->transform.Position.y -= camera_height_distance;

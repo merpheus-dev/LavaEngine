@@ -4,6 +4,7 @@
 #include "GLSkyboxRenderer.h"
 #include <vector>
 #include "GLWaterRenderer.h"
+#include "GLParticleRenderer.h"
 
 namespace Lava {
 	namespace OpenGL
@@ -13,6 +14,7 @@ namespace Lava {
 			GLMasterRenderer(Scene* scene) : MasterRenderer(scene) {
 				batchedRenderer = new GLBatchedRenderer(m_scene, std::vector<GLShader*>());
 				skyboxRenderer = new GLSkyboxRenderer(m_scene,500.0f); //Culling should be disabled for the cube
+				particleRenderer = new GLParticleRenderer(m_scene);
 			}
 
 			void setup_water_renderer(Transform* water_transform)
