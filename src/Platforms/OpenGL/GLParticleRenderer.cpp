@@ -9,7 +9,7 @@ Lava::OpenGL::GLParticleRenderer::GLParticleRenderer(Scene* scene)
 	int count = 1;
 	m_bufferLayout = new VertexBufferElement();
 	m_bufferLayout->uniform_name = "position";
-	m_bufferLayout->uniform_count = 3;
+	m_bufferLayout->uniform_count = 2;
 
 	m_vao = new GLVAO();
 	m_vbo = CreateRef<GLVertexBuffer>(m_vertices, 8);

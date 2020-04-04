@@ -99,7 +99,7 @@ namespace Lava {
 		particleRenderer->AttachParticleSystem(particleSystem);
 		
 		bool onStartExecuted = false;
-
+		glm::vec3 particle_move_pos_temp = glm::vec3(0.);
 		while (!manager.IsWindowClosed()) {
 			debug_ui->LoopBegin();
 			
@@ -180,8 +180,10 @@ namespace Lava {
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_O) == GLFW_PRESS)
 			{
-				particleSystem->add_particle(new Particle(glm::vec3(0), glm::vec3(0), glm::vec3(1),
-					glm::vec3(0, 0, 0), 0, 2));
+				particleSystem->add_particle(new Particle(particle_move_pos_temp, glm::vec3(0), glm::vec3(.1),
+					glm::vec3(0, 10, 0), 1, 4));
+				particle_move_pos_temp.z += Time::deltaTime;
+				if (particle_move_pos_temp.z >= 2) particle_move_pos_temp.z = 0;
 			}
 			
 			particleSystem->update();

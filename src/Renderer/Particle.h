@@ -24,7 +24,6 @@ namespace Lava
 		{
 			velocity.y += Physics::GRAVITY_MODIFIER * gravity_effect * Time::deltaTime;
 			transform->Position+= velocity * Time::deltaTime;
-			std::cout << "Particle pos:" << transform->Position.y << "Elapsed:" << elapsed_time << std::endl;
 			elapsed_time += Time::deltaTime;
 			return  elapsed_time < life_length;
 		}
@@ -33,10 +32,6 @@ namespace Lava
 		{
 			//TO-DO: Find a quicker way to get 3x3 parts, then you can transpose it and assign back
 			auto matrix = glm::identity<glm::mat4>();
-			matrix = glm::scale(matrix, transform->Scale);
-			matrix = glm::rotate(matrix, glm::radians(transform->Rotation.x), glm::vec3(1, 0, 0));
-			matrix = glm::rotate(matrix, glm::radians(transform->Rotation.y), glm::vec3(0, 1, 0));
-			matrix = glm::rotate(matrix, glm::radians(transform->Rotation.z), glm::vec3(0, 0, 1));
 			matrix = glm::translate(matrix, transform->Position);
 			matrix[0][0] = viewMatrix[0][0];
 			matrix[0][1] = viewMatrix[1][0];
@@ -47,6 +42,10 @@ namespace Lava
 			matrix[2][0] = viewMatrix[0][2];
 			matrix[2][1] = viewMatrix[1][2];
 			matrix[2][2] = viewMatrix[2][2];
+			matrix = glm::rotate(matrix, glm::radians(transform->Rotation.x), glm::vec3(1, 0, 0));
+			matrix = glm::rotate(matrix, glm::radians(transform->Rotation.y), glm::vec3(0, 1, 0));
+			matrix = glm::rotate(matrix, glm::radians(transform->Rotation.z), glm::vec3(0, 0, 1));
+			matrix = glm::scale(matrix, transform->Scale);
 			matrix = viewMatrix * matrix;
 			return matrix;
 		}
