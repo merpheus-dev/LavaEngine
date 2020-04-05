@@ -95,6 +95,11 @@ namespace Lava {
 		debug_ui->Start(tex_ids);
 
 		auto particleSystem = new ParticleSystem();
+		particleSystem->gravity_effect = 1;
+		particleSystem->life_length = 4;
+		particleSystem->emission_rate = 10;
+		particleSystem->speed = 20;
+		particleSystem->randomize_count = true;
 		auto particleRenderer = static_cast<OpenGL::GLParticleRenderer*>(_renderer.particleRenderer);
 		particleRenderer->AttachParticleSystem(particleSystem);
 		
@@ -180,8 +185,10 @@ namespace Lava {
 
 			if (glfwGetKey(manager.GetWindow(), GLFW_KEY_O) == GLFW_PRESS)
 			{
-				particleSystem->add_particle(new Particle(particle_move_pos_temp, glm::vec3(0), glm::vec3(.1),
-					glm::vec3(0, 10, 0), 1, 4));
+
+				particleSystem->generate_particles(particle_move_pos_temp);
+				//particleSystem->add_particle(new Particle(particle_move_pos_temp, glm::vec3(0), glm::vec3(.1),
+				//	glm::vec3(0, 10, 0), 1, 4));
 				particle_move_pos_temp.z += Time::deltaTime;
 				if (particle_move_pos_temp.z >= 2) particle_move_pos_temp.z = 0;
 			}
