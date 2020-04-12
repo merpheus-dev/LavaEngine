@@ -169,8 +169,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\graph.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\AssetDatabase.cpp" />
+    <ClCompile Include="src\Core\graph.cpp" />
     <ClCompile Include="src\Core\LavaTime.cpp" />
     <ClCompile Include="src\Core\Physics.cpp" />
     <ClCompile Include="src\Core\Scene.cpp" />
@@ -279,6 +281,7 @@
     <None Include="Shaders\Skybox.fp" />
     <None Include="Shaders\Skybox.vp" />
     <None Include="Shaders\vertexShader.vp" />
+    <None Include="src\Renderer\ParticleTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\back.png" />

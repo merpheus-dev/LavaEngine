@@ -126,6 +126,12 @@
     <ClCompile Include="src\Platforms\OpenGL\GLParticleRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -325,6 +331,7 @@
     <None Include="Shaders\Skybox.fp" />
     <None Include="Shaders\Particle.vp" />
     <None Include="Shaders\Particle.fp" />
+    <None Include="src\Renderer\ParticleTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\bottom.png">

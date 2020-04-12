@@ -22,6 +22,7 @@
 #include "../Renderer/DebugUI.h"
 #include "../Components/ParticleSystem.h"
 #include "../Platforms/OpenGL/GLParticleRenderer.h"
+#include "../Core/graph.cpp"
 namespace Lava {
 	void Application::Run() {
 		WindowManager manager;
@@ -55,6 +56,7 @@ namespace Lava {
 		//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
 		auto pack = Lava::Importers::AssetImporter::Load("Assets/Zombie9.obj");
 		auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.png",4);
+		auto particle_texture = AssetDatabase::LoadTexture("Assets/flame.png", 4);
 		//auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
 
 		std::vector<Entity*> entities;
@@ -95,11 +97,16 @@ namespace Lava {
 		debug_ui->Start(tex_ids);
 
 		auto particleSystem = new ParticleSystem();
-		particleSystem->gravity_effect = 1;
-		particleSystem->life_length = 4;
-		particleSystem->emission_rate = 10;
-		particleSystem->speed = 20;
+		particleSystem->texturePtr = new ParticleTexture(particle_texture.texture_id, 3);
+		particleSystem->gravity_effect = 0;
+		particleSystem->life_length = 2;
+		particleSystem->emission_rate = 1;
+		particleSystem->speed = .5;
 		particleSystem->randomize_count = true;
+		particleSystem->scale = glm::vec3(.5f);
+		particleSystem->deviation = .2f;
+		particleSystem->shape = Lava::Shape::Cone;
+		particleSystem->direction = glm::vec3(0, 1, 0);
 		auto particleRenderer = static_cast<OpenGL::GLParticleRenderer*>(_renderer.particleRenderer);
 		particleRenderer->AttachParticleSystem(particleSystem);
 		

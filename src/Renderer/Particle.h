@@ -4,18 +4,23 @@
 #include "../Core/LavaTime.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+#include "ParticleTexture.h"
 namespace Lava
 {
 	struct Particle
 	{
 		Transform* transform;
+		ParticleTexture* texturePtr;
 		glm::vec3 velocity;
 		float gravity_effect;
 		float life_length;
 		float elapsed_time = 0.f;
+		glm::vec2 current_sheet_offset;
+		glm::vec2 next_sheet_offset;
+		float sheet_blend;
 
-		Particle(const glm::vec3 position, const glm::vec3 rotation,const glm::vec3 scale,const glm::vec3 velocity,const float gravity_effect, const float life_time)
-			:transform(new Transform(position,rotation,scale)), velocity(velocity),gravity_effect(gravity_effect),life_length(life_time)
+		Particle(ParticleTexture* texture, const glm::vec3 position, const glm::vec3 rotation,const glm::vec3 scale,const glm::vec3 velocity,const float gravity_effect, const float life_time)
+			:transform(new Transform(position,rotation,scale)), velocity(velocity),gravity_effect(gravity_effect),life_length(life_time), texturePtr(texture)
 		{
 			
 		}
@@ -24,6 +29,7 @@ namespace Lava
 		{
 			velocity.y += Physics::GRAVITY_MODIFIER * gravity_effect * Time::deltaTime;
 			transform->Position+= velocity * Time::deltaTime;
+			UpdateTextureOffsets();
 			elapsed_time += Time::deltaTime;
 			return  elapsed_time < life_length;
 		}
@@ -48,6 +54,27 @@ namespace Lava
 			matrix = glm::scale(matrix, transform->Scale);
 			matrix = viewMatrix * matrix;
 			return matrix;
+		}
+
+	private:
+		void UpdateTextureOffsets()
+		{
+			auto life_percentage = elapsed_time / life_length;
+			auto sheet_count = glm::pow(texturePtr->number_of_rows, 2);
+			auto progression = life_percentage * sheet_count;
+			auto current_sheet_index = static_cast<int>(glm::floor(progression));
+			auto next_sheet_index = current_sheet_index + (current_sheet_index + 1 < sheet_count ? 1 : 0);
+			sheet_blend = progression - current_sheet_index; //3.5-3 = 0.5
+			current_sheet_offset= CalculateOffset(current_sheet_index);
+			next_sheet_offset = CalculateOffset(next_sheet_index);
+		}
+
+		glm::vec2 CalculateOffset(int index)
+		{
+			auto col = index % texturePtr->number_of_rows;
+			auto row = index / texturePtr->number_of_rows;
+
+			return glm::vec2(static_cast<float>(col) / texturePtr->number_of_rows, static_cast<float>(row) / texturePtr->number_of_rows);
 		}
 	};
 }

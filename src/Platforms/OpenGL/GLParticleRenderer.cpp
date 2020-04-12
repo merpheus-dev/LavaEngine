@@ -47,7 +47,7 @@ void Lava::OpenGL::GLParticleRenderer::Update(Scene* scene)
 	m_vao->Bind();
 	glEnableVertexAttribArray(0);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //=>GL_ONE_MINUS_SRC_ALPHA
 	glDepthMask(false);
 	RenderInternal();
 	glDepthMask(true);
@@ -71,8 +71,15 @@ void Lava::OpenGL::GLParticleRenderer::RenderInternal()
 	{
 		for (auto& particle : particleSystem->particles)
 		{
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, particle->texturePtr->id);
 			m_bank->GetShader(0)->SetMatrix4x4("ModelView",
 				particle->GetFacingTransformationMatrix(m_scene->ActiveCamera->GetViewMatrix()));
+
+			m_bank->GetShader(0)->SetFloat2("currentSheetOffset", particle->current_sheet_offset);
+			m_bank->GetShader(0)->SetFloat2("nextSheetOffset", particle->next_sheet_offset);
+			m_bank->GetShader(0)->SetFloat1("blendFactor", particle->sheet_blend);
+			m_bank->GetShader(0)->SetFloat1("rowCount", particle->texturePtr->number_of_rows);
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, 8); //8=>vert count of per particle quad
 		}
 	}
