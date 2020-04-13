@@ -264,6 +264,7 @@
     <ClInclude Include="src\Utils\Mathematics.h" />
     <ClInclude Include="src\Utils\MemoryUtils.h" />
     <ClInclude Include="src\Utils\ObjImporter.h" />
+    <ClInclude Include="src\Utils\Sorting.h" />
     <ClInclude Include="src\Utils\TextUtils.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />

@@ -18,6 +18,7 @@ namespace Lava
 		glm::vec2 current_sheet_offset;
 		glm::vec2 next_sheet_offset;
 		float sheet_blend;
+		float camera_distance;
 
 		Particle(ParticleTexture* texture, const glm::vec3 position, const glm::vec3 rotation,const glm::vec3 scale,const glm::vec3 velocity,const float gravity_effect, const float life_time)
 			:transform(new Transform(position,rotation,scale)), velocity(velocity),gravity_effect(gravity_effect),life_length(life_time), texturePtr(texture)
@@ -25,8 +26,9 @@ namespace Lava
 			
 		}
 
-		bool update()
+		bool update(Camera* camera)
 		{
+			camera_distance = glm::distance(camera->transform.Position, transform->Position);
 			velocity.y += Physics::GRAVITY_MODIFIER * gravity_effect * Time::deltaTime;
 			transform->Position+= velocity * Time::deltaTime;
 			UpdateTextureOffsets();

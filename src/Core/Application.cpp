@@ -56,7 +56,7 @@ namespace Lava {
 		//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
 		auto pack = Lava::Importers::AssetImporter::Load("Assets/Zombie9.obj");
 		auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.png",4);
-		auto particle_texture = AssetDatabase::LoadTexture("Assets/flame.png", 4);
+		auto particle_texture = AssetDatabase::LoadTexture("Assets/particleAtlas.png", 4);
 		//auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
 
 		std::vector<Entity*> entities;
@@ -97,15 +97,15 @@ namespace Lava {
 		debug_ui->Start(tex_ids);
 
 		auto particleSystem = new ParticleSystem();
-		particleSystem->texturePtr = new ParticleTexture(particle_texture.texture_id, 3);
+		particleSystem->texturePtr = new ParticleTexture(particle_texture.texture_id, 4);
 		particleSystem->gravity_effect = 0;
-		particleSystem->life_length = 2;
+		particleSystem->life_length = 4;
 		particleSystem->emission_rate = 1;
 		particleSystem->speed = .5;
 		particleSystem->randomize_count = true;
 		particleSystem->scale = glm::vec3(.5f);
 		particleSystem->deviation = .2f;
-		particleSystem->shape = Lava::Shape::Cone;
+		particleSystem->shape = Lava::Shape::Sphere;
 		particleSystem->direction = glm::vec3(0, 1, 0);
 		auto particleRenderer = static_cast<OpenGL::GLParticleRenderer*>(_renderer.particleRenderer);
 		particleRenderer->AttachParticleSystem(particleSystem);
@@ -196,11 +196,11 @@ namespace Lava {
 				particleSystem->generate_particles(particle_move_pos_temp);
 				//particleSystem->add_particle(new Particle(particle_move_pos_temp, glm::vec3(0), glm::vec3(.1),
 				//	glm::vec3(0, 10, 0), 1, 4));
-				particle_move_pos_temp.z += Time::deltaTime;
+				//particle_move_pos_temp.z += Time::deltaTime;
 				if (particle_move_pos_temp.z >= 2) particle_move_pos_temp.z = 0;
 			}
 			
-			particleSystem->update();
+			particleSystem->update(camera);
 			
 			float camera_height_distance = 2 * (camera->transform.Position.y - water_transform->Position.y);
 			gl_water_renderer->BindReflectionFbo();

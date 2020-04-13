@@ -1,6 +1,7 @@
 #pragma once
 #include "../Renderer/Particle.h"
 #include "../Renderer/ParticleRenderer.h"
+#include "../Utils/Sorting.h"
 #include <vector>
 #include <glm.hpp>
 #include <gtc/random.hpp>
@@ -26,15 +27,16 @@ namespace Lava
 			}
 		}
 
-		void update()
+		void update(Camera* camera)
 		{
 			for (size_t i = 0; i < particles.size(); i++)
 			{
-				if (!particles[i]->update())
+				if (!particles[i]->update(camera))
 				{
 					particles.erase(particles.begin() + i);
 				}
 			}
+			Lava::Sorting::sort_particles(particles);
 		}
 	private:
 		void emit_particle(glm::vec3 center)
