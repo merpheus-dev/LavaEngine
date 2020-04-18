@@ -1,2 +1,2 @@
 #include "AudioEngine.h"
-SoLoud::Soloud Lava::AudioEngine::backend;
+SoLoud::Soloud* Lava::AudioEngine::backend;

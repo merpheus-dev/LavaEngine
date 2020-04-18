@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "../Core/AudioEngine.h"
 #include "../../Gameplay/Demo.h"
 
 namespace Lava {
@@ -7,17 +6,17 @@ namespace Lava {
 		WindowManager manager;
 		if (manager.GenerateWindow() == -1)
 			return;
-
-		auto gameCode = new Lava::Demo::DemoGameLayer();
+		
+		Lava::Demo::DemoGameLayer gameCode;
 		AudioEngine audio_engine;
 		audio_engine.Setup();
-		gameCode->Start();
+		gameCode.Start();
 		while (!manager.IsWindowClosed()) {
-			gameCode->Update();
+			gameCode.Update();
 			audio_engine.Update();
 			manager.UpdateWindow();
 		}
-		audio_engine.Disable();
 		manager.DestroyWindow();
+		audio_engine.Disable();
 	}
 }

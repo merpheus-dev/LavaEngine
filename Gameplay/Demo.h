@@ -4,7 +4,6 @@
 #include "../src/Renderer/DebugUI.h"
 #include "../src/Components/Entity.h"
 #include "../src/Components/AudioSource.h"
-
 namespace Lava
 {
 	namespace Demo

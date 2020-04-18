@@ -6,6 +6,7 @@
 #include "../src/Core/Scene.h"
 #include "../src/Utils/Mathematics.h"
 #include "../src/Core/InputManager.h"
+#include "soloud_wav.h"
 
 void Lava::Demo::DemoGameLayer::Start()
 {
@@ -112,7 +113,7 @@ void Lava::Demo::DemoGameLayer::Update()
 	for (auto& entity : *entities) {
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}
-
+	
 	if(InputManager::GetKeyPress(GLFW_KEY_J))
 	{
 		camera->transform.Rotation.y -= Time::deltaTime * 100;

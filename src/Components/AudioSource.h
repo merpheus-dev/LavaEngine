@@ -6,9 +6,13 @@ namespace Lava
 	class AudioSource
 	{
 	public:
+		AudioSource()
+		{
+			audio_source = new SoLoud::Wav();
+		}
 		void SetClip(const char* _clip)
 		{
-			audio_source.load(_clip);
+			audio_source->load(_clip);
 			clip = _clip;
 		}
 
@@ -17,13 +21,13 @@ namespace Lava
 			auto engine = AudioEngine::GetEngine();
 			if (!is3d)
 			{
-				handle = engine.play(audio_source, volume, 0, pause);
+				handle = engine->play(*audio_source, volume, 0, pause);
 			}
 			else
 			{
-				handle = engine.play3d(audio_source, transform.Position.x, transform.Position.y, transform.Position.z);
+				handle = engine->play3d(*audio_source, transform.Position.x, transform.Position.y, transform.Position.z);
 			}
-			engine.setLooping(handle, isLooping);
+			engine->setLooping(handle, isLooping);
 		}
 
 	public:
@@ -34,7 +38,7 @@ namespace Lava
 		bool isLooping = false;
 		int handle;
 	private:
-		SoLoud::Wav audio_source;
+		SoLoud::Wav* audio_source;
 		const char* clip;
 	};
 }

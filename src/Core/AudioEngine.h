@@ -6,25 +6,27 @@ namespace Lava
 	class AudioEngine
 	{
 	public:
-		static SoLoud::Soloud& GetEngine()
+		static SoLoud::Soloud*& GetEngine()
 		{
+			if (!backend)
+				backend = new SoLoud::Soloud();
 			return backend;
 		}
 		void Setup()
 		{
-			backend.init();
+			GetEngine()->init();
 		}
 		void Disable()
 		{
-			backend.deinit();
+			GetEngine()->deinit();
 		}
 		
 		void Update()
 		{
-			backend.update3dAudio();
+			GetEngine()->update3dAudio();
 		}
 		
 	private:
-		static SoLoud::Soloud backend;
+		static SoLoud::Soloud* backend;
 	};
 }
