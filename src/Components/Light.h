@@ -7,8 +7,8 @@ namespace Lava {
 		glm::vec3 Color;
 		float Intensity;
 		glm::vec3 Attenuation;
-		Light(glm::vec3 color = glm::vec3(1))
-			:Position(glm::vec3(1)), Color(color), Intensity(1.0f), Attenuation(glm::vec3(1, 0, 0))
+		Light(glm::vec3 color = glm::vec3(0))
+			:Position(glm::vec3(0)), Color(color), Intensity(0.0f), Attenuation(glm::vec3(1, 0, 0))
 		{
 		}
 	};

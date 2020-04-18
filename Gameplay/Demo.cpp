@@ -6,22 +6,16 @@
 #include "../src/Core/Scene.h"
 #include "../src/Utils/Mathematics.h"
 #include "../src/Core/InputManager.h"
-#include "soloud_wav.h"
-
 void Lava::Demo::DemoGameLayer::Start()
 {
-	camera = new Camera();
-	light = new DirectionalLight(glm::vec3(.4, .4, .4));
-	scene = new Scene();
+	scene = new Scene("Assets/first.xml");
 	scene->scene_data->fog_color = glm::vec3(.3, .3, .3);
 	scene->scene_data->fog_density = .5f;
-	scene->scene_data->lights->at(0) = light;
-	scene->ActiveCamera = camera;
 	renderer = new OpenGL::GLMasterRenderer(scene);
 	
 	debug_ui = new DebugUI();
 	debug_ui->Setup();
-
+	debug_ui->light_pos = &(scene->scene_data->lights->at(0)->Position);
 
 	std::vector<VertexBufferElement> bufferElements(4);
 	bufferElements[0].uniform_name = "position";
@@ -44,7 +38,7 @@ void Lava::Demo::DemoGameLayer::Start()
 	for (int a = 0; a < 50; a++) {
 		Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
 		entity->SetBufferLayout(bufferElements);
-		entity->material->m_mainTexture = &texture;
+		entity->material->m_mainTexture = texture;
 		//entity->material->m_nrmTexture = &normal_map;
 		if (!batchableRenderer)
 			batchableRenderer = entity->GetMeshRenderer(Platform::OpenGL);
@@ -53,11 +47,11 @@ void Lava::Demo::DemoGameLayer::Start()
 		entities->push_back(entity);
 	}
 
-	audio_source = new AudioSource();
-	audio_source->isLooping = true;
-	audio_source->SetClip("Assets/mm.wav");
-	audio_source->Play();
-	
+	//audio_source = new AudioSource();
+	//audio_source->isLooping = true;
+	//audio_source->SetClip("Assets/mm.wav");
+	//audio_source->Play();
+	//
 	water_transform = new Transform();
 	water_transform->Position = glm::vec3(0.f, 1., 2.f);
 	auto glRenderer = static_cast<Lava::OpenGL::GLMasterRenderer*>(renderer);
@@ -77,7 +71,7 @@ void Lava::Demo::DemoGameLayer::Start()
 	debug_ui->Start(tex_ids);
 
 	particle_system = new ParticleSystem();
-	particle_system->texturePtr = new ParticleTexture(particle_texture.texture_id, 8);
+	particle_system->texturePtr = new ParticleTexture(particle_texture->texture_id, 8);
 	particle_system->gravity_effect = 0;
 	particle_system->life_length = 4;
 	particle_system->emission_rate = 1;
@@ -96,6 +90,7 @@ void Lava::Demo::DemoGameLayer::Start()
 void Lava::Demo::DemoGameLayer::Update()
 {
 	auto _renderer = static_cast<Lava::OpenGL::GLMasterRenderer*>(renderer);
+	camera = scene->ActiveCamera;
 	debug_ui->LoopBegin();
 	Time::CalculateDeltaTime();
 	if (!onStartExecuted) {
@@ -105,8 +100,6 @@ void Lava::Demo::DemoGameLayer::Update()
 				float randPos = Lava::Mathematics::GetRandom() / 50.f;
 				eachEntity->transform->Position[i] = randPos;
 			}
-			std::cout << "POS:" << eachEntity->transform->Position.x << "," << eachEntity->transform->Position.y
-				<< "," << eachEntity->transform->Position.z << std::endl;
 		}
 		onStartExecuted = true;
 	}

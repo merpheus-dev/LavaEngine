@@ -1,67 +1,89 @@
 #include "Scene.h"
 #include "../Components/Light.h"
 #include "../Utils/TextUtils.h"
-
-Lava::Scene::Scene():ActiveCamera(nullptr),scene_data(new DataContainers::SceneData())
+//Lava::Scene::Scene(const char* scene_file):ActiveCamera(nullptr),scene_data(new DataContainers::SceneData())
+//{
+//	scene_data->fog_color = glm::vec3(0, 0, 0);
+//	scene_data->lights = new std::array<Light*, 4>();
+//	for (auto& light : *scene_data->lights)
+//	{
+//		light = new Light(glm::vec3(0, 0, 0));
+//	}
+//}
+Lava::Scene::Scene(const char* file_name) : m_scene_file_name(file_name)
 {
-	scene_data->fog_color = glm::vec3(0, 0, 0);
+	LoadScene();
+}
+
+void Lava::Scene::LoadScene()
+{
+	scene_parser.LoadFile(m_scene_file_name);
+	scene_data = new DataContainers::SceneData();
+	LoadLights();
+	LoadFogData();
+	LoadCamera();
+}
+
+void Lava::Scene::LoadLights()
+{
 	scene_data->lights = new std::array<Light*, 4>();
-	for (int i = 0; i < scene_data->lights->size();i++) {
-		(*scene_data->lights)[i] = new Light(glm::vec3(0, 0, 0));
+	auto xml_node = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("SceneData")->FirstChildElement("Lights");
+	auto j = 0;
+	for (auto child = xml_node->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+	{
+		if (j > 3) break;
+		printf(child->Name());
+		const auto position_text = child->FirstChildElement("Position")->GetText();
+		const auto color_text = child->FirstChildElement("Color")->GetText();
+		const auto intensity_text = child->FirstChildElement("Intensity")->GetText();
+		scene_data->lights->at(j) = new DirectionalLight();
+		scene_data->lights->at(j)->Position = parse_vector3(position_text);
+		scene_data->lights->at(j)->Color = parse_vector3(color_text);
+		scene_data->lights->at(j)->Intensity = std::stof(intensity_text);
+		j++;
+	}
+	while (j <= 3)
+	{
+		scene_data->lights->at(j) = new Light();
+		j++;
 	}
 }
 
-void Lava::Scene::Load(const char* fileDir)
+void Lava::Scene::LoadFogData()
 {
-	std::string sceneContent = TextUtils::ReadText(fileDir);
-	LoadModelInfos(sceneContent);
+	auto fog_data = scene_parser.FirstChildElement("LavaScene")
+		->FirstChildElement("SceneData")->FirstChildElement("Fog");
+	const auto color = fog_data->FirstChildElement("Color")->GetText();
+	const auto density = fog_data->FirstChildElement("Density")->GetText();
+	scene_data->fog_color = parse_vector3(color);
+	scene_data->fog_density = std::stof(density);
 }
 
-void Lava::Scene::LoadModelInfos(std::string sceneContext)
+void Lava::Scene::LoadCamera()
 {
-	std::istringstream stream(sceneContext);
-	std::string line;
-	while (std::getline(stream, line)) {
+	auto camera = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("SceneData")->FirstChildElement("Camera");
+	auto position = camera->FirstChildElement("Position")->GetText();
+	auto rotation = camera->FirstChildElement("Rotation")->GetText();
+	ActiveCamera = new Camera();
+	ActiveCamera->transform.Position = parse_vector3(position);
+	ActiveCamera->transform.Rotation = parse_vector3(rotation);
+}
 
-		std::string delimiter = "|";
-		size_t pos = 0;
-		std::string token;
-		std::string modelFile = "";
-		std::string textureFile = "";
-		glm::vec3 pos_vec = glm::vec3(0);
-		int step = 0;
-		while ((pos = line.find(delimiter)) != std::string::npos) {
-			token = line.substr(0, pos);
-			if (step == 0)
-				modelFile = token;
-			else if (step == 1)
-				textureFile = token;
+void Lava::Scene::LoadBatchedEntities()
+{
+}
 
-			line.erase(0, pos + delimiter.length());
-			step++;
-			if (step == 2)
-			{
-				std::string delimiter2 = ",";
-				size_t pos2 = 0;
-				std::string token2;
-				int vec_index = 0;
-				while ((pos2 = line.find(delimiter2)) != std::string::npos) {
-					token2 = line.substr(0, pos2);
-					if (vec_index < 3) {
-						pos_vec[vec_index] = std::stof(token2);
-					}
-					else {
-						break;
-					}
-					line.erase(0, pos2 + delimiter2.length());
-					vec_index++;
-				}
-			}
-		}
-		ModelObjectInfo modelObject;
-		modelObject.modelPath = modelFile.c_str();
-		modelObject.texturePath = textureFile.c_str();
-		modelObject.Position = pos_vec;
-		SceneObjects.push_back(modelObject);
+glm::vec3 Lava::Scene::parse_vector3(const char* text) const
+{
+	std::stringstream string_stream(text);
+	std::string s;
+	glm::vec3 position{};
+	auto i = 0;
+	while (std::getline(string_stream, s, ','))
+	{
+		position[i] = std::stof(s);
+		i++;
+		if (i >= 3) break;
 	}
+	return position;
 }

@@ -98,7 +98,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;WITH_OPENAL;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)LavaEngine\vendor\glm;$(SolutionDir)LavaEngine\vendor\glfw\include;$(SolutionDir)LavaEngine\vendor\glew\include;$(SolutionDir)LavaEngine\vendor\stb_image;$(SolutionDir)LavaEngine\vendor\assimp\include;$(SolutionDir)LavaEngine\vendor\imgui;$(SolutionDir)LavaEngine\vendor\openal\include;$(SolutionDir)LavaEngine\vendor\soloud\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LavaEngine\vendor\glm;$(SolutionDir)LavaEngine\vendor\glfw\include;$(SolutionDir)LavaEngine\vendor\glew\include;$(SolutionDir)LavaEngine\vendor\stb_image;$(SolutionDir)LavaEngine\vendor\assimp\include;$(SolutionDir)LavaEngine\vendor\imgui;$(SolutionDir)LavaEngine\vendor\openal\include;$(SolutionDir)LavaEngine\vendor\soloud\include;$(SolutionDir)LavaEngine\vendor\tinyxml2</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(SolutionDir)LavaEngine\vendor\glfw\lib</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;WITH_OPENAL;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)LavaEngine\vendor\glm;$(SolutionDir)LavaEngine\vendor\glfw\include;$(SolutionDir)LavaEngine\vendor\glew\include;$(SolutionDir)LavaEngine\vendor\stb_image;$(SolutionDir)LavaEngine\vendor\assimp\include;$(SolutionDir)LavaEngine\vendor\imgui;$(SolutionDir)LavaEngine\vendor\openal\include;$(SolutionDir)LavaEngine\vendor\soloud\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)LavaEngine\vendor\glm;$(SolutionDir)LavaEngine\vendor\glfw\include;$(SolutionDir)LavaEngine\vendor\glew\include;$(SolutionDir)LavaEngine\vendor\stb_image;$(SolutionDir)LavaEngine\vendor\assimp\include;$(SolutionDir)LavaEngine\vendor\imgui;$(SolutionDir)LavaEngine\vendor\openal\include;$(SolutionDir)LavaEngine\vendor\soloud\include;$(SolutionDir)LavaEngine\vendor\tinyxml2</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>$(SolutionDir)LavaEngine\vendor\glfw\lib</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
@@ -170,6 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\graph.cpp" />
+    <ClCompile Include="..\..\..\tinyxml2.cpp" />
     <ClCompile Include="Gameplay\Demo.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\AssetDatabase.cpp" />
@@ -249,6 +250,7 @@
     <ClCompile Include="src\Utils\soloud\src\filter\soloud_waveshaperfilter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\tinyxml2.h" />
     <ClInclude Include="Gameplay\Demo.h" />
     <ClInclude Include="src\Components\AudioSource.h" />
     <ClInclude Include="src\Components\Camera.h" />
@@ -376,6 +378,9 @@
     <Image Include="..\..\..\Skybox Images\left.png" />
     <Image Include="..\..\..\Skybox Images\right.png" />
     <Image Include="..\..\..\Skybox Images\top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\first.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

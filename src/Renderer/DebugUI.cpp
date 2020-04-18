@@ -23,6 +23,8 @@ void DebugUI::Render()
                 ImGui::GetCursorScreenPos().y + 320), ImVec2(0, 1), ImVec2(1, 0));
         i++;
 	}
+    auto a = new float*[3]{ &light_pos->x,&light_pos->y,&light_pos->z };
+    ImGui::DragFloat3("Light Pos",*a);
     ImGui::End();
 }
 

@@ -21,7 +21,6 @@ namespace Lava
 			OpenGL::GLParticleRenderer* particle_renderer;
 			OpenGL::GLWaterRenderer* gl_water_renderer;
 			Camera* camera;
-			Light* light;
 			AudioSource* audio_source;
 			ParticleSystem* particle_system;
 			Transform* water_transform;

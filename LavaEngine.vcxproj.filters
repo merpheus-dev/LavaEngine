@@ -249,6 +249,9 @@
     <ClCompile Include="src\Core\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -581,6 +584,9 @@
     <ClInclude Include="src\Core\Data\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
@@ -610,5 +616,8 @@
     <Image Include="..\..\..\Skybox Images\back.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\first.xml" />
   </ItemGroup>
 </Project>
