@@ -1,11 +1,9 @@
 #pragma once
 #include "../Renderer/Particle.h"
-#include "../Renderer/ParticleRenderer.h"
 #include "../Utils/Sorting.h"
 #include <vector>
 #include <glm.hpp>
 #include <gtc/random.hpp>
-#include <unordered_map>
 namespace Lava
 {
 	enum class Shape

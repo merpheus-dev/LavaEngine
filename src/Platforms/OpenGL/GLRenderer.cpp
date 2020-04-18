@@ -33,9 +33,9 @@ namespace Lava {
 
 		void GLRenderer::SetLightInfo(Scene* scene)
 		{
-			m_bank->GetShader(1)->SetFloat1("AmbientLightIntensity", scene->AmbientLightIntensity);
-			for (int i = 0; i < scene->Lights->size(); i++) {
-				auto& light = scene->Lights->at(i);
+			m_bank->GetShader(1)->SetFloat1("AmbientLightIntensity", scene->scene_data->ambient_light_intensity);
+			for (int i = 0; i < scene->scene_data->lights->size(); i++) {
+				auto& light = scene->scene_data->lights->at(i);
 				m_bank->GetShader(0)->SetFloat3(("LightPosition[" + std::to_string(i) + "]").c_str(), light->Position);
 				m_bank->GetShader(1)->SetFloat3(("LightColor[" + std::to_string(i) + "]").c_str(), light->Color);
 				m_bank->GetShader(1)->SetFloat3(("LightAttenuation[" + std::to_string(i) + "]").c_str(), light->Attenuation);
@@ -45,8 +45,8 @@ namespace Lava {
 
 		void GLRenderer::SetFogInfo()
 		{
-			m_bank->GetShader(0)->SetFloat1("FogDensity", m_scene->FogDensity);
-			m_bank->GetShader(1)->SetFloat3("FogColor", m_scene->FogColor);
+			m_bank->GetShader(0)->SetFloat1("FogDensity", m_scene->scene_data->fog_density);
+			m_bank->GetShader(1)->SetFloat3("FogColor", m_scene->scene_data->fog_color);
 		}
 
 		void GLRenderer::CompleteRender()

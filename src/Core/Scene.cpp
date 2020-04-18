@@ -1,11 +1,13 @@
 #include "Scene.h"
+#include "../Components/Light.h"
+#include "../Utils/TextUtils.h"
 
-Lava::Scene::Scene()
-	:ActiveCamera(nullptr),FogColor(glm::vec3(0,0,0))
+Lava::Scene::Scene():ActiveCamera(nullptr),scene_data(new DataContainers::SceneData())
 {
-	Lights = new std::array<Light*, 4>();
-	for (int i = 0; i < Lights->size();i++) {
-		(*Lights)[i] = new Light(glm::vec3(0, 0, 0));
+	scene_data->fog_color = glm::vec3(0, 0, 0);
+	scene_data->lights = new std::array<Light*, 4>();
+	for (int i = 0; i < scene_data->lights->size();i++) {
+		(*scene_data->lights)[i] = new Light(glm::vec3(0, 0, 0));
 	}
 }
 

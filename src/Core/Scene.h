@@ -1,31 +1,25 @@
 #pragma once
 #include <vector>
-#include <glm.hpp>
 #include <string>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 #include <array>
 #include "SceneObjectInfo.h"
-#include "../Utils/TextUtils.h"
 #include "../Components/Camera.h"
-#include "../Components/Light.h"
+#include "../Core/Data/SceneData.h"
 namespace Lava {
 	class Scene {
 	public:
 		Scene();
+		Scene(DataContainers::SceneData* _scene_data) : scene_data(_scene_data){};
 		void Load(const char* fileDir);
 
 	private:
 		void LoadModelInfos(std::string sceneContext);
 
 	public:
+		DataContainers::SceneData* scene_data;
 		std::vector<SceneObjectInfo> SceneObjects;
 		Camera* ActiveCamera;
-
-		glm::vec3 FogColor;
-		float FogDensity = 0.f;
-
-		std::array<Light*, 4>* Lights;
-		float AmbientLightIntensity = .2f;
 	};
 }
