@@ -22,16 +22,26 @@
     </Fog>
   </SceneData>
   <BatchedEntities>
-    <ModelPath>Asset/anan.fbx</ModelPath>
+    <ModelPath>Assets/Zombie9.obj</ModelPath>
     <Material>
-      <AlbedoPath>Assets/anan.png</AlbedoPath>
-      <NormalPath>Assets/anan.png</NormalPath>
+      <AlbedoPath>Assets/Zombie9_CT.png</AlbedoPath>
+      <NormalPath></NormalPath>
     </Material>
     <Entity>
       <Transform>
-        <Position>5,8,7</Position>
-        <Rotation>5,5,5</Rotation>
-        <Scale>3,5,2</Scale>
+        <Position>0,0,0</Position>
+        <Rotation>0,0,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+      <Transform>
+        <Position>0.1,0.1,0.1</Position>
+        <Rotation>0,0,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+      <Transform>
+        <Position>-0.1,-0.1,-0.1</Position>
+        <Rotation>0,0,0</Rotation>
+        <Scale>1,1,1</Scale>
       </Transform>
     </Entity>
   </BatchedEntities>

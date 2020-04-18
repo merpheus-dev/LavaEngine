@@ -1,6 +1,10 @@
 #include "Scene.h"
 #include "../Components/Light.h"
 #include "../Utils/TextUtils.h"
+#include "../Renderer/VertexArrayObject.h"
+#include "../Utils/AssetImporter.h"
+#include "AssetDatabase.h"
+#include "../Components/MeshRenderer.h"
 //Lava::Scene::Scene(const char* scene_file):ActiveCamera(nullptr),scene_data(new DataContainers::SceneData())
 //{
 //	scene_data->fog_color = glm::vec3(0, 0, 0);
@@ -22,6 +26,7 @@ void Lava::Scene::LoadScene()
 	LoadLights();
 	LoadFogData();
 	LoadCamera();
+	LoadBatchedEntities();
 }
 
 void Lava::Scene::LoadLights()
@@ -62,8 +67,8 @@ void Lava::Scene::LoadFogData()
 void Lava::Scene::LoadCamera()
 {
 	auto camera = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("SceneData")->FirstChildElement("Camera");
-	auto position = camera->FirstChildElement("Position")->GetText();
-	auto rotation = camera->FirstChildElement("Rotation")->GetText();
+	const auto position = camera->FirstChildElement("Position")->GetText();
+	const auto rotation = camera->FirstChildElement("Rotation")->GetText();
 	ActiveCamera = new Camera();
 	ActiveCamera->transform.Position = parse_vector3(position);
 	ActiveCamera->transform.Rotation = parse_vector3(rotation);
@@ -71,6 +76,51 @@ void Lava::Scene::LoadCamera()
 
 void Lava::Scene::LoadBatchedEntities()
 {
+	auto batched_entities = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("BatchedEntities");
+	const auto model_path = batched_entities->FirstChildElement("ModelPath")->GetText();
+	const auto material_albedo = batched_entities->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
+	const auto material_normal = batched_entities->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
+
+	std::vector<VertexBufferElement> bufferElements(4);
+	bufferElements[0].uniform_name = "position";
+	bufferElements[0].uniform_count = 3;
+	bufferElements[1].uniform_name = "texCoord";
+	bufferElements[1].uniform_count = 2;
+	bufferElements[2].uniform_name = "normal";
+	bufferElements[2].uniform_count = 3;
+	bufferElements[3].uniform_name = "tangent";
+	bufferElements[3].uniform_count = 3;
+
+	const auto pack = Importers::AssetImporter::Load(model_path);
+	const auto albedo = AssetDatabase::LoadTexture(material_albedo, 4);
+	Texture* normal = nullptr;
+	if (material_normal != nullptr && !std::string(material_normal).empty())
+		normal = AssetDatabase::LoadTexture(material_normal, 4);
+
+
+	MeshRenderer* batchRenderer = nullptr;
+	auto batch_container = new BatchedEntities();
+	auto entity_list = batched_entities->FirstChildElement("Entity");
+	for (auto child = entity_list->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+	{
+		const auto position = child->FirstChildElement("Position")->GetText();
+		const auto rotation = child->FirstChildElement("Rotation")->GetText();
+		const auto scale = child->FirstChildElement("Scale")->GetText();
+		auto entity = new Entity(parse_vector3(position), pack);
+		entity->transform->Rotation = parse_vector3(rotation);
+		entity->transform->Scale = parse_vector3(scale);
+		entity->SetBufferLayout(bufferElements);
+		entity->material->m_mainTexture = albedo;
+		if (normal)
+			entity->material->m_nrmTexture = normal;
+		if (!batchRenderer)
+			batchRenderer = entity->GetMeshRenderer(Platform::OpenGL);
+		else
+			entity->meshRenderer = batchRenderer;
+		batch_container->batch->push_back(entity);
+	}
+	SceneObjects.push_back(batch_container);
+	//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
 }
 
 glm::vec3 Lava::Scene::parse_vector3(const char* text) const

@@ -9,44 +9,22 @@
 void Lava::Demo::DemoGameLayer::Start()
 {
 	scene = new Scene("Assets/first.xml");
-	scene->scene_data->fog_color = glm::vec3(.3, .3, .3);
-	scene->scene_data->fog_density = .5f;
 	renderer = new OpenGL::GLMasterRenderer(scene);
-	
+	for (auto& sceneObject : scene->SceneObjects)
+	{
+		auto batched_entities = dynamic_cast<BatchedEntities*>(sceneObject);
+		if (batched_entities)
+		{
+
+			entities.insert(entities.end(), batched_entities->batch->begin(), batched_entities->batch->end());
+		}
+	}
+
 	debug_ui = new DebugUI();
 	debug_ui->Setup();
 	debug_ui->light_pos = &(scene->scene_data->lights->at(0)->Position);
 
-	std::vector<VertexBufferElement> bufferElements(4);
-	bufferElements[0].uniform_name = "position";
-	bufferElements[0].uniform_count = 3;
-	bufferElements[1].uniform_name = "texCoord";
-	bufferElements[1].uniform_count = 2;
-	bufferElements[2].uniform_name = "normal";
-	bufferElements[2].uniform_count = 3;
-	bufferElements[3].uniform_name = "tangent";
-	bufferElements[3].uniform_count = 3;
-
-	//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
-	auto pack = Importers::AssetImporter::Load("Assets/Zombie9.obj");
-	auto texture = AssetDatabase::LoadTexture("Assets/Zombie9_CT.png", 4);
 	auto particle_texture = AssetDatabase::LoadTexture("Assets/smoke.png", 4);
-	//auto normal_map = AssetDatabase::LoadTexture("Assets/barrelNormal.png", 4);
-
-	MeshRenderer* batchableRenderer = nullptr;
-	entities = new std::vector<Entity*>();
-	for (int a = 0; a < 50; a++) {
-		Entity* entity = new Entity(glm::vec3(0., -.5, 0), pack);
-		entity->SetBufferLayout(bufferElements);
-		entity->material->m_mainTexture = texture;
-		//entity->material->m_nrmTexture = &normal_map;
-		if (!batchableRenderer)
-			batchableRenderer = entity->GetMeshRenderer(Platform::OpenGL);
-		else
-			entity->meshRenderer = batchableRenderer;
-		entities->push_back(entity);
-	}
-
 	//audio_source = new AudioSource();
 	//audio_source->isLooping = true;
 	//audio_source->SetClip("Assets/mm.wav");
@@ -93,21 +71,12 @@ void Lava::Demo::DemoGameLayer::Update()
 	camera = scene->ActiveCamera;
 	debug_ui->LoopBegin();
 	Time::CalculateDeltaTime();
-	if (!onStartExecuted) {
-		for (auto& eachEntity : *entities) {
-			for (int i = 0; i < 3; i++) {
 
-				float randPos = Lava::Mathematics::GetRandom() / 50.f;
-				eachEntity->transform->Position[i] = randPos;
-			}
-		}
-		onStartExecuted = true;
-	}
-	for (auto& entity : *entities) {
+	for (auto& entity : entities) {
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}
-	
-	if(InputManager::GetKeyPress(GLFW_KEY_J))
+
+	if (InputManager::GetKeyPress(GLFW_KEY_J))
 	{
 		camera->transform.Rotation.y -= Time::deltaTime * 100;
 	}
@@ -147,7 +116,7 @@ void Lava::Demo::DemoGameLayer::Update()
 	audio_engine.set3dListenerAt(camera->transform.Rotation.x, camera->transform.Rotation.y, camera->transform.Rotation.z);
 	 */
 
-	if(InputManager::GetKeyPress(GLFW_KEY_O))
+	if (InputManager::GetKeyPress(GLFW_KEY_O))
 	{
 		particle_system->generate_particles(particle_move_pos_temp);
 		if (particle_move_pos_temp.z >= 2) particle_move_pos_temp.z = 0;
@@ -159,7 +128,7 @@ void Lava::Demo::DemoGameLayer::Update()
 	camera->transform.Position.y -= camera_height_distance;
 	camera->transform.Rotation.z *= -1;
 	_renderer->Update(glm::vec4(0, 1, 0, -(water_transform->Position.y)));
-	for (auto& entity : *entities) {
+	for (auto& entity : entities) {
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}
 	camera->transform.Position.y += camera_height_distance;
@@ -168,7 +137,7 @@ void Lava::Demo::DemoGameLayer::Update()
 	gl_water_renderer->BindRefractionFbo();
 	_renderer->Update(glm::vec4(0, -1, 0, water_transform->Position.y));
 	gl_water_renderer->UnbindAll();
-	for (auto& entity : *entities) {
+	for (auto& entity : entities) {
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}
 	glDisable(GL_CLIP_DISTANCE0);

@@ -15,7 +15,7 @@ namespace Lava
 			void Update() override;
 		private:
 			DebugUI* debug_ui;
-			std::vector<Entity*>* entities;
+			std::vector<Entity*> entities;
 			bool onStartExecuted;
 			glm::vec3 particle_move_pos_temp;
 			OpenGL::GLParticleRenderer* particle_renderer;

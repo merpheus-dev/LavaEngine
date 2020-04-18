@@ -7,7 +7,12 @@
 #include "../Renderer/ShaderBank.h"
 #include "../Renderer/MeshMaterialPack.h"
 namespace Lava {
-	class Entity {
+	class SceneObject
+	{
+	public:
+		virtual ~SceneObject() = default;
+	};
+	class Entity :public SceneObject{
 	public:
 		Transform* transform;
 		MeshRenderer* meshRenderer;
@@ -61,5 +66,17 @@ namespace Lava {
 			meshRenderer = new MeshRenderer(mesh, material, platform);
 			return meshRenderer;
 		}
+	};
+	struct BatchedEntities :SceneObject
+	{
+		BatchedEntities()
+		{
+			batch = new std::vector<Entity*>();
+		}
+		~BatchedEntities()
+		{
+			
+		}
+		std::vector<Entity*>* batch;
 	};
 }

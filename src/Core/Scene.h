@@ -7,6 +7,7 @@
 #include "SceneObjectInfo.h"
 #include "../Components/Camera.h"
 #include "../Core/Data/SceneData.h"
+#include "../Components/Entity.h"
 #include <tinyxml2.h>
 namespace Lava {
 	class Scene {
@@ -27,7 +28,7 @@ namespace Lava {
 	public:
 		DataContainers::SceneData* scene_data;
 		//No active usage yet.
-		std::vector<SceneObjectInfo> SceneObjects;
+		std::vector<SceneObject*> SceneObjects;
 		Camera* ActiveCamera;
 	};
 }
