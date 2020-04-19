@@ -7,7 +7,7 @@ namespace Lava {
 	namespace OpenGL {
 		class GLSkyboxRenderer :public SkyboxRenderer {
 		public:
-			GLSkyboxRenderer(Scene* scene,float size);
+			GLSkyboxRenderer(Scene* scene,float size,std::vector<const char*>& skybox_textures);
 			~GLSkyboxRenderer();
 			virtual void Configure(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) override;
 			virtual void CompleteRender() override;
@@ -24,9 +24,7 @@ namespace Lava {
 
 		private:
 			const float SIZE;
-			std::vector<const char*> m_skyboxTextures = {
-				"Assets/sky/right.png","Assets/sky/left.png","Assets/sky/top.png","Assets/sky/bottom.png","Assets/sky/back.png","Assets/sky/front.png"
-			};
+			std::vector<const char*>& m_skyboxTextures;
 			float* m_vertices = new float[108]{
 				-SIZE,  SIZE, -SIZE,
 				-SIZE, -SIZE, -SIZE,

@@ -169,8 +169,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\graph.cpp" />
-    <ClCompile Include="..\..\..\tinyxml2.cpp" />
     <ClCompile Include="Gameplay\Demo.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\AssetDatabase.cpp" />
@@ -248,9 +246,10 @@
     <ClCompile Include="src\Utils\soloud\src\filter\soloud_lofifilter.cpp" />
     <ClCompile Include="src\Utils\soloud\src\filter\soloud_robotizefilter.cpp" />
     <ClCompile Include="src\Utils\soloud\src\filter\soloud_waveshaperfilter.cpp" />
+    <ClCompile Include="vendor\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\tinyxml2.h" />
+    <ClInclude Include="Gameplay\CameraController.h" />
     <ClInclude Include="Gameplay\Demo.h" />
     <ClInclude Include="src\Components\AudioSource.h" />
     <ClInclude Include="src\Components\Camera.h" />
@@ -361,6 +360,7 @@
     <ClInclude Include="src\Utils\soloud\src\audiosource\wav\dr_mp3.h" />
     <ClInclude Include="src\Utils\soloud\src\audiosource\wav\dr_wav.h" />
     <ClInclude Include="src\Utils\soloud\src\audiosource\wav\stb_vorbis.h" />
+    <ClInclude Include="vendor\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />

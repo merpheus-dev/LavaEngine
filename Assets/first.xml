@@ -22,9 +22,9 @@
     </Fog>
   </SceneData>
   <BatchedEntities>
-    <ModelPath>Assets/Zombie9.obj</ModelPath>
+    <ModelPath>Assets/castle.obj</ModelPath>
     <Material>
-      <AlbedoPath>Assets/Zombie9_CT.png</AlbedoPath>
+      <AlbedoPath>Assets/castle.png</AlbedoPath>
       <NormalPath></NormalPath>
     </Material>
     <Entity>

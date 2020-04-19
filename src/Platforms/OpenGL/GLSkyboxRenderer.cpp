@@ -1,6 +1,7 @@
 #include "GLSkyboxRenderer.h"
 #include "../../Core/AssetDatabase.h"
-Lava::OpenGL::GLSkyboxRenderer::GLSkyboxRenderer(Scene* scene,float size) :SkyboxRenderer(scene), SIZE(size)
+Lava::OpenGL::GLSkyboxRenderer::GLSkyboxRenderer(Scene* scene, float size, std::vector<const char*>& skybox_textures)
+	:SkyboxRenderer(scene), SIZE(size), m_skyboxTextures(skybox_textures)
 {
 	m_bank = new GLShaderBank();
 	LoadShaders();

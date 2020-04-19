@@ -4,6 +4,8 @@
 #include "../src/Renderer/DebugUI.h"
 #include "../src/Components/Entity.h"
 #include "../src/Components/AudioSource.h"
+#include "CameraController.h"
+
 namespace Lava
 {
 	namespace Demo
@@ -24,6 +26,7 @@ namespace Lava
 			AudioSource* audio_source;
 			ParticleSystem* particle_system;
 			Transform* water_transform;
+			CameraController camera_controller;
 		};
 	}
 }

@@ -45,8 +45,8 @@ void Lava::Demo::DemoGameLayer::Start()
 	gl_water_renderer->InitReflectionAndRefractionFrameBuffers();
 	auto reflectionTexId = gl_water_renderer->BindReflectionFbo();
 	auto refractionTexId = gl_water_renderer->BindRefractionFbo();
-	auto tex_ids = std::vector<int>{ refractionTexId ,reflectionTexId };
-	debug_ui->Start(tex_ids);
+	//auto tex_ids = std::vector<int>{ refractionTexId ,reflectionTexId };
+	//debug_ui->Start(tex_ids);
 
 	particle_system = new ParticleSystem();
 	particle_system->texturePtr = new ParticleTexture(particle_texture->texture_id, 8);
@@ -76,39 +76,8 @@ void Lava::Demo::DemoGameLayer::Update()
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}
 
-	if (InputManager::GetKeyPress(GLFW_KEY_J))
-	{
-		camera->transform.Rotation.y -= Time::deltaTime * 100;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_K))
-	{
-		camera->transform.Rotation.y += Time::deltaTime * 100;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_W))
-	{
-		camera->transform.Position.z -= Time::deltaTime;
-		std::cout << Time::deltaTime << std::endl;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_S))
-	{
-		camera->transform.Position.z += Time::deltaTime;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_A))
-	{
-		camera->transform.Position.x -= Time::deltaTime;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_D))
-	{
-		camera->transform.Position.x += Time::deltaTime;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_Q))
-	{
-		camera->transform.Position.y -= Time::deltaTime;
-	}
-	if (InputManager::GetKeyPress(GLFW_KEY_E))
-	{
-		camera->transform.Position.y += Time::deltaTime;
-	}
+	Lava::Demo::CameraController::Update(camera);
+
 	/*
 	auto& audio_engine = Lava::AudioEngine::GetEngine();
 	audio_engine.set3dSourcePosition(audio_source->handle, 0, 0, 0);
@@ -122,7 +91,8 @@ void Lava::Demo::DemoGameLayer::Update()
 		if (particle_move_pos_temp.z >= 2) particle_move_pos_temp.z = 0;
 	}
 	particle_system->update(camera);
-
+	/*
+#pragma  region Reflection Render
 	float camera_height_distance = 2 * (camera->transform.Position.y - water_transform->Position.y);
 	gl_water_renderer->BindReflectionFbo();
 	camera->transform.Position.y -= camera_height_distance;
@@ -133,16 +103,22 @@ void Lava::Demo::DemoGameLayer::Update()
 	}
 	camera->transform.Position.y += camera_height_distance;
 	camera->transform.Rotation.z *= -1;
+#pragma endregion
 
+#pragma region Refraction Render
 	gl_water_renderer->BindRefractionFbo();
 	_renderer->Update(glm::vec4(0, -1, 0, water_transform->Position.y));
 	gl_water_renderer->UnbindAll();
+#pragma endregion
+	
 	for (auto& entity : entities) {
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}
+	*/
+	gl_water_renderer->UnbindAll();
 	glDisable(GL_CLIP_DISTANCE0);
 	_renderer->Update(glm::vec4(0, 1, 0, 10000));
-	_renderer->waterRenderer->Update(scene);
+	//_renderer->waterRenderer->Update(scene);
 	debug_ui->Render();
 	debug_ui->LoopEnd();
 }

@@ -126,9 +126,6 @@
     <ClCompile Include="src\Platforms\OpenGL\GLParticleRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\graph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -249,7 +246,7 @@
     <ClCompile Include="src\Core\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\tinyxml2.cpp">
+    <ClCompile Include="vendor\tinyxml2\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -584,7 +581,10 @@
     <ClInclude Include="src\Core\Data\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\tinyxml2.h">
+    <ClInclude Include="vendor\tinyxml2\tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
