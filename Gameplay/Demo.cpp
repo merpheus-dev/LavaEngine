@@ -20,6 +20,18 @@ void Lava::Demo::DemoGameLayer::Start()
 		}
 	}
 
+	///REFACTOR: Replace renderer
+	auto entity_renderer = static_cast<OpenGL::GLStandardRenderer*>(renderer->nonbatchedRenderer);
+	for (auto& sceneObject : scene->SceneObjects)
+	{
+		auto entity = dynamic_cast<Entity*>(sceneObject);
+		if (entity)
+		{
+			entity->GetMeshRenderer(Platform::OpenGL);
+			entity_renderer->AddRenderObject(entity);
+		}
+	}
+	
 	debug_ui = new DebugUI();
 	debug_ui->Setup();
 	debug_ui->light_pos = &(scene->scene_data->lights->at(0)->Position);

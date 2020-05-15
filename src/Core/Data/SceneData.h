@@ -14,7 +14,7 @@ namespace Lava
 			float ambient_light_intensity = .2f;
 
 			std::vector<const char*> skybox_textures = {
-				"Assets/sky/right.png","Assets/sky/left.png","Assets/sky/top.png","Assets/sky/bottom.png","Assets/sky/back.png","Assets/sky/front.png"
+				"Assets/sky/right2.png","Assets/sky/left2.png","Assets/sky/top2.png","Assets/sky/bottom2.png","Assets/sky/back2.png","Assets/sky/front2.png"
 			};
 		};
 	}

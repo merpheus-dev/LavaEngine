@@ -3,7 +3,17 @@
   <SceneData>
     <Lights>
       <Light>
-        <Position>3,5,7</Position>
+        <Position>0,1,0</Position>
+        <Color>.4,.4,.4</Color>
+        <Intensity>1.</Intensity>
+      </Light>
+      <Light>
+        <Position>1,1,0</Position>
+        <Color>.4,.4,.4</Color>
+        <Intensity>1.</Intensity>
+      </Light>
+      <Light>
+        <Position>-1,1,0</Position>
         <Color>.4,.4,.4</Color>
         <Intensity>1.</Intensity>
       </Light>
@@ -22,29 +32,33 @@
     </Fog>
   </SceneData>
   <BatchedEntities>
-    <ModelPath>Assets/castle.obj</ModelPath>
+    <ModelPath>Assets/castle2.obj</ModelPath>
     <Material>
-      <AlbedoPath>Assets/castle.png</AlbedoPath>
+      <AlbedoPath>Assets/general.png</AlbedoPath>
       <NormalPath></NormalPath>
     </Material>
     <Entity>
-      <Transform>
-        <Position>0,0,0</Position>
-        <Rotation>0,0,0</Rotation>
-        <Scale>1,1,1</Scale>
-      </Transform>
-      <Transform>
-        <Position>0.1,0.1,0.1</Position>
-        <Rotation>0,0,0</Rotation>
-        <Scale>1,1,1</Scale>
-      </Transform>
       <Transform>
         <Position>-0.1,-0.1,-0.1</Position>
         <Rotation>0,0,0</Rotation>
         <Scale>1,1,1</Scale>
       </Transform>
-    </Entity>
+      </Entity>
   </BatchedEntities>
+  <Entities>
+    <Entity>
+      <ModelPath>Assets/castle.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/general.png</AlbedoPath>
+        <NormalPath></NormalPath>
+      </Material>
+      <Transform>
+        <Position>0,0,0</Position>
+        <Rotation>0,0,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+    </Entity>
+  </Entities>
   <ParticleSystems>
     <ParticleSystem>
       <TexturePath>Assets/smoke.png</TexturePath>

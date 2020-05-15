@@ -27,6 +27,7 @@ void Lava::Scene::LoadScene()
 	LoadFogData();
 	LoadCamera();
 	LoadBatchedEntities();
+	LoadSeparateEntities();
 }
 
 void Lava::Scene::LoadLights()
@@ -121,6 +122,48 @@ void Lava::Scene::LoadBatchedEntities()
 	}
 	SceneObjects.push_back(batch_container);
 	//auto water_obj = Lava::Importers::AssetImporter::Load("Assets/water.obj");
+}
+
+void Lava::Scene::LoadSeparateEntities()
+{
+	auto entities = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("Entities");
+	//auto entity_list = entities->FirstChildElement("Entity");
+
+	for (auto child = entities->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+	{
+		const auto model_path = child->FirstChildElement("ModelPath")->GetText();
+		const auto material_albedo = child->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
+		const auto material_normal = child->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
+		const auto position = child->FirstChildElement("Transform")->FirstChildElement("Position")->GetText();
+		const auto rotation = child->FirstChildElement("Transform")->FirstChildElement("Rotation")->GetText();
+		const auto scale = child->FirstChildElement("Transform")->FirstChildElement("Scale")->GetText();
+		
+		const auto pack = Importers::AssetImporter::Load(model_path);
+		const auto albedo = AssetDatabase::LoadTexture(material_albedo, 4);
+		Texture* normal = nullptr;
+		if (material_normal != nullptr && !std::string(material_normal).empty())
+			normal = AssetDatabase::LoadTexture(material_normal, 4);
+
+		std::vector<VertexBufferElement> bufferElements(4);
+		bufferElements[0].uniform_name = "position";
+		bufferElements[0].uniform_count = 3;
+		bufferElements[1].uniform_name = "texCoord";
+		bufferElements[1].uniform_count = 2;
+		bufferElements[2].uniform_name = "normal";
+		bufferElements[2].uniform_count = 3;
+		bufferElements[3].uniform_name = "tangent";
+		bufferElements[3].uniform_count = 3;
+		
+		auto entity = new Entity(parse_vector3(position), pack);
+		entity->transform->Rotation = parse_vector3(rotation);
+		entity->transform->Scale = parse_vector3(scale);
+		entity->SetBufferLayout(bufferElements);
+		entity->material->m_mainTexture = albedo;
+		if (normal)
+			entity->material->m_nrmTexture = normal;
+
+		SceneObjects.push_back(entity);
+	}
 }
 
 glm::vec3 Lava::Scene::parse_vector3(const char* text) const

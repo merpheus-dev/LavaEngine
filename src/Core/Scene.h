@@ -20,6 +20,7 @@ namespace Lava {
 		void LoadFogData();
 		void LoadCamera();
 		void LoadBatchedEntities();
+		void LoadSeparateEntities();
 		void LoadParticleSystems();
 	private:
 		const char* m_scene_file_name;

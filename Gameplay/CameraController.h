@@ -13,18 +13,25 @@ namespace Lava
 		public:
 			static void Update(Camera* camera)
 			{
-				if (InputManager::GetKeyPress(GLFW_KEY_J))
+				if (InputManager::GetKeyPress(GLFW_KEY_KP_4))
 				{
 					camera->transform.Rotation.y -= Time::deltaTime * 100;
 				}
-				if (InputManager::GetKeyPress(GLFW_KEY_K))
+				if (InputManager::GetKeyPress(GLFW_KEY_KP_6))
 				{
 					camera->transform.Rotation.y += Time::deltaTime * 100;
+				}
+				if (InputManager::GetKeyPress(GLFW_KEY_KP_8))
+				{
+					camera->transform.Rotation.x -= Time::deltaTime * 100;
+				}
+				if (InputManager::GetKeyPress(GLFW_KEY_KP_2))
+				{
+					camera->transform.Rotation.x += Time::deltaTime * 100;
 				}
 				if (InputManager::GetKeyPress(GLFW_KEY_W))
 				{
 					camera->transform.Position.z -= Time::deltaTime;
-					std::cout << Time::deltaTime << std::endl;
 				}
 				if (InputManager::GetKeyPress(GLFW_KEY_S))
 				{

@@ -5,13 +5,14 @@
 #include <vector>
 #include "GLWaterRenderer.h"
 #include "GLParticleRenderer.h"
-
+#include "GLStandardRenderer.h"
 namespace Lava {
 	namespace OpenGL
 	{
 		class GLMasterRenderer :public MasterRenderer {
 		public:
 			GLMasterRenderer(Scene* scene) : MasterRenderer(scene) {
+				nonbatchedRenderer = new GLStandardRenderer(m_scene, std::vector<GLShader*>());
 				batchedRenderer = new GLBatchedRenderer(m_scene, std::vector<GLShader*>());
 				skyboxRenderer = new GLSkyboxRenderer(m_scene,500.0f,scene->scene_data->skybox_textures); //Culling should be disabled for the cube
 				particleRenderer = new GLParticleRenderer(m_scene);

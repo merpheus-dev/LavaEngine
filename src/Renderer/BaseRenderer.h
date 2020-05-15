@@ -9,6 +9,7 @@
 namespace Lava {
 	class BaseRenderer {
 	public:
+		virtual ~BaseRenderer() = default;
 		BaseRenderer(Scene* scene) : m_scene(scene){}
 		virtual void Configure(glm::mat4 viewMatrix, glm::mat4 projectionMatrix) = 0;
 		virtual void CompleteRender() = 0;

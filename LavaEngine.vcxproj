@@ -188,6 +188,7 @@
     <ClCompile Include="src\Platforms\OpenGL\GLShader.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLShaderBank.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLSkyboxRenderer.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLStandardRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLVAO.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLWaterRenderer.cpp" />
     <ClCompile Include="src\Renderer\DebugUI.cpp" />
@@ -278,6 +279,7 @@
     <ClInclude Include="src\Platforms\OpenGL\GLShader.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShaderBank.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLSkyboxRenderer.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLStandardRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLVAO.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLWaterRenderer.h" />
     <ClInclude Include="src\Platforms\Platform.h" />
