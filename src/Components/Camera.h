@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 #include "../Core/WindowManager.h"
+#include "../Core/Data/CameraData.h"
 #include <glm.hpp>
 namespace Lava {
 	class Camera {
@@ -10,6 +11,13 @@ namespace Lava {
 		float near_plane = 0.001f;
 		float far_plane = 1000.0f;
 	public:
+		CameraData GetCameraData() {
+			auto camera_data = CameraData();
+			camera_data.Projection = GetProjectionMatrix();
+			camera_data.View = GetViewMatrix();
+			return camera_data;
+		}
+
 		glm::mat4 GetProjectionMatrix() {
 			return glm::perspective<float>(glm::radians(fov), WindowManager::GetAspectRatio(), near_plane, far_plane);
 		}

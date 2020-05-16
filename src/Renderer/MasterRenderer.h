@@ -25,6 +25,8 @@ namespace Lava
 			batchedRenderer->Update(m_scene, clipPlane);
 			skyboxRenderer->Update(m_scene);
 			particleRenderer->Update(m_scene);
+			auto cam_data = m_scene->ActiveCamera->GetCameraData();
+			nonbatchedRenderer->Render(cam_data);
 		}
 	public:
 		Scene* GetScenePtr()
