@@ -38,11 +38,11 @@
       <NormalPath></NormalPath>
     </Material>
     <Entity>
-      <Transform>
+      <!--<Transform>
         <Position>-0.1,-0.1,-0.1</Position>
         <Rotation>0,0,0</Rotation>
         <Scale>1,1,1</Scale>
-      </Transform>
+      </Transform>-->
       </Entity>
   </BatchedEntities>
   <Entities>

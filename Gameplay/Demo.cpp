@@ -20,15 +20,15 @@ void Lava::Demo::DemoGameLayer::Start()
 		}
 	}
 
-	///REFACTOR: Replace renderer
-	auto entity_renderer = static_cast<OpenGL::GLStandardRenderer*>(renderer->nonbatchedRenderer);
+	///BUG: Buffer layout only returns 1 weird name shit investigate
+	auto entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->nonbatchedRenderer);
 	for (auto& sceneObject : scene->SceneObjects)
 	{
 		auto entity = dynamic_cast<Entity*>(sceneObject);
 		if (entity)
 		{
 			entity->GetMeshRenderer(Platform::OpenGL);
-			entity_renderer->AddRenderObject(entity);
+			entity_renderer->entity_list.push_back(entity);
 		}
 	}
 	

@@ -182,6 +182,7 @@
     <ClCompile Include="src\Platforms\OpenGL\GLFrameBuffers.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMasterRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLNonbatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLParticleRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="src\Renderer\DebugUI.cpp" />
     <ClCompile Include="src\Renderer\MeshData.cpp" />
     <ClCompile Include="src\Renderer\EntityRenderer.cpp" />
+    <ClCompile Include="src\Renderer\NonbatchedRenderer.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\ShaderBank.cpp" />
     <ClCompile Include="src\Renderer\Texture.cpp" />
@@ -260,6 +262,7 @@
     <ClInclude Include="src\Components\Transform.h" />
     <ClInclude Include="src\Core\AssetDatabase.h" />
     <ClInclude Include="src\Core\AudioEngine.h" />
+    <ClInclude Include="src\Core\Data\CameraData.h" />
     <ClInclude Include="src\Core\Data\Event.h" />
     <ClInclude Include="src\Core\Data\SceneData.h" />
     <ClInclude Include="src\Core\GameLayer.h" />
@@ -273,6 +276,7 @@
     <ClInclude Include="src\Platforms\OpenGL\GLFrameBuffers.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMasterRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLNonbatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLParticleRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderObject.h" />
@@ -288,6 +292,7 @@
     <ClInclude Include="src\Renderer\BaseRenderer.h" />
     <ClInclude Include="src\Renderer\BatchedRenderer.h" />
     <ClInclude Include="src\Renderer\DebugUI.h" />
+    <ClInclude Include="src\Renderer\NonbatchedRenderer.h" />
     <ClInclude Include="src\Renderer\Particle.h" />
     <ClInclude Include="src\Renderer\MasterRenderer.h" />
     <ClInclude Include="src\Renderer\Material.h" />

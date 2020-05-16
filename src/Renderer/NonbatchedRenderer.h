@@ -1,21 +1,25 @@
 #pragma once
 #include <vector>
-#include <glm.hpp>
 #include "../Components/Entity.h"
+#include "../Core/Data/CameraData.h"
+#include "../Core/Scene.h"
+#include "../Core/Data/SceneData.h"
 namespace Lava {
-	struct CameraData {
-		glm::vec3 View;
-		glm::vec3 Projection;
-	};
 
 	class NonbatchedRenderer {
 	public:
-		virtual ~NonbatchedRenderer() = 0;
+		virtual ~NonbatchedRenderer() = default;
+		virtual void Setup(Scene* scene) = 0;
 		virtual void Render(CameraData& data) = 0;
+		virtual void PrepareFrameData(CameraData& data) = 0;
+		virtual void BindObject(Entity* entity) = 0;
+		virtual void UnbindObject(Entity* entity) = 0;
 		std::vector<Entity*> entity_list;
+		Scene* m_scene;
 
 	private:
-		virtual void LoadShaders() = 0;
+		virtual void EnableAttributesForRenderObject(Entity* entity) = 0;
+		virtual void DisableAttributesForRenderObject(Entity* entity) = 0;
 
 	};
 }

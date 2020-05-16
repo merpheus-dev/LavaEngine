@@ -252,6 +252,12 @@
     <ClCompile Include="src\Platforms\OpenGL\GLStandardRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLNonbatchedRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\NonbatchedRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -591,6 +597,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Platforms\OpenGL\GLStandardRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\NonbatchedRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLNonbatchedRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Data\CameraData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
