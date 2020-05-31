@@ -1,6 +1,7 @@
 #pragma once
 #include <gl/glew.h>
 #include <glfw3.h>
+#include "../../Core/WindowManager.h"
 namespace Lava {
 	namespace OpenGL {
 		class GLShadowMap {

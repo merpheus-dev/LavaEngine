@@ -9,10 +9,13 @@ out vec2 pass_textureCoords;
 out vec3 lightVector[4];
 out vec3 camVector;
 out float fog;
+out vec4 shadowCoords;
 
 uniform mat4 Model;
 uniform mat4 View;
 uniform mat4 Projection;
+uniform mat4 LightSpaceMatrix;
+
 uniform vec3 LightPosition[4];
 uniform float FogDensity=0.005;
 uniform vec4 ClipPlane;
@@ -22,6 +25,8 @@ void main(void){
 	gl_ClipDistance[0] = dot(worldSpace,ClipPlane);
 	vec4 viewSpace = View * worldSpace;
 	gl_Position = Projection * viewSpace;
+
+	shadowCoords = LightSpaceMatrix * worldSpace;
 
 	pass_textureCoords = texCoord;
 	vec3 vertexNormal = (Model* vec4(normal,0.0)).xyz;

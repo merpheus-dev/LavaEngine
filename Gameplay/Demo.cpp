@@ -22,6 +22,8 @@ void Lava::Demo::DemoGameLayer::Start()
 
 	///BUG: Buffer layout only returns 1 weird name shit investigate
 	auto entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->nonbatchedRenderer);
+	auto shadow_entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->shadowRenderer);
+	auto shadow_renderer = static_cast<OpenGL::GLShadowRenderer*>(renderer->shadowRenderer);
 	for (auto& sceneObject : scene->SceneObjects)
 	{
 		auto entity = dynamic_cast<Entity*>(sceneObject);
@@ -29,6 +31,7 @@ void Lava::Demo::DemoGameLayer::Start()
 		{
 			entity->GetMeshRenderer(Platform::OpenGL);
 			entity_renderer->entity_list.push_back(entity);
+			shadow_entity_renderer->entity_list.push_back(entity);
 		}
 	}
 	
@@ -57,8 +60,8 @@ void Lava::Demo::DemoGameLayer::Start()
 	gl_water_renderer->InitReflectionAndRefractionFrameBuffers();
 	auto reflectionTexId = gl_water_renderer->BindReflectionFbo();
 	auto refractionTexId = gl_water_renderer->BindRefractionFbo();
-	//auto tex_ids = std::vector<int>{ refractionTexId ,reflectionTexId };
-	//debug_ui->Start(tex_ids);
+	auto tex_ids = std::vector<int>{ (int)(shadow_renderer->m_shadowMap->shadowMapTextureId) };
+	debug_ui->Start(tex_ids);
 
 	particle_system = new ParticleSystem();
 	particle_system->texturePtr = new ParticleTexture(particle_texture->texture_id, 8);

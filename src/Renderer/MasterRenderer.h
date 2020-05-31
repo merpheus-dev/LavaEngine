@@ -22,10 +22,9 @@ namespace Lava
 		{
 		}
 		void Update(glm::vec4 clipPlane) {
-			//InternalUpdate();
 			auto cam_data = m_scene->ActiveCamera->GetCameraData();
-			//shadowRenderer->Render(cam_data);
 			InternalUpdate();
+			shadowRenderer->Render(cam_data);
 			batchedRenderer->Update(m_scene, clipPlane);
 			skyboxRenderer->Update(m_scene);
 			particleRenderer->Update(m_scene);

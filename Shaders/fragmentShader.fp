@@ -4,8 +4,11 @@ in vec3 lightVector[4];
 in vec2 pass_textureCoords;
 in vec3 camVector;
 in float fog;
+in vec4 shadowCoords;
+
 uniform sampler2D textureSampler;
 uniform sampler2D normalMapSampler;
+uniform sampler2D shadowMapSampler;
 out vec4 output_color;
 
 uniform vec3 LightColor[4];
@@ -18,6 +21,13 @@ uniform vec3 FogColor;
 uniform float AmbientLightIntensity;
 
 void main(void){
+	vec3 ndc_shadowCoords = shadowCoords.xyz/shadowCoords.w;
+	ndc_shadowCoords = ndc_shadowCoords * 0.5 + 0.5;
+
+	float closestDepth = texture(shadowMapSampler, ndc_shadowCoords.xy).r;
+	float shadow = ndc_shadowCoords.z>closestDepth ? 1. : 0.;
+
+
 	vec4 normalMapValue = 2.0* texture(normalMapSampler,pass_textureCoords) - 1.0;
 
 	vec3 normalizedVertexNormal = normalize(normalMapValue.rgb);
@@ -38,7 +48,7 @@ void main(void){
 		totalSpecular += (glossDamped * LightColor[i] * Shininess*LightIntensity[i])/attFact;
 	}
 
-	totalDifuse = max(totalDifuse,AmbientLightIntensity);
+	totalDifuse = max(totalDifuse,AmbientLightIntensity) * (1.0 - shadow);
 
 	if(length(totalSpecular)<=0) totalSpecular = vec3(0);
 	vec4 finalColor = vec4(totalDifuse,1.0) * texture(textureSampler,pass_textureCoords)+vec4(totalSpecular,1.0);

@@ -17,12 +17,12 @@ namespace Lava {
 			virtual void DisableAttributesForRenderObject(Entity* entity) override;
 		public:
 			float size = 10.f;
-			float near_plane = 1.0f;
+			float near_plane = 0.1f;
 			float far_plane = 7.5f;
 			GLShadowMap* m_shadowMap;
+			glm::mat4 lightSpaceMatrix;
 		private:
 			GLShaderBank* m_bank;
-			glm::mat4 lightSpaceMatrix;
 		};
 	}
 }

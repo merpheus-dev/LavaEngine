@@ -7,16 +7,6 @@
         <Color>.4,.4,.4</Color>
         <Intensity>1.</Intensity>
       </Light>
-      <Light>
-        <Position>1,1,0</Position>
-        <Color>.4,.4,.4</Color>
-        <Intensity>1.</Intensity>
-      </Light>
-      <Light>
-        <Position>-1,1,0</Position>
-        <Color>.4,.4,.4</Color>
-        <Intensity>1.</Intensity>
-      </Light>
     </Lights>
     <Camera>
       <Position>
@@ -47,39 +37,27 @@
   </BatchedEntities>
   <Entities>
     <Entity>
-      <ModelPath>Assets/castle.obj</ModelPath>
+      <ModelPath>Assets/plane.obj</ModelPath>
       <Material>
-        <AlbedoPath>Assets/general.png</AlbedoPath>
+        <AlbedoPath>Assets/e.jpg</AlbedoPath>
         <NormalPath></NormalPath>
       </Material>
       <Transform>
-        <Position>0,0,0</Position>
+        <Position>0,-.5,0</Position>
         <Rotation>0,0,0</Rotation>
         <Scale>1,1,1</Scale>
       </Transform>
     </Entity>
     <Entity>
-      <ModelPath>Assets/castle2.obj</ModelPath>
+      <ModelPath>Assets/barrel2.obj</ModelPath>
       <Material>
-        <AlbedoPath>Assets/general.png</AlbedoPath>
-        <NormalPath></NormalPath>
+        <AlbedoPath>Assets/barrel.png</AlbedoPath>
+        <NormalPath>Assets/barrelNormal.png</NormalPath>
       </Material>
       <Transform>
-        <Position>20,0,0</Position>
+        <Position>0,0,0</Position>
         <Rotation>0,0,0</Rotation>
-        <Scale>.3,.3,.3</Scale>
-      </Transform>
-    </Entity>
-    <Entity>
-      <ModelPath>Assets/castle2.obj</ModelPath>
-      <Material>
-        <AlbedoPath>Assets/general.png</AlbedoPath>
-        <NormalPath></NormalPath>
-      </Material>
-      <Transform>
-        <Position>10,0,0</Position>
-        <Rotation>0,0,0</Rotation>
-        <Scale>.3,.3,.3</Scale>
+        <Scale>.1,.1,.1</Scale>
       </Transform>
     </Entity>
   </Entities>

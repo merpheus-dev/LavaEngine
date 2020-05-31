@@ -13,8 +13,8 @@ namespace Lava {
 		class GLMasterRenderer :public MasterRenderer {
 		public:
 			GLMasterRenderer(Scene* scene) : MasterRenderer(scene){
-				//shadowRenderer = new GLShadowRenderer();
-				//shadowRenderer->Setup(scene);
+				shadowRenderer = new GLShadowRenderer();
+				shadowRenderer->Setup(scene);
 
 				nonbatchedRenderer = new GLNonbatchedRenderer();
 				nonbatchedRenderer->Setup(scene);

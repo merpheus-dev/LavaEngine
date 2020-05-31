@@ -57,6 +57,12 @@ void Lava::OpenGL::GLNonbatchedRenderer::PrepareFrameData(CameraData& data)
 	//Fog Data
 	m_bank->GetShader(0)->SetFloat1("FogDensity", m_scene->scene_data->fog_density);
 	m_bank->GetShader(1)->SetFloat3("FogColor", m_scene->scene_data->fog_color);
+
+	//Shadow Data
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, data.ShadowMapTextureId);
+	m_bank->GetShader(0)->SetMatrix4x4("LightSpaceMatrix", data.LightSpaceMatrix);
+	m_bank->GetShader(1)->SetFloat1("shadowMapSampler", 2);
 }
 
 Lava::OpenGL::GLNonbatchedRenderer::~GLNonbatchedRenderer()

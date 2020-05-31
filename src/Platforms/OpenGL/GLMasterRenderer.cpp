@@ -2,7 +2,6 @@
 
 void Lava::OpenGL::GLMasterRenderer::InternalUpdate()
 {
-	//glViewport(0, 0, (GLsizei)WindowManager::Width, (GLsizei)WindowManager::Height);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glCullFace(GL_BACK);
