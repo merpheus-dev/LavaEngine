@@ -13,14 +13,19 @@ namespace Lava {
 			glm::vec3 scale = glm::vec3(1))
 			:Position(position), Rotation(rotation), Scale(scale){}
 
+		glm::vec3 GetForwardVector() {
+			//auto inverted_matrix = glm::inverse();
+			return normalize(glm::vec3(GetTransformationMatrix()[0])) * glm::vec3(1, 1, 1);
+		}
+
 		glm::mat4 GetTransformationMatrix() 
 		{
 			glm::mat4 matrix = glm::identity<glm::mat4>();
-			matrix = glm::scale(matrix, Scale);
+			matrix = glm::translate(matrix, Position);
 			matrix = glm::rotate(matrix, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
 			matrix = glm::rotate(matrix, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
 			matrix = glm::rotate(matrix, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
-			matrix = glm::translate(matrix, Position);
+			matrix = glm::scale(matrix, Scale);
 			return matrix;
 		}
 	};

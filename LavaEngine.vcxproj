@@ -188,6 +188,8 @@
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLShader.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLShaderBank.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLShadowMap.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLShadowRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLSkyboxRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLStandardRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLVAO.cpp" />
@@ -282,10 +284,12 @@
     <ClInclude Include="src\Platforms\OpenGL\GLRenderObject.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShader.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShaderBank.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLShadowMap.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLSkyboxRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLStandardRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLVAO.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLWaterRenderer.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLShadowRenderer.h" />
     <ClInclude Include="src\Platforms\Platform.h" />
     <ClInclude Include="src\Platforms\PlatformInstanceGenerator.h" />
     <ClInclude Include="src\Platforms\VertexArrayObject.h" />
@@ -373,6 +377,8 @@
     <None Include="Shaders\fragmentShader.fp" />
     <None Include="Shaders\Particle.fp" />
     <None Include="Shaders\Particle.vp" />
+    <None Include="Shaders\ShadowMap.fp" />
+    <None Include="Shaders\ShadowMap.vp" />
     <None Include="Shaders\Skybox.fp" />
     <None Include="Shaders\Skybox.vp" />
     <None Include="Shaders\vertexShader.vp" />

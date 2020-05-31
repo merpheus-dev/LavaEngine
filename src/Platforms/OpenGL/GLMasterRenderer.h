@@ -6,12 +6,16 @@
 #include "GLWaterRenderer.h"
 #include "GLParticleRenderer.h"
 #include "GLNonbatchedRenderer.h"
+#include "GLShadowRenderer.h"
 namespace Lava {
 	namespace OpenGL
 	{
 		class GLMasterRenderer :public MasterRenderer {
 		public:
-			GLMasterRenderer(Scene* scene) : MasterRenderer(scene) {
+			GLMasterRenderer(Scene* scene) : MasterRenderer(scene){
+				//shadowRenderer = new GLShadowRenderer();
+				//shadowRenderer->Setup(scene);
+
 				nonbatchedRenderer = new GLNonbatchedRenderer();
 				nonbatchedRenderer->Setup(scene);
 

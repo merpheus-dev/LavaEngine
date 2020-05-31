@@ -258,6 +258,12 @@
     <ClCompile Include="src\Renderer\NonbatchedRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLShadowMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLShadowRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -608,6 +614,12 @@
     <ClInclude Include="src\Core\Data\CameraData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLShadowMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLShadowRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
@@ -617,6 +629,8 @@
     <None Include="Shaders\Particle.vp" />
     <None Include="Shaders\Particle.fp" />
     <None Include="src\Renderer\ParticleTexture.h" />
+    <None Include="Shaders\ShadowMap.vp" />
+    <None Include="Shaders\ShadowMap.fp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\bottom.png">

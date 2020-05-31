@@ -21,17 +21,19 @@ namespace Lava
 				{
 					camera->transform.Rotation.y += Time::deltaTime * 100;
 				}
-				if (InputManager::GetKeyPress(GLFW_KEY_KP_8))
+				if (InputManager::GetKeyPress(GLFW_KEY_KP_2))
 				{
 					camera->transform.Rotation.x -= Time::deltaTime * 100;
 				}
-				if (InputManager::GetKeyPress(GLFW_KEY_KP_2))
+				if (InputManager::GetKeyPress(GLFW_KEY_KP_8))
 				{
 					camera->transform.Rotation.x += Time::deltaTime * 100;
 				}
 				if (InputManager::GetKeyPress(GLFW_KEY_W))
 				{
 					camera->transform.Position.z -= Time::deltaTime;
+					//auto forward_vector = normalize(glm::vec3(camera->GetViewMatrix()[2])*glm::vec3(1,1,-1));
+					//camera->transform.Position += camera->transform.GetForwardVector() * Time::deltaTime;
 				}
 				if (InputManager::GetKeyPress(GLFW_KEY_S))
 				{
