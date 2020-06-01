@@ -19,18 +19,27 @@ uniform float Shininess;
 uniform float GlossDamping;
 uniform vec3 FogColor;
 uniform float AmbientLightIntensity;
+uniform int ShadowsOn;
 
 void main(void){
-	vec3 ndc_shadowCoords = shadowCoords.xyz/shadowCoords.w;
-	ndc_shadowCoords = ndc_shadowCoords * 0.5 + 0.5;
-
-	float closestDepth = texture(shadowMapSampler, ndc_shadowCoords.xy).r;
-	float shadow = ndc_shadowCoords.z>closestDepth ? 1. : 0.;
-
+	float shadow = 0.f;
 
 	vec4 normalMapValue = 2.0* texture(normalMapSampler,pass_textureCoords) - 1.0;
 
 	vec3 normalizedVertexNormal = normalize(normalMapValue.rgb);
+
+	if(ShadowsOn==1){
+		float shadow_bias = max(0.05 * (1.0-dot(normalizedVertexNormal,normalize(lightVector[0]))),0.005);
+		vec3 ndc_shadowCoords = shadowCoords.xyz/shadowCoords.w;
+		float closestDepth = texture(shadowMapSampler, ndc_shadowCoords.xy).r;
+		shadow = ndc_shadowCoords.z-shadow_bias>closestDepth ? 1. : 0.;
+		if(ndc_shadowCoords.z>1.0)
+		{
+			shadow= 0;
+		}
+	}
+
+
 
 	vec3 totalDifuse = vec3(0.0);
 	vec3 totalSpecular = vec3(0.0);

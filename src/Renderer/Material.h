@@ -11,6 +11,8 @@ namespace Lava {
 		float* uvCoords;
 		unsigned int uvCoordCount;
 
+		bool castShadows = 0;
+		bool receiveShadows = 1;
 		float m_tintColor[3];
 		float shininess = 1;
 		float glossDamping = 10;

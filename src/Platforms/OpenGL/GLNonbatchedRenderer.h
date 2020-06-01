@@ -11,6 +11,7 @@ namespace Lava {
 
 		private:
 			GLShaderBank* m_bank;
+			CameraData* m_cameraData;
 
 			// Inherited via NonbatchedRenderer
 			virtual void BindObject(Entity* entity) override;

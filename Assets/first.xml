@@ -3,9 +3,19 @@
   <SceneData>
     <Lights>
       <Light>
-        <Position>0,1,0</Position>
-        <Color>.4,.4,.4</Color>
+        <Position>-4,4,0</Position>
+        <Color>1.0,1.0,1.0</Color>
         <Intensity>1.</Intensity>
+      </Light>
+      <Light>
+        <Position>1,1,2</Position>
+        <Color>1.0,1.0,1.0</Color>
+        <Intensity>0.4</Intensity>
+      </Light>
+      <Light>
+        <Position>2,1,-2</Position>
+        <Color>1.0,1.0,1.0</Color>
+        <Intensity>0.4</Intensity>
       </Light>
     </Lights>
     <Camera>
@@ -39,25 +49,29 @@
     <Entity>
       <ModelPath>Assets/plane.obj</ModelPath>
       <Material>
-        <AlbedoPath>Assets/e.jpg</AlbedoPath>
+        <AlbedoPath>Assets/metal_floor.jpg</AlbedoPath>
         <NormalPath></NormalPath>
-      </Material>
-      <Transform>
-        <Position>0,-.5,0</Position>
-        <Rotation>0,0,0</Rotation>
-        <Scale>1,1,1</Scale>
-      </Transform>
-    </Entity>
-    <Entity>
-      <ModelPath>Assets/barrel2.obj</ModelPath>
-      <Material>
-        <AlbedoPath>Assets/barrel.png</AlbedoPath>
-        <NormalPath>Assets/barrelNormal.png</NormalPath>
+        <CastShadows>0</CastShadows>
+        <ReceiveShadows>1</ReceiveShadows>
       </Material>
       <Transform>
         <Position>0,0,0</Position>
         <Rotation>0,0,0</Rotation>
-        <Scale>.1,.1,.1</Scale>
+        <Scale>.5,1,.5</Scale>
+      </Transform>
+    </Entity>
+    <Entity>
+      <ModelPath>Assets/Zombie9.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/Zombie9_CT.png</AlbedoPath>
+        <NormalPath></NormalPath>
+        <CastShadows>1</CastShadows>
+        <ReceiveShadows>0</ReceiveShadows>
+      </Material>
+      <Transform>
+        <Position>0,0,0</Position>
+        <Rotation>0,0,0</Rotation>
+        <Scale>1,1,1</Scale>
       </Transform>
     </Entity>
   </Entities>

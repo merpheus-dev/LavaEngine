@@ -134,6 +134,8 @@ void Lava::Scene::LoadSeparateEntities()
 		const auto model_path = child->FirstChildElement("ModelPath")->GetText();
 		const auto material_albedo = child->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
 		const auto material_normal = child->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
+		const auto material_cast_shadows = child->FirstChildElement("Material")->FirstChildElement("CastShadows")->GetText();
+		const auto material_receive_shadows = child->FirstChildElement("Material")->FirstChildElement("ReceiveShadows")->GetText();
 		const auto position = child->FirstChildElement("Transform")->FirstChildElement("Position")->GetText();
 		const auto rotation = child->FirstChildElement("Transform")->FirstChildElement("Rotation")->GetText();
 		const auto scale = child->FirstChildElement("Transform")->FirstChildElement("Scale")->GetText();
@@ -143,6 +145,7 @@ void Lava::Scene::LoadSeparateEntities()
 		Texture* normal = nullptr;
 		if (material_normal != nullptr && !std::string(material_normal).empty())
 			normal = AssetDatabase::LoadTexture(material_normal, 4);
+
 
 		//std::vector<VertexBufferElement> bufferElements(4);
 		//bufferElements[0].uniform_name = "position";
@@ -170,6 +173,9 @@ void Lava::Scene::LoadSeparateEntities()
 		entity->mesh->m_bufferLayoutElement = bufferArray;
 		entity->mesh->m_bufferLayoutCount = 4;
 		//entity->SetBufferLayout(bufferElements);
+
+		entity->material->castShadows = std::stoi(material_cast_shadows);
+		entity->material->receiveShadows = std::stoi(material_receive_shadows);
 		entity->material->m_mainTexture = albedo;
 		if (normal)
 			entity->material->m_nrmTexture = normal;

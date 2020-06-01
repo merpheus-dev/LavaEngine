@@ -31,10 +31,11 @@ void Lava::Demo::DemoGameLayer::Start()
 		{
 			entity->GetMeshRenderer(Platform::OpenGL);
 			entity_renderer->entity_list.push_back(entity);
-			shadow_entity_renderer->entity_list.push_back(entity);
+			if (entity->material->castShadows)
+				shadow_entity_renderer->entity_list.push_back(entity);
 		}
 	}
-	
+
 	debug_ui = new DebugUI();
 	debug_ui->Setup();
 	debug_ui->light_pos = &(scene->scene_data->lights->at(0)->Position);
@@ -76,7 +77,7 @@ void Lava::Demo::DemoGameLayer::Start()
 	particle_system->direction = glm::vec3(0, 1, 0);
 	particle_renderer = static_cast<OpenGL::GLParticleRenderer*>(renderer->particleRenderer);
 	particle_renderer->AttachParticleSystem(particle_system);
-	particle_move_pos_temp = glm::vec3(0.);
+	particle_move_pos_temp = glm::vec3(0,1.,0);
 	onStartExecuted = false;
 }
 
@@ -125,7 +126,7 @@ void Lava::Demo::DemoGameLayer::Update()
 	_renderer->Update(glm::vec4(0, -1, 0, water_transform->Position.y));
 	gl_water_renderer->UnbindAll();
 #pragma endregion
-	
+
 	for (auto& entity : entities) {
 		_renderer->batchedRenderer->AddToBatch(entity);
 	}

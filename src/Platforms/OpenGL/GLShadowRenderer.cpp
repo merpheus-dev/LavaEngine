@@ -16,6 +16,7 @@ void Lava::OpenGL::GLShadowRenderer::Setup(Scene* scene)
 
 void Lava::OpenGL::GLShadowRenderer::Render(CameraData& data)
 {
+	glCullFace(GL_FRONT);
 	m_bank->Bind();
 	PrepareFrameData(data);
 	for (auto* entity : entity_list) {
@@ -28,13 +29,15 @@ void Lava::OpenGL::GLShadowRenderer::Render(CameraData& data)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, WindowManager::Width(), WindowManager::Height());
 	m_bank->Unbind();
+	glCullFace(GL_BACK);
 }
 
 void Lava::OpenGL::GLShadowRenderer::PrepareFrameData(CameraData& data)
 {
 	auto lightProjection = glm::ortho(-size, size, -size, size, near_plane, far_plane);
+	auto light_ptr = m_scene->scene_data->lights->at(0);
 	auto lightViewMatrix = glm::lookAt(m_scene->scene_data->lights->at(0)->Position,
-		glm::vec3(0., 0., 0.),
+		glm::vec3(0),
 		glm::vec3(0., 1., 0.));
 
 	lightSpaceMatrix = lightProjection * lightViewMatrix;
