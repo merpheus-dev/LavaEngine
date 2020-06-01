@@ -21,18 +21,29 @@ uniform vec3 FogColor;
 uniform float AmbientLightIntensity;
 uniform int ShadowsOn;
 
+const int pcfGridSize = 5;
 void main(void){
 	float shadow = 0.f;
+	
+	float totalTexelGridCount = pow(pcfGridSize*2.0+1.0,2.0); //1*2+1=3^2 = 9
 
 	vec4 normalMapValue = 2.0* texture(normalMapSampler,pass_textureCoords) - 1.0;
-
 	vec3 normalizedVertexNormal = normalize(normalMapValue.rgb);
 
 	if(ShadowsOn==1){
+		//better bias on perpendicular angles
 		float shadow_bias = max(0.05 * (1.0-dot(normalizedVertexNormal,normalize(lightVector[0]))),0.005);
 		vec3 ndc_shadowCoords = shadowCoords.xyz/shadowCoords.w;
-		float closestDepth = texture(shadowMapSampler, ndc_shadowCoords.xy).r;
-		shadow = ndc_shadowCoords.z-shadow_bias>closestDepth ? 1. : 0.;
+		
+		vec2 texelSize = 1.0/textureSize(shadowMapSampler,0); //miplevel 0
+		for(int i=-pcfGridSize;i<=pcfGridSize;i++){
+			for(int j=-pcfGridSize;j<=pcfGridSize;j++){
+				float closestDepth = texture(shadowMapSampler, ndc_shadowCoords.xy+vec2(i,j)*texelSize).r;
+				shadow += ndc_shadowCoords.z-shadow_bias>closestDepth ? 1. : 0.;
+			}
+		}
+		shadow /= totalTexelGridCount;
+
 		if(ndc_shadowCoords.z>1.0)
 		{
 			shadow= 0;

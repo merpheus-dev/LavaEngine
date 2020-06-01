@@ -9,7 +9,7 @@
 namespace Lava {
 	class AssetDatabase {
 	public:
-		static Texture* LoadTexture(const char* file_name, int component_count = 0);
+		static Texture* LoadTexture(const char* file_name, int component_count = 0, bool repeat = false);
 		static int LoadCubeMap(std::vector<const char*> cubeMapFiles);
 	};
 }

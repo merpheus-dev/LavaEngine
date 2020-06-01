@@ -8,8 +8,8 @@ namespace Lava {
 		public:
 			unsigned int shadowMapFbo;
 			unsigned int shadowMapTextureId;
-			const int SHADOWRES_WIDTH = 2048;
-			const int SHADOWRES_HEIGHT = 2048;
+			const int SHADOWRES_WIDTH = 4096;
+			const int SHADOWRES_HEIGHT = 4096;
 			GLShadowMap();
 		private:
 			void GenerateShadowTexture();

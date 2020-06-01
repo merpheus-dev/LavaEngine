@@ -9,12 +9,12 @@
       </Light>
       <Light>
         <Position>1,1,2</Position>
-        <Color>1.0,1.0,1.0</Color>
+        <Color>.4,.4,.4</Color>
         <Intensity>0.4</Intensity>
       </Light>
       <Light>
         <Position>2,1,-2</Position>
-        <Color>1.0,1.0,1.0</Color>
+        <Color>.4,.4,.4</Color>
         <Intensity>0.4</Intensity>
       </Light>
     </Lights>
@@ -49,8 +49,9 @@
     <Entity>
       <ModelPath>Assets/plane.obj</ModelPath>
       <Material>
-        <AlbedoPath>Assets/metal_floor.jpg</AlbedoPath>
+        <AlbedoPath>Assets/Light/texture_08.png</AlbedoPath>
         <NormalPath></NormalPath>
+        <Tiling>1</Tiling>
         <CastShadows>0</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>
@@ -61,16 +62,92 @@
       </Transform>
     </Entity>
     <Entity>
-      <ModelPath>Assets/Zombie9.obj</ModelPath>
+      <ModelPath>Assets/char.obj</ModelPath>
       <Material>
-        <AlbedoPath>Assets/Zombie9_CT.png</AlbedoPath>
+        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
+        <Tiling>0</Tiling>
         <NormalPath></NormalPath>
         <CastShadows>1</CastShadows>
-        <ReceiveShadows>0</ReceiveShadows>
+        <ReceiveShadows>1</ReceiveShadows>
       </Material>
       <Transform>
         <Position>0,0,0</Position>
-        <Rotation>0,0,0</Rotation>
+        <Rotation>0,180,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+    </Entity>
+    <Entity>
+      <ModelPath>Assets/char.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
+        <Tiling>0</Tiling>
+        <NormalPath></NormalPath>
+        <CastShadows>1</CastShadows>
+        <ReceiveShadows>1</ReceiveShadows>
+      </Material>
+      <Transform>
+        <Position>.2,0,0</Position>
+        <Rotation>0,180,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+    </Entity>
+    <Entity>
+      <ModelPath>Assets/char.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
+        <Tiling>0</Tiling>
+        <NormalPath></NormalPath>
+        <CastShadows>1</CastShadows>
+        <ReceiveShadows>1</ReceiveShadows>
+      </Material>
+      <Transform>
+        <Position>.4,0,0</Position>
+        <Rotation>0,180,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+    </Entity>
+    <Entity>
+      <ModelPath>Assets/char.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
+        <Tiling>0</Tiling>
+        <NormalPath></NormalPath>
+        <CastShadows>1</CastShadows>
+        <ReceiveShadows>1</ReceiveShadows>
+      </Material>
+      <Transform>
+        <Position>0,0,.3</Position>
+        <Rotation>0,180,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+    </Entity>
+    <Entity>
+      <ModelPath>Assets/char.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
+        <Tiling>0</Tiling>
+        <NormalPath></NormalPath>
+        <CastShadows>1</CastShadows>
+        <ReceiveShadows>1</ReceiveShadows>
+      </Material>
+      <Transform>
+        <Position>.2,0,.3</Position>
+        <Rotation>0,180,0</Rotation>
+        <Scale>1,1,1</Scale>
+      </Transform>
+    </Entity>
+    <Entity>
+      <ModelPath>Assets/char.obj</ModelPath>
+      <Material>
+        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
+        <Tiling>0</Tiling>
+        <NormalPath></NormalPath>
+        <CastShadows>1</CastShadows>
+        <ReceiveShadows>1</ReceiveShadows>
+      </Material>
+      <Transform>
+        <Position>.4,0,.3</Position>
+        <Rotation>0,180,0</Rotation>
         <Scale>1,1,1</Scale>
       </Transform>
     </Entity>

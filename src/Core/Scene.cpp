@@ -134,17 +134,19 @@ void Lava::Scene::LoadSeparateEntities()
 		const auto model_path = child->FirstChildElement("ModelPath")->GetText();
 		const auto material_albedo = child->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
 		const auto material_normal = child->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
+		const auto material_tiling = child->FirstChildElement("Material")->FirstChildElement("Tiling")->GetText();
 		const auto material_cast_shadows = child->FirstChildElement("Material")->FirstChildElement("CastShadows")->GetText();
 		const auto material_receive_shadows = child->FirstChildElement("Material")->FirstChildElement("ReceiveShadows")->GetText();
 		const auto position = child->FirstChildElement("Transform")->FirstChildElement("Position")->GetText();
 		const auto rotation = child->FirstChildElement("Transform")->FirstChildElement("Rotation")->GetText();
 		const auto scale = child->FirstChildElement("Transform")->FirstChildElement("Scale")->GetText();
 
+		const auto tiling = std::stoi(material_tiling);
 		const auto pack = Importers::AssetImporter::Load(model_path);
-		const auto albedo = AssetDatabase::LoadTexture(material_albedo, 4);
+		const auto albedo = AssetDatabase::LoadTexture(material_albedo, 4, tiling);
 		Texture* normal = nullptr;
 		if (material_normal != nullptr && !std::string(material_normal).empty())
-			normal = AssetDatabase::LoadTexture(material_normal, 4);
+			normal = AssetDatabase::LoadTexture(material_normal, 4, tiling);
 
 
 		//std::vector<VertexBufferElement> bufferElements(4);
