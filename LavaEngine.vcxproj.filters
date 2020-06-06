@@ -267,6 +267,9 @@
     <ClCompile Include="src\Renderer\FrameBufferRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLQuadRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -626,6 +629,12 @@
     <ClInclude Include="src\Renderer\FrameBufferRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\QuadRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLQuadRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
@@ -637,6 +646,10 @@
     <None Include="src\Renderer\ParticleTexture.h" />
     <None Include="Shaders\ShadowMap.vp" />
     <None Include="Shaders\ShadowMap.fp" />
+    <None Include="Shaders\water.fp" />
+    <None Include="Shaders\water.vp" />
+    <None Include="Shaders\hdr.vp" />
+    <None Include="Shaders\hdr.fp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\bottom.png">

@@ -22,6 +22,11 @@ void Lava::OpenGL::GLMasterRenderer::setup_frame_buffers()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void Lava::OpenGL::GLMasterRenderer::setup_water_renderer(Transform* water_transform)
+{
+	waterRenderer = new GLWaterRenderer(m_scene, water_transform);
+}
+
 void Lava::OpenGL::GLMasterRenderer::InternalUpdate()
 {
 	glEnable(GL_CULL_FACE);
@@ -29,4 +34,18 @@ void Lava::OpenGL::GLMasterRenderer::InternalUpdate()
 	glCullFace(GL_BACK);
 	glClearColor(m_scene->scene_data->fog_color.x, m_scene->scene_data->fog_color.y, m_scene->scene_data->fog_color.z, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+
+
+void Lava::OpenGL::GLMasterRenderer::InternalUpdateEnd()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	screenQuadRenderer->Render(colorBufferTextureId);
+}
+
+void Lava::OpenGL::GLMasterRenderer::ShadowPassUpdate()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, renderSceneFbo);
+	InternalUpdate();
 }

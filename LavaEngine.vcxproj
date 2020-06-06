@@ -184,6 +184,7 @@
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLNonbatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLParticleRenderer.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLQuadRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLShader.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLNonbatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLParticleRenderer.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLQuadRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderObject.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShader.h" />
@@ -308,6 +310,7 @@
     <ClInclude Include="src\Renderer\EntityRenderer.h" />
     <ClInclude Include="src\Components\ParticleSystem.h" />
     <ClInclude Include="src\Renderer\ParticleRenderer.h" />
+    <ClInclude Include="src\Renderer\QuadRenderer.h" />
     <ClInclude Include="src\Renderer\RenderObject.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\ShaderBank.h" />
@@ -377,6 +380,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
+    <None Include="Shaders\hdr.fp" />
+    <None Include="Shaders\hdr.vp" />
     <None Include="Shaders\Particle.fp" />
     <None Include="Shaders\Particle.vp" />
     <None Include="Shaders\ShadowMap.fp" />
@@ -384,6 +389,8 @@
     <None Include="Shaders\Skybox.fp" />
     <None Include="Shaders\Skybox.vp" />
     <None Include="Shaders\vertexShader.vp" />
+    <None Include="Shaders\water.fp" />
+    <None Include="Shaders\water.vp" />
     <None Include="src\Renderer\ParticleTexture.h" />
   </ItemGroup>
   <ItemGroup>
