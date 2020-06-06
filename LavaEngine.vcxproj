@@ -195,6 +195,7 @@
     <ClCompile Include="src\Platforms\OpenGL\GLVAO.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLWaterRenderer.cpp" />
     <ClCompile Include="src\Renderer\DebugUI.cpp" />
+    <ClCompile Include="src\Renderer\FrameBufferRenderer.cpp" />
     <ClCompile Include="src\Renderer\MeshData.cpp" />
     <ClCompile Include="src\Renderer\EntityRenderer.cpp" />
     <ClCompile Include="src\Renderer\NonbatchedRenderer.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="src\Renderer\BaseRenderer.h" />
     <ClInclude Include="src\Renderer\BatchedRenderer.h" />
     <ClInclude Include="src\Renderer\DebugUI.h" />
+    <ClInclude Include="src\Renderer\FrameBufferRenderer.h" />
     <ClInclude Include="src\Renderer\NonbatchedRenderer.h" />
     <ClInclude Include="src\Renderer\Particle.h" />
     <ClInclude Include="src\Renderer\MasterRenderer.h" />

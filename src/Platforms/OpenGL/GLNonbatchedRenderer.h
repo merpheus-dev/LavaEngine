@@ -3,7 +3,7 @@
 #include "GLShaderBank.h"
 namespace Lava {
 	namespace OpenGL {
-		class GLNonbatchedRenderer : public NonbatchedRenderer {
+		class GLNonbatchedRenderer : public NonbatchedRenderer{
 			virtual void Setup(Scene* scene);
 			virtual void Render(CameraData& data) override;
 			virtual void PrepareFrameData(CameraData& data) override;

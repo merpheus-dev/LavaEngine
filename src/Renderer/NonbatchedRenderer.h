@@ -4,9 +4,10 @@
 #include "../Core/Data/CameraData.h"
 #include "../Core/Scene.h"
 #include "../Core/Data/SceneData.h"
+#include "FrameBufferRenderer.h"
 namespace Lava {
 
-	class NonbatchedRenderer {
+	class NonbatchedRenderer : public FrameBufferRenderer{
 	public:
 		virtual ~NonbatchedRenderer() = default;
 		virtual void Setup(Scene* scene) = 0;

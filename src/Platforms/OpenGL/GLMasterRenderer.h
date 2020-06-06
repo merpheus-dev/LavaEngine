@@ -13,16 +13,21 @@ namespace Lava {
 		class GLMasterRenderer :public MasterRenderer {
 		public:
 			GLMasterRenderer(Scene* scene) : MasterRenderer(scene){
+				setup_frame_buffers();
+
 				shadowRenderer = new GLShadowRenderer();
 				shadowRenderer->Setup(scene);
 
 				nonbatchedRenderer = new GLNonbatchedRenderer();
 				nonbatchedRenderer->Setup(scene);
+				nonbatchedRenderer->SetFrameBuffers(renderSceneFbo);
 
 				batchedRenderer = new GLBatchedRenderer(m_scene, std::vector<GLShader*>());
 				skyboxRenderer = new GLSkyboxRenderer(m_scene,500.0f,scene->scene_data->skybox_textures); //Culling should be disabled for the cube
 				particleRenderer = new GLParticleRenderer(m_scene);
 			}
+
+			void setup_frame_buffers();
 
 			void setup_water_renderer(Transform* water_transform)
 			{
@@ -30,6 +35,11 @@ namespace Lava {
 			}
 			
 			virtual void InternalUpdate() override;
+
+		public:
+			unsigned int colorBufferTextureId;
+			unsigned int renderSceneFbo;
+			unsigned int renderSceneDepthBuffer;
 		};
 	}
 }

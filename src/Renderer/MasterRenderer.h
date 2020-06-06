@@ -31,6 +31,7 @@ namespace Lava
 			nonbatchedRenderer->Render(cam_data);
 		}
 	public:
+		unsigned int colorBufferFbo;
 		Scene* GetScenePtr()
 		{
 			return m_scene;

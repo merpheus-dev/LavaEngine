@@ -21,6 +21,7 @@ void Lava::OpenGL::GLNonbatchedRenderer::Setup(Scene* scene)
 void Lava::OpenGL::GLNonbatchedRenderer::Render(CameraData& data)
 {
 	m_bank->Bind();
+	//glBindFramebuffer(GL_FRAMEBUFFER, colorBufferFbo);
 	PrepareFrameData(data);
 	glEnable(GL_CLIP_DISTANCE0);
 	for (auto* entity : entity_list) {
@@ -34,6 +35,7 @@ void Lava::OpenGL::GLNonbatchedRenderer::Render(CameraData& data)
 		UnbindObject(entity);
 	}
 	glDisable(GL_CLIP_DISTANCE0);
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	m_bank->Unbind();
 }
 

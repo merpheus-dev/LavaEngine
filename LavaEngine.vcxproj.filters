@@ -264,6 +264,9 @@
     <ClCompile Include="src\Platforms\OpenGL\GLShadowRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\FrameBufferRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -618,6 +621,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Platforms\OpenGL\GLShadowRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\FrameBufferRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
