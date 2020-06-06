@@ -4,7 +4,7 @@
     <Lights>
       <Light>
         <Position>-4,4,0</Position>
-        <Color>1.0,1.0,1.0</Color>
+        <Color>2.0,2.0,2.0</Color>
         <Intensity>1.</Intensity>
       </Light>
       <Light>
