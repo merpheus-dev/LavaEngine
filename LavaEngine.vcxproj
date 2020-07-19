@@ -384,7 +384,7 @@
     <ClInclude Include="vendor\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\colorChanger.fp" />
+    <None Include="Shaders\gaussian.fp" />
     <None Include="Shaders\fragmentShader.fp" />
     <None Include="Shaders\hdr.fp" />
     <None Include="Shaders\hdr.vp" />

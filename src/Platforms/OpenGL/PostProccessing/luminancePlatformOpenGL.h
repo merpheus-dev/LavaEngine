@@ -2,9 +2,12 @@
 #include "../GLPostProcessingEffect.h"
 namespace Lava {
 	namespace OpenGL {
-		class LuminanceFX : public GLPostProcessingEffect {
+		class BlurFX : public GLPostProcessingEffect {
 		public:
-			LuminanceFX() : GLPostProcessingEffect("Shaders/colorChanger.fp") {};
+			BlurFX( bool horizontal ) : GLPostProcessingEffect( "Shaders/gaussian.fp" )
+			{
+				m_bank->GetShader( 1 )->SetBool( "horizontal" , horizontal );
+			};
 		};
 	}
 }

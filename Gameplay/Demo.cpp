@@ -28,7 +28,11 @@ void Lava::Demo::DemoGameLayer::Start()
 	auto shadow_renderer = static_cast<OpenGL::GLShadowRenderer*>(renderer->shadowRenderer);
 	auto gl_master_renderer = static_cast<OpenGL::GLMasterRenderer*>(renderer);
 	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::HdrFX());
-	//gl_master_renderer->AttachPostProcessingEffect(new OpenGL::LuminanceFX());
+	for(uint32_t i=0; i<3; ++i)
+	{
+		gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(true));
+		gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(false));
+	}
 	for (auto& sceneObject : scene->SceneObjects)
 	{
 		auto entity = dynamic_cast<Entity*>(sceneObject);

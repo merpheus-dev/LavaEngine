@@ -666,7 +666,7 @@
     <None Include="Shaders\hdr.vp" />
     <None Include="Shaders\hdr.fp" />
     <None Include="Shaders\postProcess.vp" />
-    <None Include="Shaders\colorChanger.fp" />
+    <None Include="Shaders\gaussian.fp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\bottom.png">
