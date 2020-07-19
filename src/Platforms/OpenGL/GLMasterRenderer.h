@@ -32,7 +32,8 @@ namespace Lava {
 			void setup_frame_buffers();
 
 			void setup_water_renderer(Transform* water_transform);
-			
+			void AttachPostProcessingEffect(GLPostProcessingEffect* postfx);
+
 			virtual void InternalUpdate() override;
 			virtual void InternalUpdateEnd() override;
 			virtual void ShadowPassUpdate() override;
@@ -41,6 +42,8 @@ namespace Lava {
 			unsigned int colorBufferTextureId;
 			unsigned int renderSceneFbo;
 			unsigned int renderSceneDepthBuffer;
+
+			// Inherited via MasterRenderer
 		};
 	}
 }

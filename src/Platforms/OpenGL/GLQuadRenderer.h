@@ -3,6 +3,8 @@
 #include <glfw3.h>
 #include "../../Renderer/QuadRenderer.h"
 #include "GLShaderBank.h"
+#include "../../Core/WindowManager.h"
+#include "GLPostProcessingEffect.h"
 namespace Lava {
 	namespace OpenGL {
 		class GLQuadRenderer : public QuadRenderer {
@@ -10,8 +12,6 @@ namespace Lava {
 			virtual void Setup() override;
 			virtual void Render(unsigned int& targetTextureId) override;
 			virtual ~GLQuadRenderer();
-		private:
-			GLShaderBank* m_bank;
 		};
 	}
 }

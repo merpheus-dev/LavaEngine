@@ -270,6 +270,9 @@
     <ClCompile Include="src\Platforms\OpenGL\GLQuadRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\GLPostProcessingEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -635,6 +638,18 @@
     <ClInclude Include="src\Platforms\OpenGL\GLQuadRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\PostProcessingEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\GLPostProcessingEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\hdrPlatformOpenGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\luminancePlatformOpenGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShader.fp" />
@@ -650,6 +665,8 @@
     <None Include="Shaders\water.vp" />
     <None Include="Shaders\hdr.vp" />
     <None Include="Shaders\hdr.fp" />
+    <None Include="Shaders\postProcess.vp" />
+    <None Include="Shaders\colorChanger.fp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\bottom.png">

@@ -6,6 +6,8 @@
 #include "../src/Core/Scene.h"
 #include "../src/Utils/Mathematics.h"
 #include "../src/Core/InputManager.h"
+#include "../src/Platforms/OpenGL/PostProccessing/hdrPlatformOpenGL.h"
+#include "../src/Platforms/OpenGL/PostProccessing/luminancePlatformOpenGL.h"
 void Lava::Demo::DemoGameLayer::Start()
 {
 	scene = new Scene("Assets/first.xml");
@@ -24,6 +26,9 @@ void Lava::Demo::DemoGameLayer::Start()
 	auto entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->nonbatchedRenderer);
 	auto shadow_entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->shadowRenderer);
 	auto shadow_renderer = static_cast<OpenGL::GLShadowRenderer*>(renderer->shadowRenderer);
+	auto gl_master_renderer = static_cast<OpenGL::GLMasterRenderer*>(renderer);
+	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::HdrFX());
+	//gl_master_renderer->AttachPostProcessingEffect(new OpenGL::LuminanceFX());
 	for (auto& sceneObject : scene->SceneObjects)
 	{
 		auto entity = dynamic_cast<Entity*>(sceneObject);

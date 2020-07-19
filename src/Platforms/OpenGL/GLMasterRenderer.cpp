@@ -49,3 +49,8 @@ void Lava::OpenGL::GLMasterRenderer::ShadowPassUpdate()
 	glBindFramebuffer(GL_FRAMEBUFFER, renderSceneFbo);
 	InternalUpdate();
 }
+
+void Lava::OpenGL::GLMasterRenderer::AttachPostProcessingEffect(GLPostProcessingEffect* postfx)
+{
+	screenQuadRenderer->postProcessingEffects.push_back(postfx);
+}

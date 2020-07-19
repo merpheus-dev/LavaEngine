@@ -29,6 +29,7 @@ namespace Lava
 				glGetShaderiv(m_shaderId, GL_INFO_LOG_LENGTH, &maxLogLength);
 				std::vector<GLchar> logInfo(maxLogLength);
 				glGetShaderInfoLog(m_shaderId, maxLogLength, &maxLogLength, &logInfo[0]);
+				Debug::LogError(m_shaderDirectory);
 				Debug::LogError(&logInfo[0]);
 			}
 

@@ -16,5 +16,5 @@ void main()
 	//TODO:Enable back after linear(sRGB) texture pipeline integration.
 	//toneMapped = pow(toneMapped,vec3(1./2.2));//gamma correction curve applied
 
-	FragColor = vec4(toneMapped,1.0);
+	FragColor = vec4(toneMapped,1.0).rrra;
 }

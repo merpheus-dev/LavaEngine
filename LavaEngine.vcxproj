@@ -184,6 +184,7 @@
     <ClCompile Include="src\Platforms\OpenGL\GLMeshData.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLNonbatchedRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLParticleRenderer.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\GLPostProcessingEffect.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLQuadRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLRenderObject.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="src\Platforms\OpenGL\GLMeshData.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLNonbatchedRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLParticleRenderer.h" />
+    <ClInclude Include="src\Platforms\OpenGL\GLPostProcessingEffect.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLQuadRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLRenderObject.h" />
@@ -293,6 +295,8 @@
     <ClInclude Include="src\Platforms\OpenGL\GLVAO.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLWaterRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShadowRenderer.h" />
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\hdrPlatformOpenGL.h" />
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\luminancePlatformOpenGL.h" />
     <ClInclude Include="src\Platforms\Platform.h" />
     <ClInclude Include="src\Platforms\PlatformInstanceGenerator.h" />
     <ClInclude Include="src\Platforms\VertexArrayObject.h" />
@@ -310,6 +314,7 @@
     <ClInclude Include="src\Renderer\EntityRenderer.h" />
     <ClInclude Include="src\Components\ParticleSystem.h" />
     <ClInclude Include="src\Renderer\ParticleRenderer.h" />
+    <ClInclude Include="src\Renderer\PostProcessingEffect.h" />
     <ClInclude Include="src\Renderer\QuadRenderer.h" />
     <ClInclude Include="src\Renderer\RenderObject.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
@@ -379,11 +384,13 @@
     <ClInclude Include="vendor\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\colorChanger.fp" />
     <None Include="Shaders\fragmentShader.fp" />
     <None Include="Shaders\hdr.fp" />
     <None Include="Shaders\hdr.vp" />
     <None Include="Shaders\Particle.fp" />
     <None Include="Shaders\Particle.vp" />
+    <None Include="Shaders\postProcess.vp" />
     <None Include="Shaders\ShadowMap.fp" />
     <None Include="Shaders\ShadowMap.vp" />
     <None Include="Shaders\Skybox.fp" />
