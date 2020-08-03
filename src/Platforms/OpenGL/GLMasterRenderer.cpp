@@ -3,22 +3,26 @@
 void Lava::OpenGL::GLMasterRenderer::setup_frame_buffers()
 {
 	glGenFramebuffers(1, &renderSceneFbo);
-
-	glGenTextures(1, &colorBufferTextureId);
-	glBindTexture(GL_TEXTURE_2D, colorBufferTextureId);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WindowManager::Width(), WindowManager::Height(),
-		0, GL_RGBA, GL_FLOAT, nullptr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //F* off gamma!
-
 	glGenRenderbuffers(1, &renderSceneDepthBuffer);
 	glBindRenderbuffer(GL_RENDERBUFFER, renderSceneDepthBuffer);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WindowManager::Width(), WindowManager::Height());
-
 	glBindFramebuffer(GL_FRAMEBUFFER, renderSceneFbo);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBufferTextureId, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderSceneDepthBuffer);
 
+	const unsigned int bufferCount = sizeof(colorBufferTextureId) / sizeof(unsigned int);
+	glGenTextures(bufferCount, colorBufferTextureId);
+	for (unsigned int i = 0; i < bufferCount; ++i)
+	{
+		glBindTexture(GL_TEXTURE_2D, colorBufferTextureId[i]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, WindowManager::Width(), WindowManager::Height(),
+			0, GL_RGBA, GL_FLOAT, nullptr);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, colorBufferTextureId[i], 0);
+	}
+
+	unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+	glDrawBuffers(2, attachments);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -41,7 +45,7 @@ void Lava::OpenGL::GLMasterRenderer::InternalUpdate()
 void Lava::OpenGL::GLMasterRenderer::InternalUpdateEnd()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	screenQuadRenderer->Render(colorBufferTextureId);
+	screenQuadRenderer->Render(colorBufferTextureId[0]); //Render hdr MRT 0, MRT 1=> Bloom
 }
 
 void Lava::OpenGL::GLMasterRenderer::ShadowPassUpdate()

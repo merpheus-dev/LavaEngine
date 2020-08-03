@@ -647,7 +647,10 @@
     <ClInclude Include="src\Platforms\OpenGL\PostProccessing\hdrPlatformOpenGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\luminancePlatformOpenGL.h">
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\gaussianBlurOpenGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\bloomOpenGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -667,6 +670,7 @@
     <None Include="Shaders\hdr.fp" />
     <None Include="Shaders\postProcess.vp" />
     <None Include="Shaders\gaussian.fp" />
+    <None Include="Shaders\bloom.fp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Skybox Images\bottom.png">

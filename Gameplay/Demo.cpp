@@ -7,7 +7,7 @@
 #include "../src/Utils/Mathematics.h"
 #include "../src/Core/InputManager.h"
 #include "../src/Platforms/OpenGL/PostProccessing/hdrPlatformOpenGL.h"
-#include "../src/Platforms/OpenGL/PostProccessing/luminancePlatformOpenGL.h"
+#include "../src/Platforms/OpenGL/PostProccessing/gaussianBlurOpenGL.h"
 void Lava::Demo::DemoGameLayer::Start()
 {
 	scene = new Scene("Assets/first.xml");
@@ -26,13 +26,17 @@ void Lava::Demo::DemoGameLayer::Start()
 	auto entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->nonbatchedRenderer);
 	auto shadow_entity_renderer = static_cast<OpenGL::GLNonbatchedRenderer*>(renderer->shadowRenderer);
 	auto shadow_renderer = static_cast<OpenGL::GLShadowRenderer*>(renderer->shadowRenderer);
+	
+	// TODO: Find a better way to implement post processing
 	auto gl_master_renderer = static_cast<OpenGL::GLMasterRenderer*>(renderer);
 	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::HdrFX());
-	for(uint32_t i=0; i<3; ++i)
-	{
-		gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(true));
-		gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(false));
-	}
+	//for(uint32_t i=0; i<3; ++i)
+	//{
+	//	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(true));
+	//	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(false));
+	//}
+
+
 	for (auto& sceneObject : scene->SceneObjects)
 	{
 		auto entity = dynamic_cast<Entity*>(sceneObject);
@@ -47,7 +51,9 @@ void Lava::Demo::DemoGameLayer::Start()
 
 	debug_ui = new DebugUI();
 	debug_ui->Setup();
-	debug_ui->light_pos = &(scene->scene_data->lights->at(0)->Position);
+	debug_ui->light_pos	 = &(scene->scene_data->lights->at(0)->Position);
+	debug_ui->camera_pos = &(scene->ActiveCamera->transform.Position);
+	debug_ui->camera_rot = &(scene->ActiveCamera->transform.Rotation);
 
 	auto particle_texture = AssetDatabase::LoadTexture("Assets/smoke.png", 4);
 	//audio_source = new AudioSource();

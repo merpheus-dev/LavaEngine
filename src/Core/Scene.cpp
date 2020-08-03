@@ -77,10 +77,11 @@ void Lava::Scene::LoadCamera()
 
 void Lava::Scene::LoadBatchedEntities()
 {
-	auto batched_entities = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("BatchedEntities");
-	const auto model_path = batched_entities->FirstChildElement("ModelPath")->GetText();
-	const auto material_albedo = batched_entities->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
-	const auto material_normal = batched_entities->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
+	auto batched_entities			 = scene_parser.FirstChildElement("LavaScene")->FirstChildElement("BatchedEntities");
+	const auto model_path			 = batched_entities->FirstChildElement("ModelPath")->GetText();
+	const auto material_albedo		 = batched_entities->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
+	const auto material_albedo_color = batched_entities->FirstChildElement("Material")->FirstChildElement("AlbedoColor")->GetText();
+	const auto material_normal		 = batched_entities->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
 
 	std::vector<VertexBufferElement> bufferElements(4);
 	bufferElements[0].uniform_name = "position";
@@ -112,6 +113,7 @@ void Lava::Scene::LoadBatchedEntities()
 		entity->transform->Scale = parse_vector3(scale);
 		entity->SetBufferLayout(bufferElements);
 		entity->material->m_mainTexture = albedo;
+		entity->material->albedoColor = parse_vector3(material_albedo_color);
 		if (normal)
 			entity->material->m_nrmTexture = normal;
 		if (!batchRenderer)
@@ -133,6 +135,7 @@ void Lava::Scene::LoadSeparateEntities()
 	{
 		const auto model_path = child->FirstChildElement("ModelPath")->GetText();
 		const auto material_albedo = child->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
+		const auto material_albedo_color = child->FirstChildElement("Material")->FirstChildElement("AlbedoColor")->GetText();
 		const auto material_normal = child->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
 		const auto material_tiling = child->FirstChildElement("Material")->FirstChildElement("Tiling")->GetText();
 		const auto material_cast_shadows = child->FirstChildElement("Material")->FirstChildElement("CastShadows")->GetText();
@@ -179,6 +182,7 @@ void Lava::Scene::LoadSeparateEntities()
 		entity->material->castShadows = std::stoi(material_cast_shadows);
 		entity->material->receiveShadows = std::stoi(material_receive_shadows);
 		entity->material->m_mainTexture = albedo;
+		entity->material->albedoColor = parse_vector3(material_albedo_color);
 		if (normal)
 			entity->material->m_nrmTexture = normal;
 

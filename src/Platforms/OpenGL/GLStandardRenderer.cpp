@@ -87,6 +87,7 @@ namespace Lava
 				glBindTexture(GL_TEXTURE_2D, entityPtr->material->m_mainTexture->texture_id);
 				m_bank->GetShader(1)->SetInt1("textureSampler", 0);
 			}
+			m_bank->GetShader(1)->SetFloat3("Albedo",entityPtr->material->albedoColor);
 
 			if (renderObjectPtr->HasNormalMap()) {
 				glActiveTexture(GL_TEXTURE1);

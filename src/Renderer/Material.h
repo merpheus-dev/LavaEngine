@@ -2,12 +2,14 @@
 #include <array>
 #include "Texture.h"
 #include <vector>
+#include <glm.hpp>
 namespace Lava {
 	//To-Do: All those stuff should be in an array to support multiple
 	//Textures colors and texcoords for shaders
 	struct Material {
 		Texture* m_mainTexture;
 		Texture* m_nrmTexture;
+		glm::vec3 albedoColor;
 		float* uvCoords;
 		unsigned int uvCoordCount;
 

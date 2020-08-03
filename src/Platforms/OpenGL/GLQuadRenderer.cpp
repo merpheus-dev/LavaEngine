@@ -28,7 +28,7 @@ void Lava::OpenGL::GLQuadRenderer::Render(unsigned int& targetTextureId)
 	for (PostProcessingEffect* postFx : postProcessingEffects) {
 		i++;
 		postFx->Render(targetId, postProcessingEffects.size() == i);
-		targetId = (postFx->colorTargetID);
+		targetId = (postFx->colorTargetID); //by-pass for multiple color buffers in postfx for now.
 	}
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, renderSceneFbo);

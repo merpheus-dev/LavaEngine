@@ -36,6 +36,8 @@ public:
 	}
 public:
 	glm::vec3* light_pos;
+	glm::vec3* camera_pos;
+	glm::vec3* camera_rot;
 
 protected:
 	ImFont* m_font;

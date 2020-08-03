@@ -39,10 +39,9 @@ namespace Lava {
 			virtual void ShadowPassUpdate() override;
 
 		public:
-			unsigned int colorBufferTextureId;
+			unsigned int colorBufferTextureId[2];
 			unsigned int renderSceneFbo;
 			unsigned int renderSceneDepthBuffer;
-
 			// Inherited via MasterRenderer
 		};
 	}

@@ -9,11 +9,13 @@ in vec4 shadowCoords;
 uniform sampler2D textureSampler;
 uniform sampler2D normalMapSampler;
 uniform sampler2D shadowMapSampler;
-out vec4 output_color;
+layout(location=0)out vec4 output_color;
+layout(location=1)out vec4 brightness_color;
 
 uniform vec3 LightColor[4];
 uniform vec3 LightAttenuation[4];
 uniform float LightIntensity[4];
+uniform vec3 Albedo;
 
 uniform float Shininess;
 uniform float GlossDamping;
@@ -71,7 +73,13 @@ void main(void){
 	totalDifuse = max(totalDifuse,AmbientLightIntensity) * (1.0 - shadow);
 
 	if(length(totalSpecular)<=0) totalSpecular = vec3(0);
-	vec4 finalColor = vec4(totalDifuse,1.0) * texture(textureSampler,pass_textureCoords)+vec4(totalSpecular,1.0);
+	vec4 finalColor = vec4(totalDifuse,1.0) * texture(textureSampler,pass_textureCoords) * vec4(Albedo,1.0) +vec4(totalSpecular,1.0);
 	output_color = mix(finalColor,vec4(FogColor,1),1-fog);
 	output_color = finalColor;
+
+	float luminance = dot(output_color.rgb, vec3(0.2126, 0.7152, 0.0722));
+	if(luminance>1.0)
+		brightness_color = vec4(output_color.rgb, 1.0);
+	else
+		brightness_color = vec4(0.0, 0.0, 0.0, 1.0);
 }

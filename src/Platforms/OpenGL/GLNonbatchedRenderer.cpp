@@ -23,7 +23,9 @@ void Lava::OpenGL::GLNonbatchedRenderer::Render(CameraData& data)
 	m_bank->Bind();
 	PrepareFrameData(data);
 	glEnable(GL_CLIP_DISTANCE0);
-	for (auto* entity : entity_list) {
+	glBindFramebuffer(GL_FRAMEBUFFER,colorBufferFbo);
+	for (auto* entity : entity_list)
+	{
 		BindObject(entity);
 		auto model_matrix = entity->transform->GetTransformationMatrix();
 		m_bank->GetShader(0)->SetMatrix4x4("Model", model_matrix);
@@ -33,6 +35,7 @@ void Lava::OpenGL::GLNonbatchedRenderer::Render(CameraData& data)
 		glDrawElements(GL_TRIANGLES, entity->mesh->m_posCount, GL_UNSIGNED_INT, 0);
 		UnbindObject(entity);
 	}
+	glBindFramebuffer(GL_FRAMEBUFFER,0);
 	glDisable(GL_CLIP_DISTANCE0);
 	m_bank->Unbind();
 }
@@ -75,6 +78,7 @@ void Lava::OpenGL::GLNonbatchedRenderer::BindObject(Entity* entity)
 		glBindTexture(GL_TEXTURE_2D, entity->material->m_mainTexture->texture_id);
 		m_bank->GetShader(1)->SetInt1("textureSampler", 0);
 	}
+	m_bank->GetShader(1)->SetFloat3("Albedo",entity->material->albedoColor);
 
 	if (renderObjectPtr->HasNormalMap()) {
 		glActiveTexture(GL_TEXTURE1);

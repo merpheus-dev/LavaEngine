@@ -9,6 +9,8 @@ namespace Lava {
 			virtual void PrepareFrameData(CameraData& data) override;
 			virtual ~GLNonbatchedRenderer();
 
+		public:
+			unsigned int targetFbo;
 		private:
 			GLShaderBank* m_bank;
 			CameraData* m_cameraData;

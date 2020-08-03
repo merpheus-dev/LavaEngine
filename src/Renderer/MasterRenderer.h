@@ -30,7 +30,7 @@ namespace Lava
 			auto cam_data = m_scene->ActiveCamera->GetCameraData();
 			InternalUpdate();
 			shadowRenderer->Render(cam_data);
-			ShadowPassUpdate();
+			ShadowPassUpdate(); // Bind fbo
 			batchedRenderer->Update(m_scene, clipPlane);
 			skyboxRenderer->Update(m_scene);
 			particleRenderer->Update(m_scene);
