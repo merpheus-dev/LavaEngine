@@ -49,5 +49,11 @@ namespace Lava {
 			if (m_material.m_nrmTexture == nullptr) return false;
 			return m_material.m_nrmTexture->valid;
 		}
+
+		bool GLRenderObject::HasEmissionMap()
+		{
+			if(m_material.emissionMap==nullptr) return false;
+			return m_material.emissionMap->valid;
+		}
 	}
 }

@@ -4,7 +4,7 @@
     <Lights>
       <Light>
         <Position>-4,4,0</Position>
-        <Color>2.0,2.0,2.0</Color>
+        <Color>1.0,1.0,1.0</Color>
         <Intensity>1.</Intensity>
       </Light>
       <Light>
@@ -53,6 +53,7 @@
         <AlbedoPath>Assets/Light/texture_08.png</AlbedoPath>
         <AlbedoColor>1,1,1</AlbedoColor>
         <NormalPath></NormalPath>
+        <EmissionPath></EmissionPath>
         <Tiling>1</Tiling>
         <CastShadows>0</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
@@ -66,10 +67,11 @@
     <Entity>
       <ModelPath>Assets/char.obj</ModelPath>
       <Material>
-        <AlbedoPath>Assets/char/skaterMaleA.png</AlbedoPath>
-        <AlbedoColor>10,10,10</AlbedoColor>
+        <AlbedoPath>Assets/char/evilSkater.png</AlbedoPath>
+        <AlbedoColor>1,1,1</AlbedoColor>
         <Tiling>0</Tiling>
         <NormalPath></NormalPath>
+        <EmissionPath>Assets/char/emission.png</EmissionPath>
         <CastShadows>1</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>
@@ -86,6 +88,7 @@
         <AlbedoColor>1,1,1</AlbedoColor>
         <Tiling>0</Tiling>
         <NormalPath></NormalPath>
+        <EmissionPath></EmissionPath>
         <CastShadows>1</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>
@@ -102,6 +105,7 @@
         <AlbedoColor>1,1,1</AlbedoColor>
         <Tiling>0</Tiling>
         <NormalPath></NormalPath>
+        <EmissionPath></EmissionPath>
         <CastShadows>1</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>
@@ -118,6 +122,7 @@
         <AlbedoColor>1,1,1</AlbedoColor>
         <Tiling>0</Tiling>
         <NormalPath></NormalPath>
+        <EmissionPath></EmissionPath>
         <CastShadows>1</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>
@@ -134,6 +139,7 @@
         <AlbedoColor>1,1,1</AlbedoColor>
         <Tiling>0</Tiling>
         <NormalPath></NormalPath>
+        <EmissionPath></EmissionPath>
         <CastShadows>1</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>
@@ -150,6 +156,7 @@
         <AlbedoColor>1,1,1</AlbedoColor>
         <Tiling>0</Tiling>
         <NormalPath></NormalPath>
+        <EmissionPath></EmissionPath>
         <CastShadows>1</CastShadows>
         <ReceiveShadows>1</ReceiveShadows>
       </Material>

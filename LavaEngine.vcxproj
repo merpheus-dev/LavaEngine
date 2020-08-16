@@ -196,6 +196,7 @@
     <ClCompile Include="src\Platforms\OpenGL\GLStandardRenderer.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLVAO.cpp" />
     <ClCompile Include="src\Platforms\OpenGL\GLWaterRenderer.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\PostProccessing\GLBloomPostProcess.cpp" />
     <ClCompile Include="src\Renderer\DebugUI.cpp" />
     <ClCompile Include="src\Renderer\FrameBufferRenderer.cpp" />
     <ClCompile Include="src\Renderer\MeshData.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="src\Platforms\OpenGL\GLWaterRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\GLShadowRenderer.h" />
     <ClInclude Include="src\Platforms\OpenGL\PostProccessing\bloomOpenGL.h" />
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\GLBloomPostProcess.h" />
     <ClInclude Include="src\Platforms\OpenGL\PostProccessing\hdrPlatformOpenGL.h" />
     <ClInclude Include="src\Platforms\OpenGL\PostProccessing\gaussianBlurOpenGL.h" />
     <ClInclude Include="src\Platforms\Platform.h" />

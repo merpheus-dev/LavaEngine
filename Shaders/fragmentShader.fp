@@ -8,6 +8,7 @@ in vec4 shadowCoords;
 
 uniform sampler2D textureSampler;
 uniform sampler2D normalMapSampler;
+uniform sampler2D emissionMapSampler;
 uniform sampler2D shadowMapSampler;
 layout(location=0)out vec4 output_color;
 layout(location=1)out vec4 brightness_color;
@@ -22,6 +23,8 @@ uniform float GlossDamping;
 uniform vec3 FogColor;
 uniform float AmbientLightIntensity;
 uniform int ShadowsOn;
+uniform bool emissionOn=false;
+
 
 const int pcfGridSize = 5;
 void main(void){
@@ -77,9 +80,18 @@ void main(void){
 	output_color = mix(finalColor,vec4(FogColor,1),1-fog);
 	output_color = finalColor;
 
-	float luminance = dot(output_color.rgb, vec3(0.2126, 0.7152, 0.0722));
-	if(luminance>1.0)
-		brightness_color = vec4(output_color.rgb, 1.0);
-	else
+	vec4 emission = texture(emissionMapSampler,pass_textureCoords);
+	if(emissionOn)
+	{
+		float luminance = dot(emission.rgb, vec3(0.2126, 0.7152, 0.0722));
+		if(luminance>1.5)
+			brightness_color = vec4(emission.rgb,1.0);
+	}else{
 		brightness_color = vec4(0.0, 0.0, 0.0, 1.0);
+	}
+	//float luminance = dot(output_color.rgb, vec3(0.2126, 0.7152, 0.0722));
+	//if(luminance>1.5)
+	//	brightness_color = vec4(output_color.rgb, 1.0);
+	//else
+	//	brightness_color = vec4(0.0, 0.0, 0.0, 1.0);
 }

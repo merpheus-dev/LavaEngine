@@ -8,6 +8,7 @@
 #include "../src/Core/InputManager.h"
 #include "../src/Platforms/OpenGL/PostProccessing/hdrPlatformOpenGL.h"
 #include "../src/Platforms/OpenGL/PostProccessing/gaussianBlurOpenGL.h"
+#include "../src/Platforms/OpenGL/PostProccessing/bloomOpenGL.h"
 void Lava::Demo::DemoGameLayer::Start()
 {
 	scene = new Scene("Assets/first.xml");
@@ -29,7 +30,8 @@ void Lava::Demo::DemoGameLayer::Start()
 	
 	// TODO: Find a better way to implement post processing
 	auto gl_master_renderer = static_cast<OpenGL::GLMasterRenderer*>(renderer);
-	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::HdrFX());
+	//gl_master_renderer->AttachPostProcessingEffect(new OpenGL::HdrFX());
+	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BloomFX());
 	//for(uint32_t i=0; i<3; ++i)
 	//{
 	//	gl_master_renderer->AttachPostProcessingEffect(new OpenGL::BlurFX(true));

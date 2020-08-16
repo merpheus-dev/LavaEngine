@@ -29,13 +29,13 @@ void Lava::OpenGL::GLPostProcessingEffect::Init()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void Lava::OpenGL::GLPostProcessingEffect::Render(unsigned int baseColorTargetId, bool last)
+void Lava::OpenGL::GLPostProcessingEffect::Render(unsigned int renderTargets[], bool last)
 {
 	if (!last)
 		glBindFramebuffer(GL_FRAMEBUFFER, renderTargetID);
 	m_bank->Bind();
 	glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D, baseColorTargetId);
+	glBindTexture(GL_TEXTURE_2D, renderTargets[0]);
 	m_bank->GetShader(1)->SetInt1("colorTexture", 3);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	m_bank->Unbind();

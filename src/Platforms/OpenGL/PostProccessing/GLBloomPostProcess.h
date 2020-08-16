@@ -1,12 +1,12 @@
 #pragma once
-#include "../../Renderer/PostProcessingEffect.h"
-#include "GLShaderBank.h"
-#include "../../Core/WindowManager.h"
+#include "../../../Renderer/PostProcessingEffect.h"
+#include "../GLShaderBank.h"
+#include "../../../Core/WindowManager.h"
 namespace Lava {
 	namespace OpenGL {
-		class GLPostProcessingEffect : public PostProcessingEffect {
+		class GLBloomPostProcess : public PostProcessingEffect {
 		public:
-			GLPostProcessingEffect(const char* shader)
+			GLBloomPostProcess(const char* shader)
 				: PostProcessingEffect(),
 				m_bank(nullptr),
 				shaderPath(shader) 
@@ -17,7 +17,10 @@ namespace Lava {
 			virtual void Render(unsigned int renderTargets[], bool last) override;
 		protected:
 			GLShaderBank* m_bank;
+			GLShaderBank* blurBank;
 			const char* shaderPath;
+			unsigned int pingPongFbos[2];
+			unsigned int pingPongTextures[2];
 		};
 	}
 }

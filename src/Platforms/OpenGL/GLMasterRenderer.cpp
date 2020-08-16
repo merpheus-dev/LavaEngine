@@ -45,7 +45,7 @@ void Lava::OpenGL::GLMasterRenderer::InternalUpdate()
 void Lava::OpenGL::GLMasterRenderer::InternalUpdateEnd()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	screenQuadRenderer->Render(colorBufferTextureId[0]); //Render hdr MRT 0, MRT 1=> Bloom
+	screenQuadRenderer->Render(colorBufferTextureId,2); //Render hdr MRT 0, MRT 1=> Bloom
 }
 
 void Lava::OpenGL::GLMasterRenderer::ShadowPassUpdate()
@@ -54,7 +54,7 @@ void Lava::OpenGL::GLMasterRenderer::ShadowPassUpdate()
 	InternalUpdate();
 }
 
-void Lava::OpenGL::GLMasterRenderer::AttachPostProcessingEffect(GLPostProcessingEffect* postfx)
+void Lava::OpenGL::GLMasterRenderer::AttachPostProcessingEffect(PostProcessingEffect* postfx)
 {
 	screenQuadRenderer->postProcessingEffects.push_back(postfx);
 }

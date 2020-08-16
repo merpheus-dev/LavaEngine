@@ -10,7 +10,7 @@ namespace Lava {
 		class GLQuadRenderer : public QuadRenderer {
 			// Inherited via QuadRenderer
 			virtual void Setup() override;
-			virtual void Render(unsigned int& targetTextureId) override;
+			virtual void Render(unsigned int* renderTargets,unsigned int count) override;
 			virtual ~GLQuadRenderer();
 		};
 	}

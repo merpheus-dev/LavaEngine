@@ -9,6 +9,7 @@ namespace Lava {
 	struct Material {
 		Texture* m_mainTexture;
 		Texture* m_nrmTexture;
+		Texture* emissionMap;
 		glm::vec3 albedoColor;
 		float* uvCoords;
 		unsigned int uvCoordCount;

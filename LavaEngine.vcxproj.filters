@@ -273,6 +273,9 @@
     <ClCompile Include="src\Platforms\OpenGL\GLPostProcessingEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\PostProccessing\GLBloomPostProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\Debug.h">
@@ -651,6 +654,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Platforms\OpenGL\PostProccessing\bloomOpenGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\PostProccessing\GLBloomPostProcess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

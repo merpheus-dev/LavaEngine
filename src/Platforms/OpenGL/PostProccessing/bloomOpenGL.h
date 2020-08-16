@@ -1,12 +1,12 @@
 #pragma once
-#include "../GLPostProcessingEffect.h"
+#include "GLBloomPostProcess.h"
 namespace Lava {
 	namespace OpenGL {
-		class BloomFX : public GLPostProcessingEffect {
+		class BloomFX : public GLBloomPostProcess {
 		public:
-			BloomFX( bool horizontal ) : GLPostProcessingEffect( "Shaders/bloom.fp" )
+			BloomFX() : GLBloomPostProcess( "Shaders/bloom.fp" )
 			{
-				m_bank->GetShader( 1 )->SetBool( "horizontal" , horizontal );
+				//m_bank->GetShader( 1 )->SetBool( "horizontal" , horizontal );
 			};
 		};
 	}

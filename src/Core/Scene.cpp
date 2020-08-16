@@ -135,6 +135,7 @@ void Lava::Scene::LoadSeparateEntities()
 	{
 		const auto model_path = child->FirstChildElement("ModelPath")->GetText();
 		const auto material_albedo = child->FirstChildElement("Material")->FirstChildElement("AlbedoPath")->GetText();
+		const auto material_emission = child->FirstChildElement("Material")->FirstChildElement("EmissionPath")->GetText();
 		const auto material_albedo_color = child->FirstChildElement("Material")->FirstChildElement("AlbedoColor")->GetText();
 		const auto material_normal = child->FirstChildElement("Material")->FirstChildElement("NormalPath")->GetText();
 		const auto material_tiling = child->FirstChildElement("Material")->FirstChildElement("Tiling")->GetText();
@@ -151,6 +152,11 @@ void Lava::Scene::LoadSeparateEntities()
 		if (material_normal != nullptr && !std::string(material_normal).empty())
 			normal = AssetDatabase::LoadTexture(material_normal, 4, tiling);
 
+		Texture* emission = nullptr;
+		if(material_emission!=nullptr && !std::string(material_emission).empty())
+		{
+			emission = AssetDatabase::LoadTexture(material_emission,4,tiling);
+		}
 
 		//std::vector<VertexBufferElement> bufferElements(4);
 		//bufferElements[0].uniform_name = "position";
@@ -185,6 +191,8 @@ void Lava::Scene::LoadSeparateEntities()
 		entity->material->albedoColor = parse_vector3(material_albedo_color);
 		if (normal)
 			entity->material->m_nrmTexture = normal;
+		if(emission)
+			entity->material->emissionMap = emission;
 
 		SceneObjects.push_back(entity);
 	}

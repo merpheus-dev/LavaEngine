@@ -32,7 +32,7 @@ namespace Lava {
 			void setup_frame_buffers();
 
 			void setup_water_renderer(Transform* water_transform);
-			void AttachPostProcessingEffect(GLPostProcessingEffect* postfx);
+			void AttachPostProcessingEffect(PostProcessingEffect* postfx);
 
 			virtual void InternalUpdate() override;
 			virtual void InternalUpdateEnd() override;

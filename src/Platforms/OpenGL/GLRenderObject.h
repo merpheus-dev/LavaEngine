@@ -12,6 +12,7 @@ namespace Lava {
 			void DisableAttributes();
 			bool HasTexture();
 			bool HasNormalMap();
+			bool HasEmissionMap();
 
 			std::shared_ptr<GLVertexBuffer> m_vbo;
 			std::shared_ptr<GLVertexBuffer> m_normalBuffer;

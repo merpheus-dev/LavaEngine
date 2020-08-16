@@ -85,6 +85,14 @@ void Lava::OpenGL::GLNonbatchedRenderer::BindObject(Entity* entity)
 		glBindTexture(GL_TEXTURE_2D, entity->material->m_nrmTexture->texture_id);
 		m_bank->GetShader(1)->SetInt1("normalMapSampler", 1);
 	}
+
+	if(renderObjectPtr->HasEmissionMap())
+	{
+		glActiveTexture(GL_TEXTURE5);
+		glBindTexture(GL_TEXTURE_2D,entity->material->emissionMap->texture_id);
+		m_bank->GetShader(1)->SetInt1("emissionMapSampler",5);
+		m_bank->GetShader(1)->SetBool("emissionOn",true);
+	}
 	
 	//Shadow Data
 	m_bank->GetShader(1)->SetBool("ShadowsOn", entity->material->receiveShadows);

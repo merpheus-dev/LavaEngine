@@ -17,18 +17,23 @@ void Lava::OpenGL::GLQuadRenderer::Setup()
 	//m_bank->AddVariable(1, "texCoord");
 }
 
-void Lava::OpenGL::GLQuadRenderer::Render(unsigned int& targetTextureId)
+void Lava::OpenGL::GLQuadRenderer::Render(unsigned int* renderTargets,unsigned int count)
 {
 	glBindVertexArray(k_vao);
 	glEnableVertexAttribArray(0);
 	glDisable(GL_DEPTH_TEST); //No need to depth test for screen quad
 
-	int targetId = targetTextureId;
+	std::vector<unsigned int> temporaryTargets(count);
+	for (uint32_t j=0;j<count;++j)
+	{
+		temporaryTargets[j] = renderTargets[j];
+	}
+	
 	int i = 0;
 	for (PostProcessingEffect* postFx : postProcessingEffects) {
 		i++;
-		postFx->Render(targetId, postProcessingEffects.size() == i);
-		targetId = (postFx->colorTargetID); //by-pass for multiple color buffers in postfx for now.
+		postFx->Render(temporaryTargets.data(), postProcessingEffects.size() == i);
+		temporaryTargets[0] = (postFx->colorTargetID); //by-pass for multiple color buffers in postfx for now.
 	}
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, renderSceneFbo);

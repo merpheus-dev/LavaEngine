@@ -5,7 +5,7 @@ namespace Lava {
 	class QuadRenderer {
 	public:
 		virtual void Setup() = 0;
-		virtual void Render(unsigned int& targetTextureId) = 0;
+		virtual void Render(unsigned int* renderTargets,unsigned int count) = 0;
 		virtual ~QuadRenderer() = default;
 		std::vector<PostProcessingEffect*> postProcessingEffects;
 	protected:
